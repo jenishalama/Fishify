@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <title>Navbar</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav-logo">
+            <img src="assets/Logo.png" alt="Logo" height="150px" />
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="/Aquarium">Aquarium</a></li>
+            <li><a href="/Accessories">Accessories</a></li>
+            <li><a href="/">Accessories</a></li>
+            <li><a href="/Contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-search">
+            <input
+                type="text"
+                placeholder="Search for fish or products..."
+                class="search-input"
+            />
+        </div>
+
+        <div class="nav-login-cart">
+            <a href="/Login"><button class="login-btn">Login</button></a>
+            <a href="/cart"><img src="assets/cart_icon.png" alt="cart" height="20px" /></a>
+            <div class="nav-cart-count">0</div>
+        </div>
+    </div>
+
+      <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Discover the Underwater World</h1>
+          <div class="search-hero">
+            <input type="text" placeholder="Search for how it works." />
+            <button><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+        // Add active underline on menu click
+        const links = document.querySelectorAll(".nav-menu a");
+
+        links.forEach(link => {
+            link.addEventListener("click", () => {
+                links.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>

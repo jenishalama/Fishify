@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Information - Fishify</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/shipping.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-fish"></i>
+                    <span>Fishify</span>
+                </a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for fish, aquariums, accessories...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="login-btn">
+                        <i class="fas fa-user"></i>
+                        <span>Login</span>
+                    </a>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                </div>
+            </div>
+            
+            <nav>
+                <div class="container">
+                    <ul class="main-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="fish.html">Fish</a></li>
+                        <li><a href="aquarium.html">Aquarium</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                        <li><a href="#">Plants</a></li>
+                        <li><a href="#">Supplies</a></li>
+                        <li><a href="#">Brands</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Checkout Progress -->
+    <section class="checkout-progress">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Cart</div>
+                </div>
+                <div class="step-line active"></div>
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Shipping</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shipping Content -->
+    <section class="shipping-content">
+        <div class="container">
+            <div class="shipping-layout">
+                <!-- Shipping Form -->
+                <div class="shipping-form-section">
+                    <div class="section-header">
+                        <h1><i class="fas fa-shipping-fast"></i> Shipping Information</h1>
+                        <p>Enter your delivery details below</p>
+                    </div>
+                    
+                    <form class="shipping-form">
+                        <div class="form-group">
+                            <label for="full-name">
+                                <i class="fas fa-user"></i> Full Name
+                            </label>
+                            <input type="text" id="full-name" value="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address-line1">
+                                <i class="fas fa-map-marker-alt"></i> Address Line 1
+                            </label>
+                            <input type="text" id="address-line1" value="123 Ocean View Dr" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address-line2">
+                                <i class="fas fa-map-marker-alt"></i> Address Line 2 (Optional)
+                            </label>
+                            <input type="text" id="address-line2" placeholder="Apt, Suite, Bldg (Optional)">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">
+                                    <i class="fas fa-city"></i> City
+                                </label>
+                                <input type="text" id="city" value="Coral City" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="state">
+                                    <i class="fas fa-flag"></i> State
+                                </label>
+                                <select id="state" required>
+                                    <option value="CA" selected>California</option>
+                                    <option value="NY">New York</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="WA">Washington</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="zip-code">
+                                    <i class="fas fa-mail-bulk"></i> Zip Code
+                                </label>
+                                <input type="text" id="zip-code" value="90210" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone-number">
+                                <i class="fas fa-phone"></i> Phone Number
+                            </label>
+                            <input type="tel" id="phone-number" value="(123) 456-7890" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i> Email Address
+                            </label>
+                            <input type="email" id="email" value="john.doe@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shipping-method">
+                                <i class="fas fa-truck"></i> Shipping Method
+                            </label>
+                            <div class="shipping-methods">
+                                <div class="shipping-method">
+                                    <input type="radio" id="standard" name="shipping" checked>
+                                    <label for="standard">
+                                        <div class="method-header">
+                                            <span class="method-name">Standard Shipping</span>
+                                            <span class="method-price">$15.00</span>
+                                        </div>
+                                        <span class="method-duration">3-5 business days</span>
+                                    </label>
+                                </div>
+                                <div class="shipping-method">
+                                    <input type="radio" id="express" name="shipping">
+                                    <label for="express">
+                                        <div class="method-header">
+                                            <span class="method-name">Express Shipping</span>
+                                            <span class="method-price">$25.00</span>
+                                        </div>
+                                        <span class="method-duration">1-2 business days</span>
+                                    </label>
+                                </div>
+                                <div class="shipping-method">
+                                    <input type="radio" id="overnight" name="shipping">
+                                    <label for="overnight">
+                                        <div class="method-header">
+                                            <span class="method-name">Overnight Shipping</span>
+                                            <span class="method-price">$45.00</span>
+                                        </div>
+                                        <span class="method-duration">Next business day</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <a href="cart.html" class="btn btn-back">
+                                <i class="fas fa-arrow-left"></i> Back to Cart
+                            </a>
+                            <button type="submit" class="btn btn-continue">
+                                Continue to Payment <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary-section">
+                    <div class="summary-card">
+                        <h2><i class="fas fa-box"></i> Order Summary</h2>
+                        
+                        <div class="order-items">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <div class="item-name">Nano Cube Aquarium</div>
+                                    <div class="item-qty">Qty: 1</div>
+                                </div>
+                                <div class="item-price">$129.99</div>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <div class="item-name">Blue Emperor Discus Pair</div>
+                                    <div class="item-qty">Qty: 2</div>
+                                </div>
+                                <div class="item-price">$179.00</div>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <div class="item-name">Aquatic Plant Assortment</div>
+                                    <div class="item-qty">Qty: 1</div>
+                                </div>
+                                <div class="item-price">$24.99</div>
+                            </div>
+                        </div>
+                        
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span class="amount">$333.98</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span class="amount">$15.00</span>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span class="amount total-amount">$348.98</span>
+                            </div>
+                        </div>
+                        
+                        <div class="delivery-info">
+                            <h3><i class="fas fa-clock"></i> Estimated Delivery</h3>
+                            <div class="delivery-date">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>Arrives by Wednesday, December 15</span>
+                            </div>
+                            <p class="delivery-note">Live fish will be shipped with special overnight delivery.</p>
+                        </div>
+                        
+                        <!-- Need Help -->
+                        <div class="shipping-help">
+                            <h3><i class="fas fa-life-ring"></i> Need Help with Shipping?</h3>
+                            <p>Our aquatic specialists ensure safe delivery of all live specimens.</p>
+                            <a href="#" class="help-link">
+                                <i class="fas fa-comments"></i>
+                                <span>Chat with our shipping experts</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="shipping-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4><i class="fas fa-fish"></i> Fishify</h4>
+                    <p>Your premium destination for ornamental fish and aquatic supplies.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Fishify. All rights reserved.</p>
+                <p class="made-with">
+                    Made with <i class="fas fa-heart"></i> Fishify
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/shipping.js"></script>
+</body>
+</html>

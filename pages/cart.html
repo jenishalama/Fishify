@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart - Fishify</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-fish"></i>
+                    <span>Fishify</span>
+                </a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for fish, aquariums, accessories...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="login-btn">
+                        <i class="fas fa-user"></i>
+                        <span>Login</span>
+                    </a>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">2</span>
+                    </a>
+                </div>
+            </div>
+            
+            <nav>
+                <div class="container">
+                    <ul class="main-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="fish.html">Fish</a></li>
+                        <li><a href="aquarium.html">Aquarium</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                        <li><a href="#">Plants</a></li>
+                        <li><a href="#">Supplies</a></li>
+                        <li><a href="#">Brands</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Cart Hero -->
+    <section class="cart-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Shopping Cart</h1>
+                <p>Review your items before checkout</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="cart-content">
+        <div class="container">
+            <div class="cart-layout">
+                <!-- Cart Items -->
+                <div class="cart-items-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-shopping-basket"></i> Items in Cart (2)</h2>
+                    </div>
+                    
+                    <div class="cart-items">
+                        <!-- Item 1 -->
+                        <div class="cart-item">
+                            <div class="item-image discus-bg">
+                                <div class="discus-effect"></div>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-header">
+                                    <h3>Blue Diamond Discus Fish - Pair</h3>
+                                    <button class="remove-item">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <p class="item-description">Stunning pair of vibrant blue diamond discus, perfect for an established aquarium.</p>
+                                <div class="item-seller">
+                                    <i class="fas fa-store"></i>
+                                    <span>CichlidCorner</span>
+                                </div>
+                                <div class="item-controls">
+                                    <div class="quantity-control">
+                                        <button class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                                        <input type="text" value="1" class="qty-input">
+                                        <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div class="item-price">$129.99</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="cart-item">
+                            <div class="item-image aquarium-bg">
+                                <div class="rimless-effect"></div>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-header">
+                                    <h3>AquaScape 20 Gallon Rimless Tank</h3>
+                                    <button class="remove-item">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <p class="item-description">A sleek, modern 20-gallon rimless aquarium, ideal for creating a beautiful aquascape.</p>
+                                <div class="item-seller">
+                                    <i class="fas fa-store"></i>
+                                    <span>Aquatiaven</span>
+                                </div>
+                                <div class="item-controls">
+                                    <div class="quantity-control">
+                                        <button class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                                        <input type="text" value="1" class="qty-input">
+                                        <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div class="item-price">$89.99</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 3 -->
+                        <div class="cart-item">
+                            <div class="item-image heater-bg">
+                                <div class="wifi-effect"></div>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-header">
+                                    <h3>Smart WiFi Aquarium Heater 100W</h3>
+                                    <button class="remove-item">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <p class="item-description">Intelligent 100W heater with WiFi control for precise temperature management.</p>
+                                <div class="item-seller">
+                                    <i class="fas fa-store"></i>
+                                    <span>Finates</span>
+                                </div>
+                                <div class="item-controls">
+                                    <div class="quantity-control">
+                                        <button class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                                        <input type="text" value="1" class="qty-input">
+                                        <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div class="item-price">$39.50</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-actions">
+                        <a href="fish.html" class="continue-shopping">
+                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                        </a>
+                        <button class="clear-cart">
+                            <i class="fas fa-times"></i> Clear Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="order-summary-section">
+                    <div class="summary-card">
+                        <h2><i class="fas fa-receipt"></i> Order Summary</h2>
+                        
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span class="amount">$298.98</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping Estimate</span>
+                                <span class="amount">$15.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax Estimate</span>
+                                <span class="amount">$23.92</span>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-row total">
+                                <span>Order Total</span>
+                                <span class="amount total-amount">$337.90</span>
+                            </div>
+                        </div>
+                        
+                        <div class="coupon-section">
+                            <h3><i class="fas fa-tag"></i> Coupon Code</h3>
+                            <div class="coupon-input">
+                                <input type="text" placeholder="Enter coupon code">
+                                <button class="apply-coupon">Apply</button>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-options">
+                            <div class="payment-option">
+                                <input type="checkbox" id="cash-on-delivery">
+                                <label for="cash-on-delivery">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    Cash on Delivery
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-checkout">
+                            <i class="fas fa-lock"></i> Proceed to Checkout
+                        </button>
+                        
+                        <p class="secure-checkout">
+                            <i class="fas fa-shield-alt"></i>
+                            Secure checkout. Your information is protected.
+                        </p>
+                    </div>
+                    
+                    <!-- Need Help Section -->
+                    <div class="help-card">
+                        <h3><i class="fas fa-question-circle"></i> Need Help?</h3>
+                        <p>Our customer support team is available 24/7 to assist you with your order.</p>
+                        <div class="help-contacts">
+                            <a href="#" class="help-link">
+                                <i class="fas fa-phone"></i>
+                                <span>Call Us: (800) 555-FISH</span>
+                            </a>
+                            <a href="#" class="help-link">
+                                <i class="fas fa-comment"></i>
+                                <span>Live Chat</span>
+                            </a>
+                            <a href="#" class="help-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email Support</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="cart-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4><i class="fas fa-fish"></i> Fishify</h4>
+                    <p>© 2025 Fishify. All rights reserved.</p>
+                    <p class="made-with">
+                        Made with <i class="fas fa-heart"></i> Visily
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Care</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

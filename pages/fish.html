@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish - Fishify</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/fish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-fish"></i>
+                    <span>Fishify</span>
+                </a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for fish, aquariums, accessories...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <a href="#" class="login-btn">
+                        <i class="fas fa-user"></i>
+                        <span>Login</span>
+                    </a>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+            
+            <nav>
+                <div class="container">
+                    <ul class="main-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="fish.html" class="active">Fish</a></li>
+                        <li><a href="aquarium.html">Aquarium</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                        <li><a href="../js/navbar.html">Plants</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Brands</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <h2 class="filters-title">Filters</h2>
+            <div class="filters-grid">
+                <!-- Price Range -->
+                <div class="filter-group">
+                    <h3>Price Range</h3>
+                    <input type="range" min="0" max="100" value="100" class="price-slider">
+                    <div class="price-range">
+                        <span>$0</span>
+                        <span>$100+</span>
+                    </div>
+                </div>
+                
+                <!-- Water Type -->
+                <div class="filter-group">
+                    <h3>Water Type</h3>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" name="water-type" value="freshwater">
+                            <span>Freshwater</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="water-type" value="saltwater">
+                            <span>Saltwater</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="water-type" value="brackish">
+                            <span>Brackish</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Size -->
+                <div class="filter-group">
+                    <h3>Size</h3>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" name="size" value="small">
+                            <span>Small (0-3")</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="size" value="medium">
+                            <span>Medium (3-6")</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="size" value="large">
+                            <span>Large (4-12")</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="size" value="xl">
+                            <span>XL (12"+)</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Behavior -->
+                <div class="filter-group">
+                    <h3>Behavior</h3>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" name="behavior" value="peaceful">
+                            <span>Peaceful</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="behavior" value="aggressive">
+                            <span>Aggressive</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="behavior" value="semi-aggressive">
+                            <span>Semi-Aggressive</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="behavior" value="schooling">
+                            <span>Schooling</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Rarity -->
+                <div class="filter-group">
+                    <h3>Rarity</h3>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" name="rarity" value="common">
+                            <span>Common</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="rarity" value="uncommon">
+                            <span>Uncommon</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="rarity" value="rare">
+                            <span>Rare</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="rarity" value="exotic">
+                            <span>Exotic</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Availability -->
+                <div class="filter-group">
+                    <h3>Availability</h3>
+                    <div class="filter-options">
+                        <label>
+                            <input type="checkbox" name="availability" value="in-stock">
+                            <span>In Stock</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="availability" value="pre-order">
+                            <span>Pre-order</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-actions">
+                <button class="btn btn-secondary clear-filters">
+                    <i class="fas fa-times"></i> Clear Filters
+                </button>
+                <div class="active-filters">
+                    <span class="filter-tag">Medium <i class="fas fa-times"></i></span>
+                    <span class="filter-tag">Freshwater <i class="fas fa-times"></i></span>
+                    <span class="filter-tag">Peaceful <i class="fas fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fish Products -->
+    <section class="fish-products">
+        <div class="container">
+            <div class="products-header">
+                <h2>Available Fish</h2>
+                <div class="sort-by">
+                    <span>Sort by:</span>
+                    <select>
+                        <option>Popularity</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="fish-grid">
+                <!-- Fish 1: Clownfish -->
+                <div class="fish-card" data-price="24.99" data-size="medium" data-behavior="peaceful" data-water="saltwater">
+                    <div class="fish-image">
+                        <div class="img-placeholder">Clownfish - Ocellaris</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>Clownfish - Ocellaris</h3>
+                        <div class="fish-price">$24.99</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Medium</span>
+                            <span class="meta-tag">Peaceful</span>
+                            <span class="meta-tag">Saltwater</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">OceanicGems</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 2: German Blue Ram -->
+                <div class="fish-card" data-price="12.75" data-size="small" data-behavior="peaceful" data-water="freshwater">
+                    <div class="fish-image">
+                        <div class="img-placeholder">German Blue Ram</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>German Blue Ram</h3>
+                        <div class="fish-price">$12.75</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Small</span>
+                            <span class="meta-tag">Peaceful</span>
+                            <span class="meta-tag">Freshwater</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">CichildCorner</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 3: Dragon Goby -->
+                <div class="fish-card" data-price="15.99" data-size="medium" data-behavior="semi-aggressive" data-water="brackish">
+                    <div class="fish-image">
+                        <div class="img-placeholder">Dragon Goby</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>Dragon Goby</h3>
+                        <div class="fish-price">$15.99</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Medium</span>
+                            <span class="meta-tag">Semi-Aggressive</span>
+                            <span class="meta-tag">Brackish</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">Ecotichquatics</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 4: Noon Tetra -->
+                <div class="fish-card" data-price="2.99" data-size="small" data-behavior="peaceful" data-water="freshwater">
+                    <div class="fish-image">
+                        <div class="img-placeholder">Noon Tetra</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>Noon Tetra</h3>
+                        <div class="fish-price">$2.99</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Small</span>
+                            <span class="meta-tag">Peaceful</span>
+                            <span class="meta-tag">Freshwater</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">Aquatiaven</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 5: Energy Shrimp -->
+                <div class="fish-card" data-price="4.00" data-size="small" data-behavior="peaceful" data-water="freshwater">
+                    <div class="fish-image">
+                        <div class="img-placeholder">Energy Shrimp</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>Energy Shrimp</h3>
+                        <div class="fish-price">$4.00</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Small</span>
+                            <span class="meta-tag">Nano Tank</span>
+                            <span class="meta-tag">Freshwater</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">Finates</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 6: Harlequin Rasbora -->
+                <div class="fish-card" data-price="3.50" data-size="small" data-behavior="schooling" data-water="freshwater">
+                    <div class="fish-image">
+                        <div class="img-placeholder">Harlequin Rasbora</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>Harlequin Rasbora</h3>
+                        <div class="fish-price">$3.50</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Small</span>
+                            <span class="meta-tag">Schooling</span>
+                            <span class="meta-tag">Freshwater</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">Aquatiaven</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 7: Fire Shrimp -->
+                <div class="fish-card" data-price="5.00" data-size="small" data-behavior="peaceful" data-water="freshwater">
+                    <div class="fish-image">
+                        <div class="img-placeholder">Fire Shrimp</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>Fire Shrimp</h3>
+                        <div class="fish-price">$5.00</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Small</span>
+                            <span class="meta-tag">Algae Eater</span>
+                            <span class="meta-tag">Freshwater</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">Palmpickingdom</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fish 8: Royal Gramma -->
+                <div class="fish-card" data-price="29.00" data-size="small" data-behavior="peaceful" data-water="saltwater">
+                    <div class="fish-image">
+                        <div class="img-placeholder">Royal Gramma</div>
+                    </div>
+                    <div class="fish-info">
+                        <h3>Royal Gramma</h3>
+                        <div class="fish-price">$29.00</div>
+                        <div class="fish-meta">
+                            <span class="meta-tag">Small</span>
+                            <span class="meta-tag">Reef Safe</span>
+                            <span class="meta-tag">Saltwater</span>
+                        </div>
+                        <div class="seller-info">
+                            <span class="seller-badge">OceanicGems</span>
+                            <button class="btn btn-primary add-to-cart">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="page-link disabled">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+                <div class="page-numbers">
+                    <a href="#" class="page-number active">1</a>
+                    <a href="#" class="page-number">2</a>
+                    <a href="#" class="page-number">3</a>
+                    <span class="page-dots">...</span>
+                    <a href="#" class="page-number">10</a>
+                </div>
+                <a href="#" class="page-link">
+                    Next <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Fishify</h4>
+                    <p>Your premium destination for ornamental fish and aquatic supplies.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="fish.html">Freshwater Fish</a></li>
+                        <li><a href="fish.html">Saltwater Fish</a></li>
+                        <li><a href="accessories.html">Aquarium Supplies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Fishify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/fish.js"></script>
+</body>
+</html>

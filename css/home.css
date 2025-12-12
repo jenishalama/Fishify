@@ -1,0 +1,261 @@
+/* ===== HOME PAGE STYLES ===== */
+.hero {
+    background-image: url('../Images/bgfishify.jpg');
+    background-size: cover;       /* Makes image cover full area */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat; /* Avoids repeating */
+    color: white;
+    height: 88vh;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.search-hero {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.search-hero input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 25px 0 0 25px;
+    font-size: 1rem;
+}
+
+.search-hero button {
+    padding: 1rem 2rem;
+    background: white;
+    color: var(--primary);
+    border: none;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Categories */
+.categories-section {
+    padding: 4rem 0;
+    background: var(--light);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: var(--dark);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.category-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--dark);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.category-icon {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.category-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-card p {
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+/* Section styling */
+.featured-products {
+  padding: 60px 0;
+  background: #f8f9fb;
+  font-family: "Inter", sans-serif;
+}
+
+/* Center title */
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1c1c1c;
+}
+
+/* Grid layout */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* Product cards */
+.product-card {
+  width: 280px;
+  height: 425px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image style */
+.product-image {
+  height: 250px;
+  background: #f1f4f8;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Product info */
+.product-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #00b3ff;
+  margin-bottom: 12px;
+}
+
+/* Add to cart button */
+.btn.add-to-cart {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #009dff;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn.add-to-cart:hover {
+  background: #007acc;
+}
+
+
+/* Popular Fish */
+.section-title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  font-family: 'Georgia', serif;
+}
+
+.pfish-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.pfishcard {
+  width: 280px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+  overflow: hidden;           /* Ensures rounded corners work */
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.pfishcard-img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;          /* Makes image fit perfectly */
+  display: block;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.pfish-title {
+  padding: 17px 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+    
+/* Responsive */
+@media (max-width: 992px) {
+    .categories-grid,
+    .products-grid,
+    .pfish-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .categories-grid,
+    .products-grid,
+    .pfish-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero {
+        padding: 3rem 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .search-hero {
+        flex-direction: column;
+    }
+    
+    .search-hero input,
+    .search-hero button {
+        border-radius: 25px;
+        margin-bottom: 0.5rem;
+    }
+}
