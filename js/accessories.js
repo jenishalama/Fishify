@@ -375,7 +375,7 @@ function useFallbackAccessoryData() {
     populateAccessoryGrid(fallbackAccessories);
 }
 
-// Add animations
+
 if (!document.querySelector('#accessory-animations')) {
     const style = document.createElement('style');
     style.id = 'accessory-animations';

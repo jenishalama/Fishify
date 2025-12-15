@@ -1,12 +1,16 @@
-/* ===== HOME PAGE STYLES ===== */
+/*HOME PAGE */
 .hero {
-    background-image: url('../Images/bgfishify.jpg');
+    background-image: url('../Images/Homepage/bgfishify.jpg');
     background-size: cover;       /* Makes image cover full area */
     background-position: center;  /* Centers the image */
     background-repeat: no-repeat; /* Avoids repeating */
-    color: white;
+    color: rgb(239, 227, 227);
     height: 88vh;
     text-align: center;
+
+   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-content h1 {
@@ -31,7 +35,7 @@
 
 .search-hero button {
     padding: 1rem 2rem;
-    background: white;
+    background: rgb(241, 232, 232);
     color: var(--primary);
     border: none;
     border-radius: 0 25px 25px 0;
@@ -42,52 +46,68 @@
 /* Categories */
 .categories-section {
     padding: 4rem 0;
-    background: var(--light);
+    background: #fff;
 }
 
 .section-title {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 3rem;
-    color: var(--dark);
+    font-size: 2.5rem;
+    margin-bottom: 3.5rem;
+    font-family: 'Playfair Display', serif;
 }
 
 .categories-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    gap: 3rem;
 }
 
+/* Card */
 .category-card {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
+    position: relative;
+    height: 230px;
+    border-radius: 20px;
+    overflow: hidden;
     text-decoration: none;
-    color: var(--dark);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
 }
 
-.category-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+/* Background image */
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
+/* Faded overlay */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+/* Hover effect */
+.category-card:hover .overlay {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+/* Icon */
 .category-icon {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: #111;
+    margin-bottom: 10px;
 }
 
+/* Text */
 .category-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.category-card p {
-    color: var(--gray);
-    font-size: 0.95rem;
+    font-size: 1.4rem;
+    color: #111;
+    font-weight: 600;
 }
 
 /* Section styling */
@@ -109,7 +129,7 @@
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 25px;
+  gap: 27px;
   margin-bottom: 40px;
 }
 
@@ -180,6 +200,9 @@
 
 
 /* Popular Fish */
+.popu-fish{
+  margin-bottom: 4.6rem;
+}
 .section-title {
   text-align: center;
   font-size: 40px;

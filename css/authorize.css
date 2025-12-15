@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Background */
+.auth-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #cfe3ff, #9ee7ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Card */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #eefdff;
+  border-radius: 18px;
+  padding: 40px 35px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+/* Headings */
+.auth-card h1 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Form */
+.form-group {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+/* Button */
+.primary-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  background: #7df2f2;
+  border: none;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: #63e0e0;
+}
+
+/* Footer */
+.footer-text {
+  margin-top: 22px;
+  font-size: 13px;
+  color: #555;
+}
+
+.footer-text a {
+  color: #00bcd4;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 22px;
+  }
+
+  .auth-card h1 {
+    font-size: 22px;
+  }
+}

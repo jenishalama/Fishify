@@ -13,7 +13,7 @@
   </head>
   <body>
  
-    <header>
+    <header class="sticky-header">
       <div class="container">
         <div class="header-top">
           <a href="index.html" class="logo">
@@ -27,15 +27,18 @@
             />
             <button><i class="fas fa-search"></i></button>
           </div>
+
           <div class="header-actions">
-            <a href="#" class="login-btn">
+            <a href="../pages/login.html" class="login-btn">
               <i class="fas fa-user"></i>
               <span>Login</span>
             </a>
+
             <a href="cart.html" class="cart-btn">
               <i class="fas fa-shopping-cart"></i>
               <span class="cart-count">0</span>
             </a>
+
             <!-- Add mobile menu button here -->
             <button class="mobile-menu-btn">
               <i class="fas fa-bars"></i>
@@ -50,9 +53,9 @@
               <li><a href="fish.html">Fish</a></li>
               <li><a href="aquarium.html">Aquarium</a></li>
               <li><a href="accessories.html">Accessories</a></li>
-              <li><a href="#">Plants</a></li>
-              <li><a href="#">Supplies</a></li>
-              <li><a href="#">Brands</a></li>
+              <li><a href="aquaticplants.html">Aquatic Plants</a></li>
+              <li><a href="contact.html">Contact</a></li>
+          
             </ul>
           </div>
         </nav>
@@ -63,9 +66,9 @@
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <h1>Discover the Underwater World</h1>
+          <h1>Your premium destination for ornamental fish <br>and aquatic supplies.</h1>
           <div class="search-hero">
-            <input type="text" placeholder="Search for how it works." />
+            <input type="text" placeholder="Search fish, tanks, filters..." />
             <button><i class="fas fa-search"></i></button>
           </div>
         </div>
@@ -73,41 +76,57 @@
     </section>
 
     <!-- Categories -->
-    <section class="categories-section">
-      <div class="container">
-        <h2 class="section-title">Explore Our Categories</h2>
-        <div class="categories-grid">
-          <a href="fish.html" class="category-card">
-            <div class="category-icon">
-              <i class="fas fa-fish"></i>
-            </div>
-            <h3>Fish</h3>
-            <p>Freshwater & Saltwater</p>
-          </a>
-          <a href="aquarium.html" class="category-card">
-            <div class="category-icon">
-              <i class="fas fa-water"></i>
-            </div>
-            <h3>Aquarium</h3>
-            <p>Tanks & Systems</p>
-          </a>
-          <a href="accessories.html" class="category-card">
-            <div class="category-icon">
-              <i class="fas fa-tools"></i>
-            </div>
-            <h3>Accessories</h3>
-            <p>Equipment & Decor</p>
-          </a>
-          <a href="#" class="category-card">
-            <div class="category-icon">
-              <i class="fas fa-leaf"></i>
-            </div>
-            <h3>Plants</h3>
-            <p>Aquatic Flora</p>
-          </a>
+  <section class="categories-section">
+  <div class="container">
+    <h2 class="section-title">Explore Our Categories</h2>
+
+    <div class="categories-grid">
+
+      <a href="fish.html" class="category-card">
+        <img src="../Images/Homepage/fishes.jpg" alt="Fish">
+        <div class="overlay">
+          <div class="category-icon">
+            <i class="fas fa-fish"></i>
+          </div>
+          <h3>Fishes</h3>
         </div>
-      </div>
-    </section>
+      </a>
+
+       <a href="aquarium.html" class="category-card">
+        <img src="../Images/Homepage/aquarium.jpg" alt="Aquarium">
+        <div class="overlay">
+          <div class="category-icon">
+            <i class="fas fa-water"></i>
+          </div>
+          <h3>Aquarium</h3>
+        </div>
+      </a>
+
+
+      <a href="accessories.html" class="category-card">
+        <img src="../Images/Homepage/accesssories.jpg" alt="Accessories">
+        <div class="overlay">
+          <div class="category-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h3>Accessories</h3>
+        </div>
+      </a>
+
+      <a href="#" class="category-card">
+        <img src="../Images/Homepage/aquatic plants.jpg" alt="Plants">
+        <div class="overlay">
+          <div class="category-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Plants</h3>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 
     <!-- Featured Products -->
 <!-- Featured Products -->
@@ -120,11 +139,11 @@
       <div class="product-card">
     
         <div class="product-image">
-          <div class="img-placeholder">Aqua Tank Pro 100 Gallon</div>
+           <img src="../Images/Homepage/Aqua tank pro 100 galon.jpg" alt="Smart Heater Thermostat">
         </div>
         <div class="product-info">
-          <h3 class="product-title">Aqua Tank Pro 100 Gallon</h3>
-          <div class="product-price">$799.99</div>
+          <h3 class="product-title">Aqua Tank Pro 100</h3>
+           <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -134,11 +153,11 @@
       <!-- Product 2 -->
       <div class="product-card">
         <div class="product-image">
-          <div class="img-placeholder">Nano Cube Aquarium Kit</div>
+   <img src="../Images/Homepage/Nano Cube Aquarium Kit.webp" alt="Smart Heater Thermostat">
         </div>
         <div class="product-info">
           <h3 class="product-title">Nano Cube Aquarium Kit</h3>
-          <div class="product-price">$129.99</div>
+           <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -148,11 +167,11 @@
       <!-- Product 3 -->
       <div class="product-card">
         <div class="product-image">
-          <div class="img-placeholder">Marine LED Light System</div>
+           <img src="../Images/Homepage/Marine LED Light System.webp" alt="Smart Heater Thermostat">
         </div>
         <div class="product-info">
-          <h3 class="product-title">Marine LED Light System</h3>
-          <div class="product-price">$249.99</div>
+          <h3 class="product-title">Marine LED Light</h3>
+          <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -162,11 +181,11 @@
       <!-- Product 4 -->
       <div class="product-card">
         <div class="product-image">
-          <div class="img-placeholder">Advanced CO2 Regulator</div>
+         <img src="../Images/Homepage/Advanced CO2 Regulator.webp" alt="Smart Heater Thermostat">
         </div>
         <div class="product-info">
-          <h3 class="product-title">Advanced CO2 Regulator</h3>
-          <div class="product-price">$189.99</div>
+          <h3 class="product-title">Advanced CO2</h3>
+          <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -176,11 +195,11 @@
       <!-- Product 5 -->
       <div class="product-card">
         <div class="product-image">
-          <div class="img-placeholder">Premium Plant Substrate</div>
+             <img src="../Images/Homepage/Premium Plant Substrate.jpg" alt="Smart Heater Thermostat">
         </div>
         <div class="product-info">
-          <h3 class="product-title">Premium Plant Substrate</h3>
-          <div class="product-price">$45.00</div>
+          <h3 class="product-title">Premium Plant</h3>
+          <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -190,11 +209,11 @@
       <!-- Product 6 -->
       <div class="product-card">
         <div class="product-image">
-          <div class="img-placeholder">Smart Heater Thermostat</div>
+          <img src="../Images/Homepage/Smart Heater Thermostat.jpg" alt="Smart Heater Thermostat">
         </div>
         <div class="product-info">
-          <h3 class="product-title">Smart Heater Thermostat</h3>
-          <div class="product-price">$59.99</div>
+          <h3 class="product-title">Smart Heater</h3>
+          <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -204,11 +223,11 @@
       <!-- Product 7 -->
       <div class="product-card">
         <div class="product-image">
-         <img src="../Images/betta.jpg" alt="">
+         <img src="../Images/Homepage/Automatic Fish Feeder.webp" alt="">
         </div>
         <div class="product-info">
           <h3 class="product-title">Automatic Fish Feeder</h3>
-          <div class="product-price">$34.99</div>
+          <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -218,11 +237,11 @@
       <!-- Product 8 -->
       <div class="product-card">
         <div class="product-image">
-          <div class="img-placeholder">Magnetic Gravel Cleaner</div>
+             <img src="../Images/Homepage/Magnetic Gravel Cleaner.jpg" alt="Magnetic Gravel Cleaner">
         </div>
         <div class="product-info">
           <h3 class="product-title">Magnetic Gravel Cleaner</h3>
-          <div class="product-price">$29.99</div>
+          <div class="product-price">Rs <span>300</span></div>
           <button class="btn add-to-cart">
             <i class="fas fa-cart-plus"></i> Add to Cart
           </button>
@@ -232,34 +251,32 @@
   </div>
 </section>
 
-
-
-
+<div class="popu-fish">
 <h1 class="section-title">Our Popular Fish Breeds</h1>
 <div class="pfish-grid">
 <div class="pfish-cards">
   <div class="pfishcard">
-    <img src="../Images/betta.jpg" class="pfishcard-img">
+    <img src="../Images/Homepage/betta.jpg" class="pfishcard-img">
     <h3 class="pfish-title">Siamese Fighting Fish</h3>
   </div>
 
   <div class="pfishcard">
-    <img src="../Images/guppies.jpg" class="pfishcard-img">
+    <img src="../Images/Homepage/guppies.jpg" class="pfishcard-img">
     <h3 class="pfish-title">Guppies</h3>
   </div>
 
   <div class="pfishcard">
-    <img src="../Images/angel fish.jpg" class="pfishcard-img">
+    <img src="../Images/Homepage/angel fish.jpg" class="pfishcard-img">
     <h3 class="pfish-title">Angelfish</h3>
   </div>
 
   <div class="pfishcard">
-    <img src="../Images/neontetra.jpg" class="pfishcard-img">
+    <img src="../Images/Homepage/neontetra.jpg" class="pfishcard-img">
     <h3 class="pfish-title">Neon Tetra</h3>
   </div>
 </div>
 </div>
-
+</div>
 
 
     <!-- Footer -->
@@ -271,15 +288,34 @@
             <p>
               Your premium destination for ornamental fish and aquatic supplies.
             </p>
+            <div class="connect_icon">
+           <i class="fa-brands fa-facebook"></i>
+           <i class="fa-brands fa-instagram"></i>
+           <i class="fa-brands fa-twitter"></i>
+           <i class="fa-brands fa-tiktok"></i>
+      
+            </div>
+     
           </div>
           <div class="footer-section">
-            <h4>Company</h4>
+            <h4>Shop</h4>
             <ul class="footer-links">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="aquarium.html">Aquarium</a></li>
+              <li><a href="fish.html">Fishes</a></li>
+              <li><a href="accessories.html">Accessories</a></li>
+              <li><a href="aquaticplants.html">Plants</a></li>
+            </ul>
+          </div> 
+          
+          <div class="footer-section">
+            <h4>About Us</h4>
+            <ul class="footer-links">
+                <li><a href="#">Our Story</a></li>
+              <li><a href="#">Contact Us</a></li>
               <li><a href="#">Careers</a></li>
             </ul>
           </div>
+
           <div class="footer-section">
             <h4>Support</h4>
             <ul class="footer-links">
@@ -288,14 +324,7 @@
               <li><a href="#">Returns</a></li>
             </ul>
           </div>
-          <div class="footer-section">
-            <h4>Categories</h4>
-            <ul class="footer-links">
-              <li><a href="fish.html">Freshwater Fish</a></li>
-              <li><a href="fish.html">Saltwater Fish</a></li>
-              <li><a href="accessories.html">Aquarium Supplies</a></li>
-            </ul>
-          </div>
+      
         </div>
         <div class="footer-bottom">
           <p>
@@ -307,6 +336,5 @@
     </footer>
 
     <script src="../js/main.js"></script>
-    <!-- <script src="../js/home.js"></script> -->
   </body>
 </html>
