@@ -4,7 +4,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html {
+    scroll-behavior: smooth;
+}
 :root {
     --primary: #0066CC;
     --secondary: #00A8E8;
@@ -200,137 +202,56 @@ nav .container {
 
 /* Mobile Menu Button (for smaller screens) */
 .mobile-menu-btn {
+
     display: none;
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--primary);
+    color: #333;
     cursor: pointer;
     padding: 0.5rem;
-    margin-left: 1rem;
+
 }
 
 /* ===== RESPONSIVE NAVBAR ===== */
-
-/* Large screens - ensure all items fit */
-@media (max-width: 1200px) {
-    .main-nav a {
-        font-size: 0.9rem;
-        padding: 1rem 0.4rem;
-    }
-}
-
-/* Medium screens - smaller font */
-@media (max-width: 992px) {
-    .main-nav a {
-        font-size: 0.85rem;
-        padding: 1rem 0.3rem;
-    }
-}
-
-/* Tablet - show mobile menu */
 @media (max-width: 768px) {
     .mobile-menu-btn {
         display: block;
     }
     
     .main-nav {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 280px;
-        height: 100vh;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         background: white;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 60px;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         z-index: 1000;
-        transition: left 0.3s ease;
+        padding: 1rem 0;
     }
     
     .main-nav.show {
-        left: 0;
+        display: block;
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
     }
     
     .main-nav li {
-        flex: none;
-        text-align: left;
+        margin: 0.5rem 0;
         width: 100%;
+        text-align: center;
     }
     
     .main-nav a {
-        padding: 1rem 1.5rem;
-        justify-content: flex-start;
-        border-bottom: 1px solid var(--light-gray);
-        font-size: 1rem;
-    }
-    
-    .main-nav a.active::after {
-        display: none;
-    }
-    
-    /* Overlay when menu is open */
-    .nav-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 999;
-    }
-    
-    .nav-overlay.show {
         display: block;
+        padding: 1rem;
     }
 }
 
-/* Small mobile */
-@media (max-width: 480px) {
-    .main-nav {
-        width: 250px;
-    }
-    
-    .main-nav a {
-        padding: 0.875rem 1.25rem;
-    }
-}
-
-/* ===== ENSURE ALL NAV ITEMS STAY VISIBLE ===== */
-
-/* Force all nav items to be visible */
-.main-nav a span {
-    display: inline-block;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Add tooltip for truncated text on hover */
-.main-nav a:hover span::after {
-    content: attr(data-text);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--dark);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    white-space: nowrap;
-    z-index: 1001;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.main-nav a:hover span:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
 
 
 /* Footer */

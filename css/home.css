@@ -247,10 +247,13 @@
 /* Responsive */
 @media (max-width: 992px) {
     .categories-grid,
-    .products-grid,
-    .pfish-grid {
+      .pfish-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+     .products-grid{
+       grid-template-columns: repeat(2, 1fr);
+       padding-left: 100px;
+     }
     
     .hero-content h1 {
         font-size: 2.5rem;

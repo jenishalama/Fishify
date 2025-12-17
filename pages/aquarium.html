@@ -10,43 +10,52 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-top">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-fish"></i>
-                    <span>Fishify</span>
-                </a>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search for aquariums, tanks...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="header-actions">
-                    <a href="#" class="login-btn">
-                        <i class="fas fa-user"></i>
-                        <span>Login</span>
-                    </a>
-                    <a href="cart.html" class="cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </a>
-                </div>
-            </div>
-            
-            <nav>
-                <div class="container">
-                    <ul class="main-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="fish.html">Fish</a></li>
-                        <li><a href="aquarium.html" class="active">Aquarium</a></li>
-                        <li><a href="accessories.html">Accessories</a></li>
-                        <li><a href="#">Plants</a></li>
-                        <li><a href="#">Supplies</a></li>
-                        <li><a href="#">Brands</a></li>
-                    </ul>
-                </div>
-            </nav>
+ <header class="sticky-header">
+      <div class="container">
+        <div class="header-top">
+          <a href="index.html" class="logo">
+            <i class="fas fa-fish"></i>
+            <span>Fishify</span>
+          </a>
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Search for fish, aquariums, accessories..."
+            />
+            <button><i class="fas fa-search"></i></button>
+          </div>
+
+          <div class="header-actions">
+            <a href="../pages/login.html" class="login-btn">
+              <i class="fas fa-user"></i>
+              <span>Login</span>
+            </a>
+
+            <a href="cart.html" class="cart-btn">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count">0</span>
+            </a>
+
+            <!-- Add mobile menu button here -->
+            <button class="mobile-menu-btn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
         </div>
+
+        <nav>
+          <div class="container">
+            <ul class="main-nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="fish.html">Fish</a></li>
+              <li><a href="aquarium.html" class="active">Aquarium</a></li>
+              <li><a href="accessories.html">Accessories</a></li>
+              <li><a href="aquaticplants.html">Aquatic Plants</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </header>
 
     <!-- Aquarium Hero -->
@@ -356,43 +365,57 @@
     </section>
 
     <!-- Footer -->
-    <footer class="aquarium-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>Fishify</h4>
-                    <p>Your premium destination for ornamental fish and aquatic supplies.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Support</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Returns</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>Fishify</h4>
+            <p>
+              Your premium destination for ornamental fish and aquatic supplies.
+            </p>
+            <div class="connect_icon">
+              <i class="fa-brands fa-facebook"></i>
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-brands fa-twitter"></i>
+              <i class="fa-brands fa-tiktok"></i>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Fishify. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+          </div>
+          <div class="footer-section">
+            <h4>Shop</h4>
+            <ul class="footer-links">
+              <li><a href="aquarium.html">Aquarium</a></li>
+              <li><a href="fish.html">Fishes</a></li>
+              <li><a href="accessories.html">Accessories</a></li>
+              <li><a href="aquaticplants.html">Plants</a></li>
+            </ul>
+          </div>
 
+          <div class="footer-section">
+            <h4>About Us</h4>
+            <ul class="footer-links">
+              <li><a href="#">Our Story</a></li>
+              <li><a href="../pages/contact.html">Contact Us</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Support</h4>
+            <ul class="footer-links">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Shipping</a></li>
+              <li><a href="#">Returns</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Fishify. All rights reserved. Made with
+            <i class="fas fa-heart"></i>
+          </p>
+        </div>
+      </div>
+    </footer>
     <script src="../js/main.js"></script>
     <script src="../js/aquarium.js"></script>
 </body>

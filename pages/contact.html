@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/contact.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+      <header class="sticky-header">
+      <div class="container">
+        <div class="header-top">
+          <a href="index.html" class="logo">
+            <i class="fas fa-fish"></i>
+            <span>Fishify</span>
+          </a>
+          <div class="search-bar">
+            <input 
+              type="text"
+              placeholder="Search for fish, aquariums, accessories..."
+            />
+            <button><i class="fas fa-search"></i></button>
+          </div>
+
+          <div class="header-actions">
+            <a href="../pages/login.html" class="login-btn">
+              <i class="fas fa-user"></i>
+              <span>Login</span>
+            </a>
+
+            <a href="cart.html" class="cart-btn">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count">0</span>
+            </a>
+
+            <!-- Add mobile menu button here -->
+            <button class="mobile-menu-btn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+
+        <nav>
+          <div class="container">
+            <ul class="main-nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="fish.html">Fish</a></li>
+              <li><a href="aquarium.html">Aquarium</a></li>
+              <li><a href="accessories.html">Accessories</a></li>
+              <li><a href="aquaticplants.html">Aquatic Plants</a></li>
+              <li><a href="contact.html" class="active">Contact</a></li>
+          
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- CONTACT -->
+
+  <section class="contact">
+    <h1>Contact Us</h1>
+    <p class="contact-subtitle">We're here to help! Whether you have a question about our products, an order, or anything else, our team is ready to assist you.</p>
+
+    <div class="contact-container">
+      <!-- Left Form -->
+      <div class="contact-form">
+        <h2>Send Us a Message</h2>
+        <p>Have questions, feedback, or need assistance? Fill out the form below.</p>
+
+        <form id="contactForm">
+          <label>Your Name</label>
+          <input type="text" class="inputs" placeholder="" required />
+
+          <label>Your Email</label>
+          <input type="email" class="inputs" placeholder="" required />
+
+          <label>Subject</label>
+          <input type="text" class="inputs" placeholder="" />
+
+          <label>Your Message</label>
+          <textarea class="inputs" placeholder="" required></textarea>
+
+          <button class="c-send" type="submit">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Right Location -->
+      <div class="contact-info">
+        <h2>Our Location</h2>
+
+        <div class="map">Map Placeholder</div>
+
+        <div class="c-info">
+          <p><strong>Fishify Headquarters</strong></p>
+          <p>123 Ocean Drive, Suite 100<br>Coral City, Aqua State 90210<br>Nepal</p>
+          <p>📞 012345678</p>
+          <p>✉️ fishify@gmail.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>Fishify</h4>
+            <p>
+              Your premium destination for ornamental fish and aquatic supplies.
+            </p>
+            <div class="connect_icon">
+           <i class="fa-brands fa-facebook"></i>
+           <i class="fa-brands fa-instagram"></i>
+           <i class="fa-brands fa-twitter"></i>
+           <i class="fa-brands fa-tiktok"></i>
+      
+            </div>
+     
+          </div>
+          <div class="footer-section">
+            <h4>Shop</h4>
+            <ul class="footer-links">
+              <li><a href="aquarium.html">Aquarium</a></li>
+              <li><a href="fish.html">Fishes</a></li>
+              <li><a href="accessories.html">Accessories</a></li>
+              <li><a href="aquaticplants.html">Plants</a></li>
+            </ul>
+          </div> 
+          
+          <div class="footer-section">
+            <h4>About Us</h4>
+            <ul class="footer-links">
+                <li><a href="#">Our Story</a></li>
+              <li><a href="../pages/contact.html">Contact Us</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Support</h4>
+            <ul class="footer-links">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Shipping</a></li>
+              <li><a href="#">Returns</a></li>
+            </ul>
+          </div>
+      
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Fishify. All rights reserved. Made with
+            <i class="fas fa-heart"></i> 
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  <script src="../js/main.js"></script>
+    <script src="../js/contact.js"></script>
+</body>
+</html>
