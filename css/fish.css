@@ -139,28 +139,34 @@
 
 .fish-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  justify-items: center;
   gap: 27px;
   margin-bottom: 40px;
 }
 
 .fish-card {
-    width: 280px;
+     display: flex;
+  flex-direction: column;
+ width: 100%;
+  max-width: 280px;
+  margin: auto;
   height: 425px;
   background: #fff;
   border-radius: 20px;
   padding: 15px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
 }
 
 .fish-card:hover {
+     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     transform: translateY(-5px);
 }
 
 .fish-image {
-     height: 250px;
+  height: 250px;
   background: #f1f4f8;
   border-radius: 16px;
   display: flex;
@@ -177,6 +183,7 @@
 }
 .fish-info {
     padding: 1.5rem;
+    margin-top: auto;
 }
 
 .fish-info h3 {
@@ -291,7 +298,9 @@
     .filters-grid {
         grid-template-columns: 1fr;
     }
-    
+     .fish-products {
+    padding: 40px 10px;
+  }
     .fish-grid {
         grid-template-columns: 1fr;
     }

@@ -128,14 +128,19 @@
 /* Grid layout */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 27px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  justify-items: center;
+  gap: 30px;
   margin-bottom: 40px;
 }
 
 /* Product cards */
 .product-card {
-  width: 280px;
+   display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 280px;
+  margin: auto;
   height: 425px;
   background: #fff;
   border-radius: 20px;
@@ -266,7 +271,9 @@
     .pfish-grid {
         grid-template-columns: 1fr;
     }
-    
+    .featured-products {
+    padding: 40px 10px;
+  }
     .hero {
         padding: 3rem 0;
     }

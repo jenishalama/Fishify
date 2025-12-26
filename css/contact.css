@@ -1,62 +1,52 @@
-body {
-    margin: 0;
-    padding: 0;
-  background: #f7f9fc;
-  color: #111;
-}
-
-.contact {
+.contact-page {
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 30px auto;
   padding: 20px;
   text-align: center;
 }
 
-.contact h1 {
+.contact-title {
   font-size: 42px;
   margin-bottom: 10px;
 }
 
 .contact-subtitle {
-  color: #555;
-  margin-bottom: 40px;
+  color: #666;
+  margin-bottom: 50px;
 }
 
-.contact-container {
+.contact-layout {
   display: flex;
-  gap: 30px;
+  gap: 60px;
   justify-content: center;
 }
 
-.contact-form,
-.contact-info {
+/* Shared card */
+.contact-box {
   background: #fff;
   padding: 30px;
-  border-radius: 12px;
+  border-radius: 14px;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.06);
   text-align: left;
 }
 
-.contact-form h2,
-.contact-info h2 {
-  margin-bottom: 10px;
-}
-
-.contact-form p {
+/* Left form */
+.form-text {
   font-size: 14px;
   color: #666;
   margin-bottom: 20px;
 }
 
-label {
-  font-size: 14px;
-  margin-top: 15px;
+.contact-box label {
   display: block;
+  margin-top: 15px;
+  font-size: 14px;
 }
 
-.inputs {
+.contact-box input,
+.contact-box textarea {
   width: 100%;
   padding: 12px;
   margin-top: 6px;
@@ -64,48 +54,46 @@ label {
   border: 1px solid #ddd;
 }
 
-textarea {
-  resize: none;
+.contact-box textarea {
   height: 120px;
+  resize: none;
 }
 
-.c-send {
+.contact-box button {
   margin-top: 20px;
   width: 100%;
   padding: 14px;
   border: none;
   border-radius: 10px;
-  background: #67f0f4;
-  color: #000;
+  background: var(--secondary);
   font-size: 16px;
   cursor: pointer;
 }
 
-button:hover {
-  background: #4adadd;
+.contact-box button:hover {
+  background: rgb(41, 112, 217);
 }
 
-.contact-info {
+/* Right location */
+.location-box {
   border: 2px solid #b6b3f5;
 }
 
-.map {
-  background: #e0e0e0;
+.map-container iframe {
+  width: 100%;
   height: 220px;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: none;
   margin-bottom: 20px;
-  color: #555;
+  margin-top: 8px;
 }
 
-.c-info p {
+.location-info p {
   margin-bottom: 10px;
 }
 
-@media (max-width: 900px) {
-  .contact-container {
-    flex-direction: column;
-  }
+.location-info i {
+  color: #362db4;
+  margin-right: 8px;
 }
+

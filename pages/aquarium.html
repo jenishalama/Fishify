@@ -1,371 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aquariums - Fishify</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/aquarium.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aquarium - Fishify</title>
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/aquarium.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 </head>
 <body>
-    <!-- Header -->
- <header class="sticky-header">
-      <div class="container">
-        <div class="header-top">
-          <a href="index.html" class="logo">
-            <i class="fas fa-fish"></i>
-            <span>Fishify</span>
-          </a>
-          <div class="search-bar">
-            <input
-              type="text"
-              placeholder="Search for fish, aquariums, accessories..."
-            />
-            <button><i class="fas fa-search"></i></button>
-          </div>
 
-          <div class="header-actions">
-            <a href="../pages/login.html" class="login-btn">
-              <i class="fas fa-user"></i>
-              <span>Login</span>
-            </a>
+<!-- ================= HEADER (UNCHANGED) ================= -->
+<header class="sticky-header">
+  <div class="container">
+    <div class="header-top">
+      <a href="index.html" class="logo">
+        <i class="fas fa-fish"></i>
+        <span>Fishify</span>
+      </a>
 
-            <a href="cart.html" class="cart-btn">
-              <i class="fas fa-shopping-cart"></i>
-              <span class="cart-count">0</span>
-            </a>
-
-            <!-- Add mobile menu button here -->
-            <button class="mobile-menu-btn">
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-        </div>
-
-        <nav>
-          <div class="container">
-            <ul class="main-nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="fish.html">Fish</a></li>
-              <li><a href="aquarium.html" class="active">Aquarium</a></li>
-              <li><a href="accessories.html">Accessories</a></li>
-              <li><a href="aquaticplants.html">Aquatic Plants</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
-          </div>
-        </nav>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for aquariums..." />
+        <button><i class="fas fa-search"></i></button>
       </div>
-    </header>
 
-    <!-- Aquarium Hero -->
-    <section class="aquarium-hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Find Your Perfect Aquarium</h1>
-                <p>Browse our collection of premium tanks for every aquatic need</p>
-            </div>
+      <div class="header-actions">
+        <a href="../pages/login.html" class="login-btn">
+          <i class="fas fa-user"></i> Login
+        </a>
+        <a href="cart.html" class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="main-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fish.html">Fish</a></li>
+        <li><a href="aquarium.html" class="active">Aquarium</a></li>
+        <li><a href="accessories.html">Accessories</a></li>
+        <li><a href="aquaticplants.html">Aquatic Plants</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= FILTERS ================= -->
+<section class="aquarium-filters-section">
+  <div class="container">
+    <h2 class="aquarium-filters-title">Filters</h2>
+
+    <div class="aquarium-filters-grid">
+
+      <!-- Price -->
+      <div class="aquarium-filter-group">
+        <h3>Price Range (Rs.)</h3>
+        <input
+          type="range"
+          min="0"
+          max="100000"
+          value="100000"
+          class="aquarium-price-slider"
+        />
+        <div class="aquarium-price-range">
+          <span>Rs. 0</span>
+          <span>Rs. 100,000+</span>
         </div>
-    </section>
+      </div>
 
-    <!-- Aquarium Filters -->
-    <section class="aquarium-filters">
-        <div class="container">
-            <div class="filters-container">
-                <!-- Price Range -->
-                <div class="filter-box">
-                    <h3><i class="fas fa-tags"></i> Price Range</h3>
-                    <div class="price-inputs">
-                        <input type="text" value="$100" readonly>
-                        <span class="dash">-</span>
-                        <input type="text" value="$750" readonly>
-                    </div>
-                    <input type="range" min="100" max="750" value="750" class="range-slider">
-                </div>
-                
-                <!-- Aquarium Type -->
-                <div class="filter-box">
-                    <h3><i class="fas fa-water"></i> Aquarium Type</h3>
-                    <div class="filter-checkboxes">
-                        <label class="checkbox-item selected">
-                            <input type="checkbox" checked>
-                            <span class="checkmark"></span>
-                            <span>Freshwater</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            <span>Saltwater</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            <span>Nano</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            <span>Breeding</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <!-- Size -->
-                <div class="filter-box">
-                    <h3><i class="fas fa-ruler"></i> Size (Gallons)</h3>
-                    <div class="size-inputs">
-                        <input type="text" value="10" readonly>
-                        <span class="dash">-</span>
-                        <input type="text" value="100" readonly>
-                    </div>
-                    <input type="range" min="10" max="100" value="100" class="range-slider">
-                </div>
-                
-                <!-- Material -->
-                <div class="filter-box">
-                    <h3><i class="fas fa-gem"></i> Material</h3>
-                    <div class="filter-checkboxes">
-                        <label class="checkbox-item selected">
-                            <input type="checkbox" checked>
-                            <span class="checkmark"></span>
-                            <span>Glass</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            <span>Acrylic</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
+      <!-- Material -->
+      <div class="aquarium-filter-group">
+        <h3>Material</h3>
+        <div class="aquarium-filter-options">
+          <label>
+            <input type="checkbox" />
+            <span>Glass</span>
+          </label>
+          <label>
+            <input type="checkbox" />
+            <span>Acrylic</span>
+          </label>
         </div>
-    </section>
+      </div>
 
-    <!-- Aquarium Products -->
-    <section class="aquarium-products">
-        <div class="container">
-            <div class="products-grid">
-                <!-- Aquarium 1 -->
-                <div class="aquarium-card" data-price="349.99" data-size="30" data-material="glass" data-type="freshwater">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-1">
-                            <div class="glass-effect"></div>
-                            <span>Modern Curved Glass Aquarium</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Modern Curved Glass Aquarium</h3>
-                        <div class="aquarium-price">$349.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 30 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Glass</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Aquarium 2 -->
-                <div class="aquarium-card" data-price="599.99" data-size="60" data-material="acrylic" data-type="saltwater">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-2">
-                            <div class="acrylic-effect"></div>
-                            <span>Panoramic Acrylic Habitat</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Panoramic Acrylic Habitat</h3>
-                        <div class="aquarium-price">$599.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 60 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Acrylic</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Aquarium 3 -->
-                <div class="aquarium-card" data-price="129.99" data-size="5" data-material="glass" data-type="nano">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-3">
-                            <div class="nano-effect"></div>
-                            <span>Compact Desktop Nano Tank</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Compact Desktop Nano Tank</h3>
-                        <div class="aquarium-price">$129.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 5 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Glass</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Aquarium 4 -->
-                <div class="aquarium-card" data-price="899.99" data-size="75" data-material="glass" data-type="saltwater">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-4">
-                            <div class="reef-effect"></div>
-                            <span>Advanced Reef Ready System</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Advanced Reef Ready System</h3>
-                        <div class="aquarium-price">$899.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 75 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Glass</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Aquarium 5 -->
-                <div class="aquarium-card" data-price="279.99" data-size="20" data-material="glass" data-type="freshwater">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-5">
-                            <div class="hex-effect"></div>
-                            <span>Elegant Hexagonal Aquarium</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Elegant Hexagonal Aquarium</h3>
-                        <div class="aquarium-price">$279.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 20 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Glass</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Aquarium 6 -->
-                <div class="aquarium-card" data-price="429.99" data-size="40" data-material="acrylic" data-type="breeding">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-6">
-                            <div class="breeding-effect"></div>
-                            <span>Professional Breeding Tank</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Professional Breeding Tank</h3>
-                        <div class="aquarium-price">$429.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 40 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Acrylic</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Aquarium 7 -->
-                <div class="aquarium-card" data-price="189.99" data-size="15" data-material="glass" data-type="freshwater">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-7">
-                            <div class="beginner-effect"></div>
-                            <span>Beginner Glass Aquarium</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Beginner Glass Aquarium</h3>
-                        <div class="aquarium-price">$189.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 15 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Glass</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Aquarium 8 -->
-                <div class="aquarium-card" data-price="219.99" data-size="12" data-material="acrylic" data-type="nano">
-                    <div class="aquarium-image">
-                        <div class="img-placeholder aqua-bg-8">
-                            <div class="cube-effect"></div>
-                            <span>Sleek Acrylic Cube</span>
-                        </div>
-                    </div>
-                    <div class="aquarium-info">
-                        <h3>Sleek Acrylic Cube</h3>
-                        <div class="aquarium-price">$219.99</div>
-                        <div class="aquarium-specs">
-                            <div class="spec">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span>Size: 12 Gallons</span>
-                            </div>
-                            <div class="spec">
-                                <i class="fas fa-gem"></i>
-                                <span>Material: Acrylic</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-aqua add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="aquarium-products-section">
+  <div class="container">
+
+    <div class="aquarium-products-header">
+      <h2>Available Aquariums</h2>
+      <div class="aquarium-sort">
+        <span>Sort by:</span>
+        <select>
+          <option>Popularity</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="aquarium-grid">
+
+      <!-- CARD 1 -->
+      <div class="aquarium-card">
+        <div class="aquarium-image">
+          <img src="../Images/aquarium/aqua1.jpg" alt="Aquarium">
         </div>
-    </section>
+        <div class="aquarium-info">
+          <h3>Modern Curved Glass Aquarium</h3>
+          <div class="aquarium-price">Rs. 35,000</div>
+          <button class="btn btn-primary">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
 
-    <!-- Footer -->
-    <footer>
+      <!-- CARD 2 -->
+      <div class="aquarium-card">
+        <div class="aquarium-image">
+          <img src="../Images/aquarium/aqua2.jpg" alt="Aquarium">
+        </div>
+        <div class="aquarium-info">
+          <h3>Panoramic Acrylic Aquarium</h3>
+          <div class="aquarium-price">Rs. 60,000</div>
+          <button class="btn btn-primary">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/aquarium/aqua3.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/aquarium/aqua3.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/aquarium/aqua3.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/aquarium/aqua3.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/aquarium/aqua3.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/aquarium/aqua3.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/aquarium/aqua3.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+            <!-- CARD 3 -->
+            <div class="aquarium-card">
+              <div class="aquarium-image">
+                <img src="../Images/Homepage/accesssories.jpg" alt="Aquarium">
+              </div>
+              <div class="aquarium-info">
+                <h3>Nano Desktop Aquarium</h3>
+                <div class="aquarium-price">Rs. 18,000</div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+      
+    </div>
+
+    <!-- Pagination -->
+    <div class="aquarium-pagination">
+      <a class="page-link disabled">Previous</a>
+      <a class="page-number active">1</a>
+      <a class="page-number">2</a>
+      <a class="page-link">Next</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER (UNCHANGED) ================= -->
+ <footer>
       <div class="container">
         <div class="footer-grid">
           <div class="footer-section">
@@ -416,7 +320,8 @@
         </div>
       </div>
     </footer>
-    <script src="../js/main.js"></script>
-    <script src="../js/aquarium.js"></script>
+
+<script src="../js/main.js"></script>
+<script src="../js/aquarium.js"></script>
 </body>
 </html>

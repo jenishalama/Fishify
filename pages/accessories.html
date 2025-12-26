@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accessories - Fishify</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/accessories.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/accessories.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- Header (Same as Fish) -->
     <header class="sticky-header">
       <div class="container">
         <div class="header-top">
@@ -16,11 +23,9 @@
             <i class="fas fa-fish"></i>
             <span>Fishify</span>
           </a>
+
           <div class="search-bar">
-            <input
-              type="text"
-              placeholder="Search for fish, aquariums, accessories..."
-            />
+            <input type="text" placeholder="Search for accessories..." />
             <button><i class="fas fa-search"></i></button>
           </div>
 
@@ -35,7 +40,6 @@
               <span class="cart-count">0</span>
             </a>
 
-            <!-- Add mobile menu button here -->
             <button class="mobile-menu-btn">
               <i class="fas fa-bars"></i>
             </button>
@@ -43,320 +47,178 @@
         </div>
 
         <nav>
-          <div class="container">
-            <ul class="main-nav">
-              <li><a href="index.html" >Home</a></li>
-              <li><a href="fish.html">Fish</a></li>
-              <li><a href="aquarium.html">Aquarium</a></li>
-              <li><a href="accessories.html" class="active">Accessories</a></li>
-              <li><a href="aquaticplants.html">Aquatic Plants</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
-          </div>
+          <ul class="main-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="fish.html">Fish</a></li>
+            <li><a href="aquarium.html">Aquarium</a></li>
+            <li><a href="accessories.html" class="active">Accessories</a></li>
+            <li><a href="aquaticplants.html">Aquatic Plants</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
         </nav>
       </div>
     </header>
 
-    <!-- Accessories Hero -->
-    <section class="accessories-hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Aquatic Accessories</h1>
-                <p>Everything you need for a perfect aquatic environment</p>
+    <!-- Filters Section (Same as Fish) -->
+    <section class="filters-section">
+      <div class="container">
+        <h2 class="filters-title">Filters</h2>
+
+        <div class="filters-grid">
+          <div class="filter-group">
+            <h3>Price Range (Rs.)</h3>
+            <input
+              type="range"
+              min="0"
+              max="15000"
+              value="15000"
+              class="price-slider"
+            />
+            <div class="price-range">
+              <span>Rs. 0</span>
+              <span>Rs. 15,000+</span>
             </div>
+          </div>
+
+          <div class="filter-group">
+            <h3>Category</h3>
+            <div class="filter-options">
+              <label><input type="checkbox" /> Filtration</label>
+              <label><input type="checkbox" /> Lighting</label>
+              <label><input type="checkbox" /> Decor</label>
+              <label><input type="checkbox" /> Equipment</label>
+              <label><input type="checkbox" /> Maintenance</label>
+              <label><input type="checkbox" /> Supplies</label>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Sort and Categories -->
-    <section class="accessories-controls">
-        <div class="container">
-            <div class="controls-grid">
-                <div class="sort-by">
-                    <span>Sort by:</span>
-                    <div class="sort-dropdown">
-                        <button class="sort-btn">
-                            Popularity <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="sort-options">
-                            <a href="#" class="active">Popularity</a>
-                            <a href="#">Price: Low to High</a>
-                            <a href="#">Price: High to Low</a>
-                            <a href="#">New Arrivals</a>
-                            <a href="#">Best Sellers</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="categories-nav">
-                    <a href="#" class="category-btn active">All</a>
-                    <a href="#" class="category-btn">Best Sellers</a>
-                    <a href="#" class="category-btn">New Arrivals</a>
-                    <a href="#" class="category-btn">Lighting</a>
-                    <a href="#" class="category-btn">Filtration</a>
-                    <a href="#" class="category-btn">Decor</a>
-                </div>
-            </div>
+    <!-- Accessories Products (Fish-style Grid) -->
+    <section class="fish-products">
+      <div class="container">
+        <div class="products-header">
+          <h2>Available Accessories</h2>
+          <div class="sort-by">
+            <span>Sort by:</span>
+            <select>
+              <option>Popularity</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+            </select>
+          </div>
         </div>
+
+        <div class="fish-grid">
+
+          <!-- Accessory 1 -->
+          <div class="fish-card" data-price="6500">
+            <div class="fish-image accessory-bg-1"></div>
+            <div class="fish-info">
+              <h3>Premium Aquarium Filter with Bio-Media</h3>
+              <div class="fish-price">Rs. <span class="amount">6500</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Accessory 2 -->
+          <div class="fish-card" data-price="9800">
+            <div class="fish-image accessory-bg-2"></div>
+            <div class="fish-info">
+              <h3>Smart LED Aquarium Light for Plant Growth</h3>
+              <div class="fish-price">Rs. <span class="amount">9800</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Accessory 3 -->
+          <div class="fish-card" data-price="2900">
+            <div class="fish-image accessory-bg-3"></div>
+            <div class="fish-info">
+              <h3>Natural Driftwood Decor Piece, Large</h3>
+              <div class="fish-price">Rs. <span class="amount">2900</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Accessory 4 -->
+          <div class="fish-card" data-price="2400">
+            <div class="fish-image accessory-bg-4">
+            </div>
+            <div class="fish-info">
+              <h3>Heated Thermometer Pro with Digital Display</h3>
+              <div class="fish-price">Rs. <span class="amount">2400</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Accessory 5 -->
+          <div class="fish-card" data-price="4500">
+            <div class="fish-image accessory-bg-5"></div>
+            <div class="fish-info">
+              <h3>Aquatic Plant Nutrient Substrate, 5lb Bag</h3>
+              <div class="fish-price">Rs. <span class="amount">4500</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Accessory 6 -->
+          <div class="fish-card" data-price="3800">
+            <div class="fish-image accessory-bg-6"></div>
+            <div class="fish-info">
+              <h3>Automatic Fish Food Dispenser</h3>
+              <div class="fish-price">Rs. <span class="amount">3800</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <a href="#" class="page-link disabled">
+            <i class="fas fa-chevron-left"></i> Previous
+          </a>
+          <div class="page-numbers">
+            <a href="#" class="page-number active">1</a>
+            <a href="#" class="page-number">2</a>
+          </div>
+          <a href="#" class="page-link">
+            Next <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- Accessories Products -->
-    <section class="accessories-products">
-        <div class="container">
-            <div class="accessories-grid">
-                <!-- Accessory 1 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-1">
-                            <div class="filter-effect"></div>
-                            <span>Premium Aquarium Filter</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Premium Aquarium Filter with Bio-Media</h3>
-                        <div class="accessory-price">$49.99</div>
-                        <div class="accessory-category">Filtration</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 2 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-2">
-                            <div class="light-effect"></div>
-                            <span>Smart LED Aquarium Light</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Smart LED Aquarium Light for Plant Growth</h3>
-                        <div class="accessory-price">$75.00</div>
-                        <div class="accessory-category">Lighting</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 3 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-3">
-                            <div class="wood-effect"></div>
-                            <span>Natural Driftwood Decor</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Natural Driftwood Decor Piece, Large</h3>
-                        <div class="accessory-price">$22.50</div>
-                        <div class="accessory-category">Decor</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 4 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-4">
-                            <div class="thermo-effect"></div>
-                            <span>Heated Thermometer Pro</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Heated Thermometer Pro with Digital Display</h3>
-                        <div class="accessory-price">$18.99</div>
-                        <div class="accessory-category">Equipment</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 5 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-5">
-                            <div class="substrate-effect"></div>
-                            <span>Aquatic Plant Nutrient Substrate</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Aquatic Plant Nutrient Substrate, 5lb Bag</h3>
-                        <div class="accessory-price">$35.00</div>
-                        <div class="accessory-category">Supplies</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 6 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-6">
-                            <div class="feeder-effect"></div>
-                            <span>Automatic Fish Food Dispenser</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Automatic Fish Food Dispenser</h3>
-                        <div class="accessory-price">$29.99</div>
-                        <div class="accessory-category">Equipment</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 7 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-7">
-                            <div class="cleaner-effect"></div>
-                            <span>Siphon Gravel Cleaner</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Siphon Gravel Cleaner with Algae Scraper</h3>
-                        <div class="accessory-price">$14.95</div>
-                        <div class="accessory-category">Maintenance</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 8 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-8">
-                            <div class="ship-effect"></div>
-                            <span>Decorative Sunken Shipwreck</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Decorative Sunken Shipwreck Ornament</h3>
-                        <div class="accessory-price">$39.00</div>
-                        <div class="accessory-category">Decor</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 9 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-9">
-                            <div class="magnet-effect"></div>
-                            <span>Magnetic Glass Cleaner</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Magnetic Glass Aquarium Cleaner</h3>
-                        <div class="accessory-price">$12.00</div>
-                        <div class="accessory-category">Maintenance</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 10 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-10">
-                            <div class="co2-effect"></div>
-                            <span>CO2 Diffuser</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>CO2 Diffuser for Planted Tanks</h3>
-                        <div class="accessory-price">$28.50</div>
-                        <div class="accessory-category">Equipment</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 11 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-11">
-                            <div class="test-effect"></div>
-                            <span>Water Test Kit</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Water Test Kit, 7-in-1</h3>
-                        <div class="accessory-price">$25.99</div>
-                        <div class="accessory-category">Supplies</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Accessory 12 -->
-                <div class="accessory-card">
-                    <div class="accessory-image">
-                        <div class="img-placeholder accessory-bg-12">
-                            <div class="pump-effect"></div>
-                            <span>Air Pump</span>
-                        </div>
-                    </div>
-                    <div class="accessory-info">
-                        <h3>Air Pump, Quiet Dual Outlet</h3>
-                        <div class="accessory-price">$19.99</div>
-                        <div class="accessory-category">Filtration</div>
-                        <button class="btn btn-accessory add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- Footer (Same as Fish) -->
     <footer>
       <div class="container">
         <div class="footer-grid">
           <div class="footer-section">
             <h4>Fishify</h4>
-            <p>
-              Your premium destination for ornamental fish and aquatic supplies.
-            </p>
-            <div class="connect_icon">
-              <i class="fa-brands fa-facebook"></i>
-              <i class="fa-brands fa-instagram"></i>
-              <i class="fa-brands fa-twitter"></i>
-              <i class="fa-brands fa-tiktok"></i>
-            </div>
+            <p>Your premium destination for aquatic accessories.</p>
           </div>
           <div class="footer-section">
             <h4>Shop</h4>
             <ul class="footer-links">
+              <li><a href="fish.html">Fish</a></li>
               <li><a href="aquarium.html">Aquarium</a></li>
-              <li><a href="fish.html">Fishes</a></li>
               <li><a href="accessories.html">Accessories</a></li>
-              <li><a href="aquaticplants.html">Plants</a></li>
             </ul>
           </div>
-
-          <div class="footer-section">
-            <h4>About Us</h4>
-            <ul class="footer-links">
-              <li><a href="#">Our Story</a></li>
-              <li><a href="../pages/contact.html">Contact Us</a></li>
-              <li><a href="#">Careers</a></li>
-            </ul>
-          </div>
-
           <div class="footer-section">
             <h4>Support</h4>
             <ul class="footer-links">
@@ -366,17 +228,14 @@
             </ul>
           </div>
         </div>
+
         <div class="footer-bottom">
-          <p>
-            &copy; 2025 Fishify. All rights reserved. Made with
-            <i class="fas fa-heart"></i>
-          </p>
+          <p>&copy; 2025 Fishify. All rights reserved.</p>
         </div>
       </div>
     </footer>
-     
 
     <script src="../js/main.js"></script>
     <script src="../js/accessories.js"></script>
-</body>
+  </body>
 </html>

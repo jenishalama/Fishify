@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/aquaticplants.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
 </head>
 <body>
+  
       <!-- Header -->
  <header class="sticky-header">
       <div class="container">
@@ -56,6 +58,307 @@
         </nav>
       </div>
     </header>
+
+
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+      <div class="container">
+        <h2 class="filters-title">Filters</h2>
+
+        <div class="filters-grid">
+          <div class="filter-group">
+            <h3>Price Range (Rs.)</h3>
+            <input
+              type="range"
+              min="0"
+              max="10000"
+              value="10000"
+              class="price-slider"
+              id="priceSlider"
+            />
+            <div class="price-range">
+              <span>Rs. <span id="minPrice">0</span></span>
+              <span>Rs. <span id="maxPrice">10,000+</span></span>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3>Plant Type</h3>
+            <div class="filter-options">
+              <label><input type="checkbox" value="foreground" /> Foreground</label>
+              <label><input type="checkbox" value="midground" /> Midground</label>
+              <label><input type="checkbox" value="background" /> Background</label>
+              <label><input type="checkbox" value="floating" /> Floating</label>
+              <label><input type="checkbox" value="stem" /> Stem Plants</label>
+              <label><input type="checkbox" value="carpet" /> Carpeting</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3>Care Level</h3>
+            <div class="filter-options">
+              <label><input type="checkbox" value="easy" /> Easy</label>
+              <label><input type="checkbox" value="medium" /> Medium</label>
+              <label><input type="checkbox" value="difficult" /> Difficult</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3>Light Requirement</h3>
+            <div class="filter-options">
+              <label><input type="checkbox" value="low" /> Low</label>
+              <label><input type="checkbox" value="medium" /> Medium</label>
+              <label><input type="checkbox" value="high" /> High</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="active-filters" id="activeFilters">
+          <!-- Active filters will be added here by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Aquatic Plants Products -->
+    <section class="fish-products">
+      <div class="container">
+        <div class="products-header">
+          <h2>Available Aquatic Plants</h2>
+          <div class="sort-by">
+            <span>Sort by:</span>
+            <select id="sortSelect">
+              <option value="popularity">Popularity</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="fish-grid" id="plantsGrid">
+          <!-- Plant 1 -->
+          <div class="fish-card" 
+               data-price="1200" 
+               data-type="foreground,carpet" 
+               data-care="easy" 
+               data-light="medium"
+               data-name="Dwarf Hairgrass">
+            <div class="fish-image plant-bg-1"></div>
+            <div class="fish-info">
+              <h3>Dwarf Hairgrass Carpeting Plant</h3>
+              <p class="plant-details">Foreground | Easy Care | Medium Light</p>
+              <div class="fish-price">Rs. <span class="amount">1200</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 2 -->
+          <div class="fish-card" 
+               data-price="1800" 
+               data-type="midground" 
+               data-care="easy" 
+               data-light="low"
+               data-name="Java Fern">
+            <div class="fish-image plant-bg-2"></div>
+            <div class="fish-info">
+              <h3>Java Fern - Attached to Driftwood</h3>
+              <p class="plant-details">Midground | Easy Care | Low Light</p>
+              <div class="fish-price">Rs. <span class="amount">1800</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 3 -->
+          <div class="fish-card" 
+               data-price="2500" 
+               data-type="background,stem" 
+               data-care="medium" 
+               data-light="high"
+               data-name="Rotala Rotundifolia">
+            <div class="fish-image plant-bg-3"></div>
+            <div class="fish-info">
+              <h3>Rotala Rotundifolia Red Stem Plant</h3>
+              <p class="plant-details">Background | Medium Care | High Light</p>
+              <div class="fish-price">Rs. <span class="amount">2500</span></div>
+<button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 4 -->
+          <div class="fish-card" 
+               data-price="800" 
+               data-type="floating" 
+               data-care="easy" 
+               data-light="medium"
+               data-name="Amazon Frogbit">
+            <div class="fish-image plant-bg-4"></div>
+            <div class="fish-info">
+              <h3>Amazon Frogbit Floating Plant</h3>
+              <p class="plant-details">Floating | Easy Care | Medium Light</p>
+              <div class="fish-price">Rs. <span class="amount">800</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 5 -->
+          <div class="fish-card" 
+               data-price="3200" 
+               data-type="foreground,carpet" 
+               data-care="difficult" 
+               data-light="high"
+               data-name="Monte Carlo">
+            <div class="fish-image plant-bg-5"></div>
+            <div class="fish-info">
+              <h3>Monte Carlo Carpeting Plant</h3>
+              <p class="plant-details">Foreground | Difficult Care | High Light</p>
+              <div class="fish-price">Rs. <span class="amount">3200</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 6 -->
+          <div class="fish-card" 
+               data-price="1500" 
+               data-type="midground" 
+               data-care="easy" 
+               data-light="low"
+               data-name="Anubias Nana">
+            <div class="fish-image plant-bg-6"></div>
+            <div class="fish-info">
+              <h3>Anubias Nana Petite</h3>
+              <p class="plant-details">Midground | Easy Care | Low Light</p>
+              <div class="fish-price">Rs. <span class="amount">1500</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 7 -->
+          <div class="fish-card" 
+               data-price="2800" 
+               data-type="background,stem" 
+               data-care="medium" 
+               data-light="high"
+               data-name="Ludwigia Repens">
+            <div class="fish-image plant-bg-7"></div>
+            <div class="fish-info">
+              <h3>Ludwigia Repens Red</h3>
+              <p class="plant-details">Background | Medium Care | High Light</p>
+              <div class="fish-price">Rs. <span class="amount">2800</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 8 -->
+          <div class="fish-card" 
+               data-price="2200" 
+               data-type="midground" 
+               data-care="medium" 
+               data-light="medium"
+               data-name="Cryptocoryne Wendtii">
+            <div class="fish-image plant-bg-8"></div>
+            <div class="fish-info">
+              <h3>Cryptocoryne Wendtii Green</h3>
+              <p class="plant-details">Midground | Medium Care | Medium Light</p>
+              <div class="fish-price">Rs. <span class="amount">2200</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 9 -->
+          <div class="fish-card" 
+               data-price="950" 
+               data-type="floating" 
+               data-care="easy" 
+               data-light="low"
+               data-name="Duckweed">
+            <div class="fish-image plant-bg-9"></div>
+            <div class="fish-info">
+              <h3>Duckweed - Fast Growing Floating</h3>
+              <p class="plant-details">Floating | Easy Care | Low Light</p>
+              <div class="fish-price">Rs. <span class="amount">950</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 10 -->
+          <div class="fish-card" 
+               data-price="3800" 
+               data-type="background,stem" 
+               data-care="difficult" 
+               data-light="high"
+               data-name="Alternanthera Reineckii">
+            <div class="fish-image plant-bg-10"></div>
+            <div class="fish-info">
+              <h3>Alternanthera Reineckii Mini</h3>
+              <p class="plant-details">Background | Difficult Care | High Light</p>
+              <div class="fish-price">Rs. <span class="amount">3800</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 11 -->
+          <div class="fish-card" 
+               data-price="1900" 
+               data-type="foreground,carpet" 
+               data-care="medium" 
+               data-light="medium"
+               data-name="Dwarf Sagittaria">
+            <div class="fish-image plant-bg-11"></div>
+            <div class="fish-info">
+              <h3>Dwarf Sagittaria</h3>
+              <p class="plant-details">Foreground | Medium Care | Medium Light</p>
+              <div class="fish-price">Rs. <span class="amount">1900</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Plant 12 -->
+          <div class="fish-card" 
+               data-price="4200" 
+               data-type="background" 
+               data-care="medium" 
+               data-light="medium"
+               data-name="Vallisneria">
+            <div class="fish-image plant-bg-12"></div>
+            <div class="fish-info">
+              <h3>Vallisneria Spiralis (Jungle Val)</h3>
+              <p class="plant-details">Background | Medium Care | Medium Light</p>
+              <div class="fish-price">Rs. <span class="amount">4200</span></div>
+              <button class="btn btn-primary add-to-cart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+          <p>No plants match your filters. Try adjusting your criteria.</p>
+        </div>
+      </div>
+    </section>
 
      <!-- Footer -->
     <footer>
@@ -109,5 +412,7 @@
         </div>
       </div>
     </footer>
+
+    <script src="../js/aquaticplants.js"></script>
 </body>
 </html>

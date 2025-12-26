@@ -307,6 +307,9 @@ footer {
 .connect_icon i{
     width: 60px;  
 }
+.connect_icon a{
+   color: black;
+}
 
 .footer-bottom {
     padding: 1.5rem 0;
