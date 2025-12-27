@@ -5,7 +5,6 @@
   background: var(--light);
   padding: 1.2rem 0;
   border-bottom: 1px solid var(--light-gray);
-  margin-bottom: 1.5rem;
 }
 
 .filters-title {
@@ -327,7 +326,7 @@
 .fish-price {
   font-size: 17px;
   font-weight: 700;
-  color: #28a745;
+  color: #00b3ff;
   margin-bottom: 10px;
 }
 
@@ -336,7 +335,7 @@
   width: 100%;
   padding: 9px;
   border: none;
-  background: #28a745;
+  background: #009dff;
   color: #fff;
   font-size: 14px;
   border-radius: 8px;
@@ -350,7 +349,7 @@
 }
 
 .btn.add-to-cart:hover {
-  background: #218838;
+  background: #007acc;
 }
 
 .btn.add-to-cart.added {

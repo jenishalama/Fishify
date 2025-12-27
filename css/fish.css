@@ -272,6 +272,20 @@
     color: var(--gray);
 }
 
+.out-of-stock-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #3a84d9;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 5;
+  text-transform: uppercase;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .filters-grid {

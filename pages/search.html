@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Results | Fishify</title>
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/home.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+<body>
+
+  <!-- HEADER (reuse same header if needed) -->
+  <header class="sticky-header">
+    <div class="container">
+      <div class="header-top">
+        <a href="index.html" class="logo">
+          <i class="fas fa-fish"></i>
+          <span>Fishify</span>
+        </a>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search again..." />
+          <button><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="header-actions">
+          <a href="../pages/login.html" class="login-btn">
+            <i class="fas fa-user"></i>
+            <span>Login</span>
+          </a>
+
+          <a href="cart.html" class="cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+
+          <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH RESULTS -->
+  <section class="featured-products">
+    <div class="container">
+      <h2 class="section-title">
+        Search Results for "<span id="search-keyword"></span>"
+      </h2>
+
+      <div class="products-grid" id="search-results">
+
+        <!-- PRODUCT CARDS -->
+        <div class="product-card">
+          <div class="product-info">
+            <h3 class="product-title">Aqua Tank Pro 100</h3>
+            <div class="product-price">Rs <span>300</span></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-info">
+            <h3 class="product-title">Nano Cube Aquarium Kit</h3>
+            <div class="product-price">Rs <span>300</span></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-info">
+            <h3 class="product-title">Marine LED Light</h3>
+            <div class="product-price">Rs <span>300</span></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-info">
+            <h3 class="product-title">Automatic Fish Feeder</h3>
+            <div class="product-price">Rs <span>300</span></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-info">
+            <h3 class="product-title">Magnetic Gravel Cleaner</h3>
+            <div class="product-price">Rs <span>300</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <p id="no-results" style="text-align:center; display:none;">
+        No products found 🐠
+      </p>
+
+    </div>
+  </section>
+
+  <script src="../js/main.js"></script>
+
+  <!-- SEARCH FILTER LOGIC -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q")?.toLowerCase();
+
+    document.getElementById("search-keyword").textContent = query || "";
+
+    const cards = document.querySelectorAll(".product-card");
+    let found = false;
+
+    cards.forEach(card => {
+      const title = card.querySelector(".product-title").textContent.toLowerCase();
+      if (query && title.includes(query)) {
+        card.style.display = "block";
+        found = true;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    if (!found) {
+      document.getElementById("no-results").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>

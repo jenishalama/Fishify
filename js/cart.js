@@ -1,94 +1,97 @@
-// Get cart items from localStorage
-let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+// CART KEY
+const CART_KEY = "fishify_cart";
 
-// Elements
-const cartContainer = document.querySelector(".cart-items");
-const subtotalEl = document.querySelector(".summary-row .amount");
-const totalEl = document.querySelector(".total-amount");
+// Load cart from localStorage
+function getCart() {
+  return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+}
 
-// Render Cart
+// Save cart to localStorage
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCartCount(); // header cart count from main.js
+}
+
+// Render cart items
 function renderCart() {
+  const cartContainer = document.querySelector(".cart-items");
+  const subtotalEl = document.querySelector(".summary-row .amount");
+  const totalEl = document.querySelector(".total-amount");
+  const cart = getCart();
+
+  if (!cartContainer) return;
+
   cartContainer.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartContainer.innerHTML = `<p style="text-align:center; padding:20px;">Your cart is empty 🛒</p>`;
+    subtotalEl.textContent = "Rs 0";
+    totalEl.textContent = "Rs 0";
+    return;
+  }
+
   let subtotal = 0;
 
-  cartItems.forEach((item, index) => {
-    subtotal += item.price * item.qty;
+  cart.forEach((item, index) => {
+    const itemTotal = item.price * item.qty;
+    subtotal += itemTotal;
 
-    const cartItem = document.createElement("div");
-    cartItem.className = "cart-item";
-    cartItem.innerHTML = `
-      <div class="item-details">
-        <div class="item-header">
-          <h3>${item.title}</h3>
-          <button class="remove-item" data-index="${index}">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
-        <p class="item-description">${item.description}</p>
-        <div class="item-seller">
-          <i class="fas fa-store"></i>
-          <span>${item.seller}</span>
-        </div>
-        <div class="item-controls">
-          <div class="quantity-control">
-            <button class="qty-btn minus" data-index="${index}"><i class="fas fa-minus"></i></button>
-            <input type="text" value="${item.qty}" class="qty-input" data-index="${index}">
-            <button class="qty-btn plus" data-index="${index}"><i class="fas fa-plus"></i></button>
-          </div>
-          <div class="item-price">Rs ${item.price * item.qty}</div>
-        </div>
-      </div>
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.style = "display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #ccc;";
+
+    div.innerHTML = `
+      <span>${item.name} x ${item.qty}</span>
+      <span>Rs ${itemTotal}</span>
+      <button class="remove-item" data-index="${index}" style="margin-left:10px; background:#dc3545; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">Remove</button>
     `;
-    cartContainer.appendChild(cartItem);
+    cartContainer.appendChild(div);
   });
 
   subtotalEl.textContent = `Rs ${subtotal}`;
-  totalEl.textContent = `Rs ${subtotal}`; // You can add shipping/tax if needed
-  updateCartCount();
+  totalEl.textContent = `Rs ${subtotal}`; // For now total = subtotal
 }
 
-// Handle Remove, Quantity Change
-cartContainer.addEventListener("click", (e) => {
-  const index = e.target.closest(".remove-item")?.dataset.index;
-  if (index !== undefined) {
-    cartItems.splice(index, 1);
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    renderCart();
-  }
+// Remove item
+function setupRemoveButtons() {
+  const buttons = document.querySelectorAll(".remove-item");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const index = btn.dataset.index;
+      let cart = getCart();
+      cart.splice(index, 1);
+      saveCart(cart);
+      renderCart();
+    });
+  });
+}
 
-  const minusIndex = e.target.closest(".minus")?.dataset.index;
-  if (minusIndex !== undefined) {
-    if (cartItems[minusIndex].qty > 1) cartItems[minusIndex].qty -= 1;
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    renderCart();
+// Clear cart
+function setupClearCart() {
+  const clearBtn = document.querySelector(".clear-cart");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to clear your cart?")) {
+        localStorage.removeItem(CART_KEY);
+        renderCart();
+      }
+    });
   }
+}
 
-  const plusIndex = e.target.closest(".plus")?.dataset.index;
-  if (plusIndex !== undefined) {
-    cartItems[plusIndex].qty += 1;
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    renderCart();
-  }
-});
-
-// Handle manual quantity input
-cartContainer.addEventListener("input", (e) => {
-  if (e.target.classList.contains("qty-input")) {
-    const index = e.target.dataset.index;
-    let val = parseInt(e.target.value);
-    if (isNaN(val) || val < 1) val = 1;
-    cartItems[index].qty = val;
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    renderCart();
-  }
-});
-
-// Clear Cart
-document.querySelector(".clear-cart").addEventListener("click", () => {
-  cartItems = [];
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+// Initialize cart page
+document.addEventListener("DOMContentLoaded", () => {
   renderCart();
-});
+  setupClearCart();
 
-// Initialize
-renderCart();
+  // Use delegation for remove buttons because they are dynamically created
+  document.querySelector(".cart-items").addEventListener("click", e => {
+    if (e.target.classList.contains("remove-item")) {
+      const index = e.target.dataset.index;
+      let cart = getCart();
+      cart.splice(index, 1);
+      saveCart(cart);
+      renderCart();
+    }
+  });
+});
