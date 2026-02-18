@@ -9,46 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-top">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-fish"></i>
-                    <span>Fishify</span>
-                </a>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search for fish, aquariums, accessories...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="header-actions">
-                    <a href="#" class="login-btn">
-                        <i class="fas fa-user"></i>
-                        <span>Login</span>
-                    </a>
-                    <a href="cart.html" class="cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </a>
-                </div>
-            </div>
-            
-            <nav>
-                <div class="container">
-                    <ul class="main-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="fish.html">Fish</a></li>
-                        <li><a href="aquarium.html">Aquarium</a></li>
-                        <li><a href="accessories.html">Accessories</a></li>
-                        <li><a href="#">Plants</a></li>
-                        <li><a href="#">Supplies</a></li>
-                        <li><a href="#">Brands</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
-
+  <!-- header -->
+  <?php include 'header.php'; ?>
     <!-- Cart Hero -->
     <section class="cart-hero">
         <div class="container">
@@ -73,7 +35,7 @@
                         <!-- Items will be dynamically injected here by cart.js -->
                     </div>
                     <div class="cart-actions">
-                        <a href="fish.html" class="continue-shopping">
+                        <a href="fish.php" class="continue-shopping">
                             <i class="fas fa-arrow-left"></i> Continue Shopping
                         </a>
                         <button class="clear-cart">
@@ -160,17 +122,17 @@
           <div class="footer-section">
             <h4>Shop</h4>
             <ul class="footer-links">
-              <li><a href="aquarium.html">Aquarium</a></li>
-              <li><a href="fish.html">Fishes</a></li>
-              <li><a href="accessories.html">Accessories</a></li>
-              <li><a href="aquaticplants.html">Plants</a></li>
+              <li><a href="aquarium.php">Aquarium</a></li>
+              <li><a href="fish.php">Fishes</a></li>
+              <li><a href="accessories.php">Accessories</a></li>
+              <li><a href="aquaticplants.php">Plants</a></li>
             </ul>
           </div>
           <div class="footer-section">
             <h4>About Us</h4>
             <ul class="footer-links">
               <li><a href="#">Our Story</a></li>
-              <li><a href="../pages/contact.html">Contact Us</a></li>
+              <li><a href="../pages/contact.php">Contact Us</a></li>
               <li><a href="#">Careers</a></li>
             </ul>
           </div>

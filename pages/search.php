@@ -16,36 +16,52 @@
 
   <!-- HEADER (reuse same header if needed) -->
   <header class="sticky-header">
-    <div class="container">
-      <div class="header-top">
-        <a href="index.html" class="logo">
-          <i class="fas fa-fish"></i>
-          <span>Fishify</span>
-        </a>
+      <div class="container">
+        <div class="header-top">
+          <a href="index.html" class="logo">
+            <i class="fas fa-fish"></i>
+            <span>Fishify</span>
+          </a>
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Search for fish, aquariums, accessories..."
+            />
+            <button><i class="fas fa-search"></i></button>
+          </div>
 
-        <div class="search-bar">
-          <input type="text" placeholder="Search again..." />
-          <button><i class="fas fa-search"></i></button>
+          <div class="header-actions">
+            <a href="../pages/login.html" class="login-btn">
+              <i class="fas fa-user"></i>
+              <span>Login</span>
+            </a>
+
+            <a href="cart.html" class="cart-btn">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="cart-count">0</span>
+            </a>
+
+            <!-- Add mobile menu button here -->
+            <button class="mobile-menu-btn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
         </div>
 
-        <div class="header-actions">
-          <a href="../pages/login.html" class="login-btn">
-            <i class="fas fa-user"></i>
-            <span>Login</span>
-          </a>
-
-          <a href="cart.html" class="cart-btn">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count">0</span>
-          </a>
-
-          <button class="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
+        <nav>
+          <div class="container">
+            <ul class="main-nav">
+              <li><a href="index.php" class="active">Home</a></li>
+              <li><a href="fish.php">Fish</a></li>
+              <li><a href="aquarium.php">Aquarium</a></li>
+              <li><a href="accessories.php">Accessories</a></li>
+              <li><a href="aquaticplants.php">Aquatic Plants</a></li>
+              <li><a href="contact.php">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
       </div>
-    </div>
-  </header>
+    </header>
 
   <!-- SEARCH RESULTS -->
   <section class="featured-products">

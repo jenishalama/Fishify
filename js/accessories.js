@@ -153,7 +153,7 @@ function setupAccessoryCart() {
             if (existing) existing.quantity += 1;
             else cart.push({
                 id: `accessory-${name.toLowerCase().replace(/\s+/g, '-')}`,
-                name, price, quantity: 1, type: 'accessory'
+                name, price, quantity: 1, type: 'accessory',image: card.querySelector('img')?.src || ''
             });
 
             localStorage.setItem('fishifyCart', JSON.stringify(cart));

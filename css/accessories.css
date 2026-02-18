@@ -133,12 +133,14 @@
     flex-direction: column;
     width: 100%;
     max-width: 280px;
+    margin: auto;
     height: 425px;
     background: #fff;
     border-radius: 20px;
     padding: 15px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .fish-card:hover {
@@ -146,20 +148,20 @@
     transform: translateY(-5px);
 }
 
-/* Image */
 .fish-image {
-    height: 250px;
-    background: #f1f4f8;
-    border-radius: 16px;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
+  height: 250px;
+  background: #f1f4f8;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* Info */
-.fish-info {
-    padding: 1.5rem;
-    margin-top: auto;
+.fish-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .fish-info h3 {
@@ -243,21 +245,6 @@
     color: #fff;
     border-color: var(--primary);
 }
-
-/* ===== Accessory Background Images ===== */
-
-.accessory-bg-1 { background-image: url("../Images/Homepage/angel\ fish.jpg"); }
-.accessory-bg-2 { background-image: url("../Images/accessories/led-light.jpg"); }
-.accessory-bg-3 { background-image: url("../Images/accessories/driftwood.jpg"); }
-.accessory-bg-4 { background-image: url("../Images/accessories/thermometer.jpg"); }
-.accessory-bg-5 { background-image: url("../Images/accessories/substrate.jpg"); }
-.accessory-bg-6 { background-image: url("../Images/accessories/feeder.jpg"); }
-.accessory-bg-7 { background-image: url("../Images/accessories/gravel-cleaner.jpg"); }
-.accessory-bg-8 { background-image: url("../Images/accessories/shipwreck.jpg"); }
-.accessory-bg-9 { background-image: url("../Images/accessories/magnetic-cleaner.jpg"); }
-.accessory-bg-10 { background-image: url("../Images/accessories/co2-diffuser.jpg"); }
-.accessory-bg-11 { background-image: url("../Images/accessories/water-test.jpg"); }
-.accessory-bg-12 { background-image: url("../Images/accessories/air-pump.jpg"); }
 
 /* ===== Responsive ===== */
 

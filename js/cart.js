@@ -1,22 +1,26 @@
-// CART KEY
 const CART_KEY = "fishify_cart";
 
-// Load cart from localStorage
+// -------------------- Cart Helpers --------------------
 function getCart() {
   return JSON.parse(localStorage.getItem(CART_KEY)) || [];
 }
 
-// Save cart to localStorage
 function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  updateCartCount(); // header cart count from main.js
+  updateCartCount();
 }
 
-// Render cart items
+// Update cart count in header
+function updateCartCount() {
+  const cart = getCart();
+  const count = cart.reduce((total, item) => total + item.qty, 0);
+  const el = document.querySelector(".cart-count");
+  if (el) el.textContent = count;
+}
+
+// -------------------- Render Cart --------------------
 function renderCart() {
   const cartContainer = document.querySelector(".cart-items");
-  const subtotalEl = document.querySelector(".summary-row .amount");
-  const totalEl = document.querySelector(".total-amount");
   const cart = getCart();
 
   if (!cartContainer) return;
@@ -24,74 +28,94 @@ function renderCart() {
   cartContainer.innerHTML = "";
 
   if (cart.length === 0) {
-    cartContainer.innerHTML = `<p style="text-align:center; padding:20px;">Your cart is empty 🛒</p>`;
-    subtotalEl.textContent = "Rs 0";
-    totalEl.textContent = "Rs 0";
+    cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
+    updateSummary(0);
     return;
   }
 
   let subtotal = 0;
 
-  cart.forEach((item, index) => {
-    const itemTotal = item.price * item.qty;
-    subtotal += itemTotal;
+  cart.forEach(item => {
+    subtotal += item.price * item.qty;
 
-    const div = document.createElement("div");
-    div.className = "cart-item";
-    div.style = "display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #ccc;";
-
-    div.innerHTML = `
-      <span>${item.name} x ${item.qty}</span>
-      <span>Rs ${itemTotal}</span>
-      <button class="remove-item" data-index="${index}" style="margin-left:10px; background:#dc3545; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">Remove</button>
+    const itemEl = document.createElement("div");
+    itemEl.classList.add("cart-item");
+    itemEl.innerHTML = `
+      <div class="cart-item-image">
+        <img src="${item.image || '../Images/Homepage/bgfishify.jpg'}" alt="${item.name}">
+      </div>
+      <div class="cart-item-info">
+        <h3>${item.name}</h3>
+        <p>Rs ${item.price}</p>
+        <div class="quantity-controls">
+          <button class="qty-btn decrease" data-id="${item.id}">-</button>
+          <span class="qty">${item.qty}</span>
+          <button class="qty-btn increase" data-id="${item.id}">+</button>
+        </div>
+      </div>
+      <div class="cart-item-actions">
+        <button class="remove-item" data-id="${item.id}">
+          <i class="fas fa-trash"></i> Remove
+        </button>
+      </div>
     `;
-    cartContainer.appendChild(div);
+
+    cartContainer.appendChild(itemEl);
   });
 
-  subtotalEl.textContent = `Rs ${subtotal}`;
-  totalEl.textContent = `Rs ${subtotal}`; // For now total = subtotal
+  updateSummary(subtotal);
+
+  // Add event listeners
+  setupCartButtons();
 }
 
-// Remove item
-function setupRemoveButtons() {
-  const buttons = document.querySelectorAll(".remove-item");
-  buttons.forEach(btn => {
+// -------------------- Cart Actions --------------------
+function setupCartButtons() {
+  // Remove item
+  document.querySelectorAll(".remove-item").forEach(btn => {
     btn.addEventListener("click", () => {
-      const index = btn.dataset.index;
-      let cart = getCart();
-      cart.splice(index, 1);
+      const id = btn.dataset.id;
+      removeFromCart(id);
+    });
+  });
+
+  // Quantity buttons
+  document.querySelectorAll(".qty-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      const cart = getCart();
+      const item = cart.find(i => i.id == id);
+      if (!item) return;
+
+      if (btn.classList.contains("increase")) item.qty++;
+      if (btn.classList.contains("decrease") && item.qty > 1) item.qty--;
+
       saveCart(cart);
       renderCart();
     });
   });
-}
 
-// Clear cart
-function setupClearCart() {
+  // Clear cart
   const clearBtn = document.querySelector(".clear-cart");
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
-      if (confirm("Are you sure you want to clear your cart?")) {
-        localStorage.removeItem(CART_KEY);
-        renderCart();
-      }
+      saveCart([]);
+      renderCart();
     });
   }
 }
 
-// Initialize cart page
+// -------------------- Update Summary --------------------
+function updateSummary(subtotal) {
+  const subtotalEl = document.querySelector(".summary-details .amount");
+  const totalEl = document.querySelector(".total-amount");
+
+  if (subtotalEl) subtotalEl.textContent = `Rs ${subtotal}`;
+  if (totalEl) totalEl.textContent = `Rs ${subtotal}`;
+}
+
+// -------------------- Initialize --------------------
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
-  setupClearCart();
-
-  // Use delegation for remove buttons because they are dynamically created
-  document.querySelector(".cart-items").addEventListener("click", e => {
-    if (e.target.classList.contains("remove-item")) {
-      const index = e.target.dataset.index;
-      let cart = getCart();
-      cart.splice(index, 1);
-      saveCart(cart);
-      renderCart();
-    }
-  });
+  updateCartCount();
 });

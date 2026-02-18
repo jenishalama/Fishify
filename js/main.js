@@ -43,10 +43,9 @@ function setupSearchBar() {
       const query = searchInput.value.trim();
       if (!query) return;
 
-      // Adjust path depending on page structure
-      let path = "pages/search.html"; // if current page is root
+      let path = "pages/search.html";
       if (window.location.pathname.includes("/pages/")) {
-        path = "search.html"; // if already inside /pages
+        path = "search.html";
       }
 
       window.location.href = path + "?q=" + encodeURIComponent(query);
@@ -75,12 +74,17 @@ function setupAddToCartButtons() {
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
       const card = btn.closest(".product-card");
+
       const product = {
-        id: card.dataset.id || card.querySelector(".product-title").textContent,
-        name: card.querySelector(".product-title").textContent,
-        price: parseFloat(card.querySelector(".product-price span").textContent),
+        id: card.dataset.id || card.querySelector(".product-title").textContent.trim(),
+        name: card.querySelector(".product-title").textContent.trim(),
+        price: parseFloat(card.querySelector(".product-price span").textContent.replace("Rs", "").replace(/,/g, "").trim()),
+        image: card.querySelector("img")?.src || "",
+        description: card.querySelector(".product-description")?.textContent.trim() || "",
+        category: card.dataset.category || "default",
         qty: 1
       };
+
       addToCart(product);
     });
   });
