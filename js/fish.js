@@ -11,6 +11,12 @@ const itemsPerPage = 8; // 8 cards per page
 let currentPage = 1;
 let allFishCards = Array.from(document.querySelectorAll('.fish-card'));
 
+// ==================== HELPER FUNCTION ====================
+function formatPrice(price) {
+    // Remove decimals if price is whole number
+    return Number.isInteger(price) ? `Rs. ${price.toLocaleString()}` : `Rs. ${price.toLocaleString()}`;
+}
+
 // ==================== FILTERING FUNCTIONALITY ====================
 function initFiltering() {
     const priceSlider = document.querySelector('.price-slider');
@@ -20,7 +26,6 @@ function initFiltering() {
 
     availabilityCheckboxes.forEach(cb => {
         cb.addEventListener('change', function() {
-            // Only one checkbox can be selected at a time
             availabilityCheckboxes.forEach(other => {
                 if (other !== cb) other.checked = false;
             });
@@ -32,7 +37,7 @@ function initFiltering() {
 }
 
 function applyFilters() {
-    const maxPrice = parseInt(document.querySelector('.price-slider').value);
+    const maxPrice = parseInt(document.querySelector('.price-slider').value, 10);
     const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]');
     let showInStockOnly = false;
     let showOutOfStockOnly = false;
@@ -45,8 +50,8 @@ function applyFilters() {
     });
 
     allFishCards.forEach(card => {
-        const price = parseInt(card.getAttribute('data-price'));
-        const inStock = card.dataset.stock === 'in-stock'; // Use data-stock attribute
+        const price = parseInt(card.getAttribute('data-price'), 10);
+        const inStock = card.dataset.stock === 'in-stock';
         let visible = price <= maxPrice;
 
         if (showInStockOnly) visible = visible && inStock;
@@ -55,38 +60,37 @@ function applyFilters() {
         card.dataset.visible = visible ? 'true' : 'false';
 
         // Grey out out-of-stock fish and disable Add to Cart
-      const addBtn = card.querySelector('.add-to-cart');
+        const addBtn = card.querySelector('.add-to-cart');
 
-// Badge handling
-let badge = card.querySelector('.out-of-stock-badge');
+        let badge = card.querySelector('.out-of-stock-badge');
 
-if (!inStock) {
-    addBtn.disabled = true;
-    addBtn.textContent = 'Out of Stock';
+        if (!inStock) {
+            addBtn.disabled = true;
+            addBtn.textContent = 'Out of Stock';
 
-    if (!badge) {
-        badge = document.createElement('span');
-        badge.className = 'out-of-stock-badge';
-        badge.textContent = 'Out of Stock';
-        card.style.position = 'relative';
-        card.appendChild(badge);
-    }
-} else {
-    addBtn.disabled = false;
-    addBtn.innerHTML = `<i class="fas fa-cart-plus"></i> Add to Cart`;
+            if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'out-of-stock-badge';
+                badge.textContent = 'Out of Stock';
+                card.style.position = 'relative';
+                card.appendChild(badge);
+            }
+        } else {
+            addBtn.disabled = false;
+            addBtn.innerHTML = `<i class="fas fa-cart-plus"></i> Add to Cart`;
 
-    if (badge) badge.remove();
-}
+            if (badge) badge.remove();
+        }
     });
 
     updatePriceDisplay(maxPrice);
     showPage(1); // Reset to first page after filtering
 }
-out
+
 // ==================== UPDATE PRICE DISPLAY ====================
 function updatePriceDisplay(maxPrice) {
     const priceRangeSpan = document.querySelector('.price-range span:last-child');
-    if (priceRangeSpan) priceRangeSpan.textContent = `Rs. ${maxPrice.toLocaleString()}`;
+    if (priceRangeSpan) priceRangeSpan.textContent = formatPrice(maxPrice);
 }
 
 // ==================== SORTING FUNCTIONALITY ====================
@@ -102,8 +106,8 @@ function applySort() {
     let visibleCards = allFishCards.filter(c => c.dataset.visible === 'true');
 
     visibleCards.sort((a, b) => {
-        const priceA = parseInt(a.getAttribute('data-price'));
-        const priceB = parseInt(b.getAttribute('data-price'));
+        const priceA = parseInt(a.getAttribute('data-price'), 10);
+        const priceB = parseInt(b.getAttribute('data-price'), 10);
 
         if (sortBy.includes('Low to High')) return priceA - priceB;
         if (sortBy.includes('High to Low')) return priceB - priceA;
@@ -124,7 +128,7 @@ function initPagination() {
             let pageNum = currentPage;
 
             if (link.classList.contains('page-number')) {
-                pageNum = parseInt(link.textContent);
+                pageNum = parseInt(link.textContent, 10);
             } else if (link.textContent.includes('Next')) {
                 pageNum = currentPage + 1;
             } else if (link.textContent.includes('Previous')) {
@@ -169,7 +173,6 @@ function updatePaginationButtons() {
         }
     });
 
-    // Enable/disable prev & next
     const prevLink = document.querySelector('.page-link:first-child');
     const nextLink = document.querySelector('.page-link:last-child');
 
@@ -187,7 +190,7 @@ function initFishCart() {
 
             const card = this.closest('.fish-card');
             const name = card.querySelector('h3').textContent;
-            const price = parseFloat(card.querySelector('.amount').textContent);
+            let price = parseInt(card.querySelector('.amount').textContent.replace(/[^0-9]/g, ''), 10);
 
             let cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
             const existing = cart.find(item => item.name === name);

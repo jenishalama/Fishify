@@ -1,6 +1,6 @@
 // aquaticplants.js - Updated Aquatic Plants Page Functionality
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initPlantsPage();
 });
 
@@ -31,7 +31,7 @@ function setupFilters() {
 }
 
 function applyFilters() {
-    const plants = document.querySelectorAll('.fish-card');
+    const plants = document.querySelectorAll('.aqua-card');
     const maxPrice = parseInt(document.getElementById('priceSlider').value);
 
     const selectedTypes = getCheckedValues('Plant Type');
@@ -103,7 +103,7 @@ function displayActiveFilters() {
     // Remove individual filter
     activeContainer.querySelectorAll('.filter-tag i').forEach(icon => {
         icon.addEventListener('click', e => {
-            const value = e.target.parentElement.textContent.replace('×','').trim();
+            const value = e.target.parentElement.textContent.replace('×', '').trim();
             document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
                 if (cb.nextElementSibling.textContent.trim() === value) cb.checked = false;
             });
@@ -133,7 +133,7 @@ function setupSorting() {
 
 function sortPlants() {
     const container = document.getElementById('plantsGrid');
-    const plants = Array.from(container.querySelectorAll('.fish-card')).filter(p => p.style.display !== 'none');
+    const plants = Array.from(container.querySelectorAll('.aqua-card')).filter(p => p.style.display !== 'none');
     const sortBy = document.getElementById('sortSelect').value;
 
     plants.sort((a, b) => {
@@ -142,7 +142,7 @@ function sortPlants() {
         const nameA = a.dataset.name.toLowerCase();
         const nameB = b.dataset.name.toLowerCase();
 
-        switch(sortBy) {
+        switch (sortBy) {
             case 'price-low': return priceA - priceB;
             case 'price-high': return priceB - priceA;
             case 'name': return nameA.localeCompare(nameB);
@@ -155,10 +155,10 @@ function sortPlants() {
 
 // ==================== CART ====================
 function setupCart() {
-    document.querySelectorAll('.fish-card .add-to-cart').forEach(button => {
+    document.querySelectorAll('.aqua-card .add-to-cart').forEach(button => {
         button.addEventListener('click', e => {
             e.preventDefault();
-            const card = button.closest('.fish-card');
+            const card = button.closest('.aqua-card');
             const name = card.querySelector('h3').textContent;
             const price = parseInt(card.dataset.price);
             const details = card.querySelector('.plant-details').textContent;
@@ -226,7 +226,7 @@ function showNotification(message) {
 }
 
 // ==================== HOVER EFFECT ====================
-document.querySelectorAll('.fish-card').forEach(card => {
+document.querySelectorAll('.aqua-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
         card.style.transform = 'translateY(-5px)';
         card.style.boxShadow = '0 10px 25px rgba(46, 204, 113, 0.2)';

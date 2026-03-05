@@ -18,7 +18,6 @@ function initAccessoriesPage() {
     showPage(1);
     updateCartCount();
 }
-
 // ==================== FILTERS ====================
 function setupAccessoryFilters() {
     const priceSlider = document.querySelector('.price-slider');

@@ -14,6 +14,7 @@ $result = $conn->query($sql);
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/accessories.css" />
+    <link rel="stylesheet" href="../css/fish.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
 
@@ -41,9 +42,6 @@ $result = $conn->query($sql);
               <label><input type="checkbox" /> Filtration</label>
               <label><input type="checkbox" /> Lighting</label>
               <label><input type="checkbox" /> Decor</label>
-              <label><input type="checkbox" /> Equipment</label>
-              <label><input type="checkbox" /> Maintenance</label>
-              <label><input type="checkbox" /> Supplies</label>
             </div>
           </div>
         </div>

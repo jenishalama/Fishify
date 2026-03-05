@@ -36,7 +36,7 @@
         <h2 class="section-title">Explore Our Categories</h2>
 
         <div class="categories-grid">
-          <a href="fish.html" class="category-card">
+          <a href="fish.php" class="category-card">
             <img src="../Images/Homepage/fishes.jpg" alt="Fish" />
             <div class="overlay">
               <div class="category-icon">
@@ -46,7 +46,7 @@
             </div>
           </a>
 
-          <a href="aquarium.html" class="category-card">
+          <a href="aquarium.php" class="category-card">
             <img src="../Images/Homepage/aquarium.jpg" alt="Aquarium" />
             <div class="overlay">
               <div class="category-icon">
@@ -56,7 +56,7 @@
             </div>
           </a>
 
-          <a href="accessories.html" class="category-card">
+          <a href="accessories.php" class="category-card">
             <img src="../Images/Homepage/accesssories.jpg" alt="Accessories" />
             <div class="overlay">
               <div class="category-icon">
@@ -66,7 +66,7 @@
             </div>
           </a>
 
-          <a href="#" class="category-card">
+          <a href="aquaticplants.php" class="category-card">
             <img src="../Images/Homepage/aquatic plants.jpg" alt="Plants" />
             <div class="overlay">
               <div class="category-icon">

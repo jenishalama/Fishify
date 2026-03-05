@@ -13,6 +13,7 @@ $result = $conn->query($sql);
     <title>Aquatic Plants - Fishify</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/aquaticplants.css">
+    <link rel="stylesheet" href="../css/fish.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -63,8 +64,6 @@ $result = $conn->query($sql);
                     </div>
                 </div>
             </div>
-
-            <div class="active-filters" id="activeFilters"></div>
         </div>
     </section>
 
