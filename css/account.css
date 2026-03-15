@@ -1,0 +1,93 @@
+/* Customer account / portal */
+.account-hero {
+    background: linear-gradient(135deg, var(--cart-blue, #2D9CDB) 0%, var(--cart-dark, #2F80ED) 100%);
+    color: #fff;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+.account-hero h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+.account-hero p { opacity: 0.9; font-size: 0.95rem; }
+
+.account-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto 3rem;
+}
+.account-nav {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+}
+.account-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.25rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+}
+.account-nav a:hover { background: #f4f7ff; color: var(--cart-dark); }
+.account-nav a.active { border-left-color: var(--cart-blue); background: #f4f7ff; color: var(--cart-dark); }
+.account-nav i { width: 1.2em; text-align: center; }
+
+.account-content { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+.account-card {
+    background: #f8fbff;
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(45, 156, 219, 0.12);
+}
+.account-card h3 { margin-bottom: 0.5rem; font-size: 1.05rem; color: #1a1a1a; }
+.account-card p { margin: 0; font-size: 0.9rem; color: #555; }
+
+.orders-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.orders-table th, .orders-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #eee; }
+.orders-table th { background: #f4f7ff; font-weight: 600; }
+.orders-table a { color: var(--cart-blue); text-decoration: none; font-weight: 500; }
+.orders-table a:hover { text-decoration: underline; }
+.badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.badge-pending { background: #fff3cd; color: #856404; }
+.badge-confirmed { background: #cce5ff; color: #004085; }
+.badge-shipped { background: #d4edda; color: #155724; }
+.badge-completed { background: #d4edda; color: #155724; }
+
+.order-detail-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+.order-detail-table th, .order-detail-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #eee; }
+.order-detail-table th { background: #f4f7ff; text-align: left; }
+.order-detail-table .text-right { text-align: right; }
+.order-detail-meta { margin-bottom: 1rem; color: #555; font-size: 0.9rem; }
+.order-detail-meta strong { color: #1a1a1a; }
+
+.profile-form .form-group { margin-bottom: 1rem; }
+.profile-form label { display: block; margin-bottom: 0.35rem; font-weight: 500; }
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="password"],
+.profile-form textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+.profile-form .btn { padding: 0.6rem 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; background: var(--cart-blue); color: #fff; }
+.profile-form .btn:hover { background: var(--cart-dark); }
+.alert-success { background: #d4edda; color: #155724; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; }
+
+@media (max-width: 768px) {
+    .account-layout { grid-template-columns: 1fr; }
+    .account-nav { position: static; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .account-nav a { border-left: none; border-radius: 8px; }
+    .account-nav a.active { background: #f4f7ff; }
+}
