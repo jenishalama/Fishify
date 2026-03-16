@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root"; // XAMPP default
 $password = "";     // XAMPP default
-$dbname = "Fishify";
+$dbname = "fishify";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

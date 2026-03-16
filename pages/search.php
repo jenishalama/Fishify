@@ -1,148 +1,88 @@
+<?php
+include 'db.php';
+$q = trim($_GET['q'] ?? '');
+$products = [];
+if ($q !== '') {
+    $like = '%' . $conn->real_escape_string($q) . '%';
+    $stmt = $conn->prepare("SELECT id, name, price, stock, image, category FROM products WHERE (name LIKE ? OR description LIKE ?) ORDER BY name ASC");
+    $stmt->bind_param("ss", $like, $like);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    while ($row = $res->fetch_assoc()) {
+        $products[] = $row;
+    }
+    $stmt->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Search Results | Fishify</title>
-
+  <title>Search<?= $q !== '' ? ' "' . htmlspecialchars($q) . '"' : '' ?> | Fishify</title>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/home.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
+  <?php include 'header.php'; ?>
 
-  <!-- HEADER (reuse same header if needed) -->
-  <header class="sticky-header">
-      <div class="container">
-        <div class="header-top">
-          <a href="index.html" class="logo">
-            <i class="fas fa-fish"></i>
-            <span>Fishify</span>
-          </a>
-          <div class="search-bar">
-            <input
-              type="text"
-              placeholder="Search for fish, aquariums, accessories..."
-            />
-            <button><i class="fas fa-search"></i></button>
-          </div>
-
-          <div class="header-actions">
-            <a href="../pages/login.html" class="login-btn">
-              <i class="fas fa-user"></i>
-              <span>Login</span>
-            </a>
-
-            <a href="cart.html" class="cart-btn">
-              <i class="fas fa-shopping-cart"></i>
-              <span class="cart-count">0</span>
-            </a>
-
-            <!-- Add mobile menu button here -->
-            <button class="mobile-menu-btn">
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-        </div>
-
-        <nav>
-          <div class="container">
-            <ul class="main-nav">
-              <li><a href="index.php" class="active">Home</a></li>
-              <li><a href="fish.php">Fish</a></li>
-              <li><a href="aquarium.php">Aquarium</a></li>
-              <li><a href="accessories.php">Accessories</a></li>
-              <li><a href="aquaticplants.php">Aquatic Plants</a></li>
-              <li><a href="contact.php">Contact</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
-
-  <!-- SEARCH RESULTS -->
-  <section class="featured-products">
+  <section class="search-results-hero">
     <div class="container">
-      <h2 class="section-title">
-        Search Results for "<span id="search-keyword"></span>"
-      </h2>
-
-      <div class="products-grid" id="search-results">
-
-        <!-- PRODUCT CARDS -->
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Aqua Tank Pro 100</h3>
-            <div class="product-price">Rs <span>300</span></div>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Nano Cube Aquarium Kit</h3>
-            <div class="product-price">Rs <span>300</span></div>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Marine LED Light</h3>
-            <div class="product-price">Rs <span>300</span></div>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Automatic Fish Feeder</h3>
-            <div class="product-price">Rs <span>300</span></div>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-info">
-            <h3 class="product-title">Magnetic Gravel Cleaner</h3>
-            <div class="product-price">Rs <span>300</span></div>
-          </div>
-        </div>
-
-      </div>
-
-      <p id="no-results" style="text-align:center; display:none;">
-        No products found 🐠
-      </p>
-
+      <h1 class="search-results-title">Search results</h1>
+      <?php if ($q !== ''): ?>
+        <p class="search-results-subtitle">Results for "<strong><?= htmlspecialchars($q) ?></strong>"</p>
+      <?php else: ?>
+        <p class="search-results-subtitle">Enter a search term in the bar above.</p>
+      <?php endif; ?>
     </div>
   </section>
 
+  <section class="search-results-content">
+    <div class="container">
+      <?php if ($q === ''): ?>
+        <p class="search-results-empty">Use the search bar in the header to find fish, aquariums, accessories, and more.</p>
+      <?php elseif (count($products) === 0): ?>
+        <p class="search-results-empty"><i class="fas fa-search"></i> No products found for "<?= htmlspecialchars($q) ?>". Try different keywords.</p>
+      <?php else: ?>
+        <div class="products-grid" id="search-results">
+          <?php foreach ($products as $row):
+            $stock = (int)($row['stock'] ?? 0);
+            $out = $stock <= 0;
+            $img_src = !empty($row['image']) ? '../uploads/' . htmlspecialchars($row['image']) : '../Images/Homepage/bgfishify.jpg';
+          ?>
+          <div class="product-card<?= $out ? ' out-of-stock' : '' ?>" data-id="<?= (int)$row['id'] ?>" data-price="<?= (float)$row['price'] ?>" data-stock="<?= $stock ?>" data-category="<?= htmlspecialchars($row['category'] ?? '') ?>">
+            <a href="product.php?id=<?= (int)$row['id'] ?>" class="product-image product-image-link">
+              <img src="<?= $img_src ?>" alt="<?= htmlspecialchars($row['name']) ?>" />
+              <?php if ($out): ?>
+                <span class="out-of-stock-badge">Out of Stock</span>
+              <?php endif; ?>
+            </a>
+            <div class="product-info">
+              <h3 class="product-title"><a href="product.php?id=<?= (int)$row['id'] ?>" class="product-title-link"><?= htmlspecialchars($row['name']) ?></a></h3>
+              <div class="product-price">Rs <span><?= number_format((float)$row['price']) ?></span></div>
+              <div class="product-stock"><?= $out ? 'Out of stock' : 'Stock: ' . $stock ?></div>
+              <button class="btn add-to-cart"<?= $out ? ' disabled' : '' ?>>
+                <i class="fas fa-cart-plus"></i> <?= $out ? 'Out of Stock' : 'Add to Cart' ?>
+              </button>
+            </div>
+          </div>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+    </div>
+  </section>
+
+  <?php include 'footer.php'; ?>
   <script src="../js/main.js"></script>
-
-  <!-- SEARCH FILTER LOGIC -->
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const query = params.get("q")?.toLowerCase();
-
-    document.getElementById("search-keyword").textContent = query || "";
-
-    const cards = document.querySelectorAll(".product-card");
-    let found = false;
-
-    cards.forEach(card => {
-      const title = card.querySelector(".product-title").textContent.toLowerCase();
-      if (query && title.includes(query)) {
-        card.style.display = "block";
-        found = true;
-      } else {
-        card.style.display = "none";
+    (function() {
+      var searchInput = document.querySelector(".search-bar input");
+      if (searchInput && new URLSearchParams(window.location.search).get("q")) {
+        searchInput.value = decodeURIComponent(new URLSearchParams(window.location.search).get("q") || "");
       }
-    });
-
-    if (!found) {
-      document.getElementById("no-results").style.display = "block";
-    }
+      if (typeof updateCartCount === "function") updateCartCount();
+    })();
   </script>
-
 </body>
 </html>
