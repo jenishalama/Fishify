@@ -1,10 +1,12 @@
 <?php
 session_start();
 include 'db.php';
+$message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $next = isset($_POST['next']) ? trim($_POST['next']) : (isset($_GET['next']) ? trim($_GET['next']) : '');
 
     $sql = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
@@ -27,7 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user['role'] === 'admin') {
                 header("Location: ../admin/admindashboard.php");
             } else {
-                header("Location: ../pages/index.php");
+                if ($next !== '' && strpos($next, '//') === false) {
+                    header("Location: " . $next);
+                } else {
+                    header("Location: index.php");
+                }
             }
             exit;
 
@@ -58,6 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       Dive back into the world of aquatic wonders.
     </p>
  <form method="POST" action="">
+  <?php if (!empty($_GET['next'])): ?>
+    <input type="hidden" name="next" value="<?= htmlspecialchars($_GET['next']) ?>">
+  <?php endif; ?>
   <div class="form-group">
     <label>Email</label>
     <input type="email" name="email" placeholder="aqua@fishify.com" required />
@@ -68,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="password" name="password" placeholder="••••••••" required />
   </div>
 
-  <?php if($message): ?>
+  <?php if(!empty($message)): ?>
     <p style="color:red;"><?php echo $message; ?></p>
   <?php endif; ?>
 

@@ -1,5 +1,10 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $currentPage = basename($_SERVER['PHP_SELF']);
+$isLoggedIn = !empty($_SESSION['user_id']);
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 ?>
 
 <header class="sticky-header">
@@ -16,10 +21,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       </div>
 
       <div class="header-actions">
-        <a href="login.php" class="login-btn">
-          <i class="fas fa-user"></i>
-          <span>Login</span>
-        </a>
+        <?php if ($isLoggedIn): ?>
+          <?php if ($isAdmin): ?>
+            <a href="../admin/admindashboard.php" class="login-btn"><i class="fas fa-cog"></i><span>Admin</span></a>
+          <?php else: ?>
+            <a href="account.php" class="login-btn"><i class="fas fa-user"></i><span>My Account</span></a>
+          <?php endif; ?>
+          <a href="logout.php" class="login-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+        <?php else: ?>
+          <a href="login.php" class="login-btn"><i class="fas fa-user"></i><span>Login</span></a>
+        <?php endif; ?>
 
         <a href="cart.php" class="cart-btn">
           <i class="fas fa-shopping-cart"></i>

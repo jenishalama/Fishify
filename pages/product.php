@@ -1,290 +1,164 @@
+<?php
+include 'db.php';
+$id = (int)($_GET['id'] ?? 0);
+if (!$id) {
+    header('Location: index.php');
+    exit;
+}
+$stmt = $conn->prepare("SELECT id, name, description, price, category, stock, image FROM products WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$product = $stmt->get_result()->fetch_assoc();
+$stmt->close();
+if (!$product) {
+    header('Location: index.php');
+    exit;
+}
+$stock = (int)$product['stock'];
+$out_of_stock = $stock <= 0;
+$img_src = !empty($product['image']) ? '../uploads/' . htmlspecialchars($product['image']) : '../Images/Homepage/bgfishify.jpg';
+$category_links = [
+    'fish' => ['url' => 'fish.php', 'label' => 'Fish'],
+    'aquarium' => ['url' => 'aquarium.php', 'label' => 'Aquarium'],
+    'accessories' => ['url' => 'accessories.php', 'label' => 'Accessories'],
+    'plants' => ['url' => 'aquaticplants.php', 'label' => 'Plants'],
+];
+$back_url = $category_links[$product['category']]['url'] ?? 'index.php';
+$back_label = $category_links[$product['category']]['label'] ?? 'Shop';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacific Blue Tang - Fishify</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/product.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?= htmlspecialchars($product['name']) ?> | Fishify</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/product.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-   <?php include 'header.php'; ?>
+  <?php include 'header.php'; ?>
 
-    <!-- Product Detail -->
-    <section class="product-detail">
-        <div class="container">
-            <div class="product-detail-grid">
-                <!-- Product Gallery -->
-                <div class="product-gallery">
-                    <div class="main-image">
-                        <div class="image-placeholder tang-bg">
-                            <div class="tang-effect"></div>
-                            <span>Pacific Blue Tang</span>
-                        </div>
-                    </div>
-                    <div class="image-thumbnails">
-                        <div class="thumbnail active">
-                            <div class="thumb-placeholder tang-thumb-1"></div>
-                        </div>
-                        <div class="thumbnail">
-                            <div class="thumb-placeholder tang-thumb-2"></div>
-                        </div>
-                        <div class="thumbnail">
-                            <div class="thumb-placeholder tang-thumb-3"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product Info -->
-                <div class="product-info">
-                    <div class="product-header">
-                        <h1>Pacific Blue Tang</h1>
-                        <div class="product-rating">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="review-count">(555 Reviews)</span>
-                        </div>
-                    </div>
-                    
-                    <div class="product-price-section">
-                        <div class="current-price">$59.99</div>
-                        <div class="original-price">$79.99</div>
-                        <div class="discount-badge">Save 25%</div>
-                    </div>
-                    
-                    <div class="product-description">
-                        <p>The Pacific Blue Tang (Paracanthurus hepatus), famously known as Dory, is a vibrant and popular marine fish native to coral reefs across the Indo-Pacific. Renowned for its brilliant blue body, yellow tail, and black "palette" design, this species adds striking color and dynamic movement to any sufficiently sized marine aquarium.</p>
-                        <p>These tangs are herbivorous, primarily grazing on algae, which makes them excellent natural cleaners for your tank. They require plenty of swimming space and thrive in well-established reef aquariums with live rock for grazing.</p>
-                    </div>
-                    
-                    <div class="product-actions">
-                        <div class="quantity-selector">
-                            <button class="qty-btn minus"><i class="fas fa-minus"></i></button>
-                            <input type="text" value="1" class="qty-input">
-                            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
-                        </div>
-                        <button class="btn btn-add-to-cart">
-                            <i class="fas fa-cart-plus"></i> Add to Cart
-                        </button>
-                        <button class="btn btn-wishlist">
-                            <i class="far fa-heart"></i> Add to Wishlist
-                        </button>
-                    </div>
-                    
-                    <!-- Specifications -->
-                    <div class="specifications">
-                        <h3><i class="fas fa-list"></i> Specifications</h3>
-                        <div class="specs-grid">
-                            <div class="spec-item">
-                                <span class="spec-label">Species:</span>
-                                <span class="spec-value">Paracanthurus hepatus</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Size:</span>
-                                <span class="spec-value">Up to 12 inches</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Temperament:</span>
-                                <span class="spec-value">Semi-aggressive, territorial</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Diet:</span>
-                                <span class="spec-value">Herbivore (algae, spirulina)</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Minimum Tank Size:</span>
-                                <span class="spec-value">100 gallons</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Reef Compatible:</span>
-                                <span class="spec-value reef-safe">Yes, with caution</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Seller Info -->
-                    <div class="seller-info">
-                        <h3><i class="fas fa-store"></i> Seller Information</h3>
-                        <div class="seller-details">
-                            <div class="seller-name">Oceanic Treasures Inc.</div>
-                            <div class="seller-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="seller-review-count">★★★★★ (555 Reviews)</span>
-                            </div>
-                            <button class="btn btn-seller">
-                                <i class="fas fa-external-link-alt"></i> View Seller Profile
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Related Items -->
-    <section class="related-items">
-        <div class="container">
-            <h2 class="section-title">Related Items</h2>
-            <div class="related-grid">
-                <div class="related-card">
-                    <div class="related-image yellow-tang-bg">
-                        <div class="tang-effect"></div>
-                    </div>
-                    <div class="related-info">
-                        <h3>Yellow Tang</h3>
-                        <div class="related-price">$45.00</div>
-                        <button class="btn btn-related">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="related-card">
-                    <div class="related-image aquarium-bg">
-                        <div class="glass-effect"></div>
-                    </div>
-                    <div class="related-info">
-                        <h3>200 Gallon Reef Ready Aquarium</h3>
-                        <div class="related-price">$1,200.00</div>
-                        <button class="btn btn-related">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="related-card">
-                    <div class="related-image skimmer-bg">
-                        <div class="bubble-effect"></div>
-                    </div>
-                    <div class="related-info">
-                        <h3>High-Performance Protein Skimmer</h3>
-                        <div class="related-price">$288.99</div>
-                        <button class="btn btn-related">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="related-card">
-                    <div class="related-image coral-bg">
-                        <div class="coral-effect"></div>
-                    </div>
-                    <div class="related-info">
-                        <h3>Frag of Green Star Polyps</h3>
-                        <div class="related-price">$25.00</div>
-                        <button class="btn btn-related">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Care Instructions -->
-    <section class="care-instructions">
-        <div class="container">
-            <h2 class="section-title">Care Instructions</h2>
-            <div class="care-grid">
-                <div class="care-card">
-                    <div class="care-icon">
-                        <i class="fas fa-tint"></i>
-                    </div>
-                    <h3>Acclimation</h3>
-                    <p>Use drip acclimation method over 1-2 hours to gradually adjust to your tank's water parameters.</p>
-                </div>
-                <div class="care-card">
-                    <div class="care-icon">
-                        <i class="fas fa-apple-alt"></i>
-                    </div>
-                    <h3>Diet & Feeding</h3>
-                    <p>Feed algae-based foods, spirulina, and marine vegetables 2-3 times daily.</p>
-                </div>
-                <div class="care-card">
-                    <div class="care-icon">
-                        <i class="fas fa-water"></i>
-                    </div>
-                    <h3>Tank Environment</h3>
-                    <p>Requires ample swimming space, live rock for grazing, and stable water conditions.</p>
-                </div>
-                <div class="care-card">
-                    <div class="care-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Compatibility</h3>
-                    <p>Can be kept with other peaceful to semi-aggressive fish, but may fight with other tangs.</p>
-                </div>
-                <div class="care-card">
-                    <div class="care-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3>Health & Disease</h3>
-                    <p>Prone to ich and marine velvet. Maintain excellent water quality and quarantine new additions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-  <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-section">
-            <h4>Fishify</h4>
-            <p>
-              Your premium destination for ornamental fish and aquatic supplies.
-            </p>
-            <div class="connect_icon">
-              <i class="fa-brands fa-facebook"></i>
-              <i class="fa-brands fa-instagram"></i>
-              <i class="fa-brands fa-twitter"></i>
-              <i class="fa-brands fa-tiktok"></i>
-            </div>
-          </div>
-          <div class="footer-section">
-            <h4>Shop</h4>
-            <ul class="footer-links">
-              <li><a href="aquarium.php">Aquarium</a></li>
-              <li><a href="fish.php">Fishes</a></li>
-              <li><a href="accessories.php">Accessories</a></li>
-              <li><a href="aquaticplants.php">Plants</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>About Us</h4>
-            <ul class="footer-links">
-              <li><a href="#">Our Story</a></li>
-              <li><a href="../pages/contact.php">Contact Us</a></li>
-              <li><a href="#">Careers</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>Support</h4>
-            <ul class="footer-links">
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Shipping</a></li>
-              <li><a href="#">Returns</a></li>
-            </ul>
+  <section class="product-detail">
+    <div class="container">
+      <a href="<?= htmlspecialchars($back_url) ?>" class="product-back"><i class="fas fa-arrow-left"></i> Back to <?= htmlspecialchars($back_label) ?></a>
+      <div class="product-detail-grid">
+        <div class="product-gallery">
+          <div class="main-image">
+            <img src="<?= $img_src ?>" alt="<?= htmlspecialchars($product['name']) ?>" />
+            <?php if ($out_of_stock): ?>
+              <span class="product-out-of-stock-badge">Out of Stock</span>
+            <?php endif; ?>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>
-            &copy; 2025 Fishify. All rights reserved. Made with
-            <i class="fas fa-heart"></i>
-          </p>
+        <div class="product-info">
+          <div class="product-header">
+            <h1><?= htmlspecialchars($product['name']) ?></h1>
+            <p class="product-category"><?= htmlspecialchars(ucfirst($product['category'] ?? '')) ?></p>
+          </div>
+          <div class="product-price-section product-price-single">
+            <span class="current-price">Rs <?= number_format((float)$product['price']) ?></span>
+          </div>
+          <div class="product-stock-section">
+            <strong>Quantity available:</strong>
+            <?php if ($out_of_stock): ?>
+              <span class="stock-out">Out of stock</span>
+            <?php else: ?>
+              <span class="stock-in"><?= $stock ?> in stock</span>
+            <?php endif; ?>
+          </div>
+          <?php if (!empty(trim($product['description'] ?? ''))): ?>
+            <div class="product-description">
+              <h3>Description</h3>
+              <p><?= nl2br(htmlspecialchars(trim($product['description']))) ?></p>
+            </div>
+          <?php endif; ?>
+          <div class="product-actions">
+            <div class="quantity-selector">
+              <button type="button" class="qty-btn minus" <?= $out_of_stock ? ' disabled' : '' ?>><i class="fas fa-minus"></i></button>
+              <input type="number" class="qty-input" value="1" min="1" max="<?= $out_of_stock ? 0 : $stock ?>" readonly>
+              <button type="button" class="qty-btn plus" <?= $out_of_stock ? ' disabled' : '' ?>><i class="fas fa-plus"></i></button>
+            </div>
+            <button type="button" class="btn btn-add-to-cart" id="productAddToCart" <?= $out_of_stock ? ' disabled' : '' ?>
+              data-id="<?= (int)$product['id'] ?>"
+              data-name="<?= htmlspecialchars($product['name']) ?>"
+              data-price="<?= (float)$product['price'] ?>"
+              data-stock="<?= $stock ?>"
+              data-image="<?= htmlspecialchars($img_src) ?>">
+              <i class="fas fa-cart-plus"></i> <?= $out_of_stock ? 'Out of Stock' : 'Add to Cart' ?>
+            </button>
+            <button type="button" class="btn btn-buy-now" id="productBuyNow" <?= $out_of_stock ? ' disabled' : '' ?>
+              data-id="<?= (int)$product['id'] ?>"
+              data-name="<?= htmlspecialchars($product['name']) ?>"
+              data-price="<?= (float)$product['price'] ?>"
+              data-stock="<?= $stock ?>"
+              data-image="<?= htmlspecialchars($img_src) ?>">
+              <i class="fas fa-bolt"></i> Buy Now
+            </button>
+          </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </section>
 
+  <?php include 'footer.php'; ?>
+  <script src="../js/main.js"></script>
+  <script>
+  (function() {
+    var qtyInput = document.querySelector('.product-detail .qty-input');
+    var minusBtn = document.querySelector('.product-detail .qty-btn.minus');
+    var plusBtn = document.querySelector('.product-detail .qty-btn.plus');
+    var addBtn = document.getElementById('productAddToCart');
+    var maxQty = addBtn && addBtn.dataset.stock ? parseInt(addBtn.dataset.stock, 10) : 1;
 
-    <script src="../js/main.js"></script>
-    <script src="../js/product.js"></script>
+    function updateQty(val) {
+      val = Math.max(0, Math.min(maxQty, val));
+      if (qtyInput) qtyInput.value = val;
+    }
+
+    if (minusBtn) minusBtn.addEventListener('click', function() {
+      updateQty(parseInt(qtyInput.value, 10) - 1);
+    });
+    if (plusBtn) plusBtn.addEventListener('click', function() {
+      updateQty(parseInt(qtyInput.value, 10) + 1);
+    });
+
+    function addProductToCart(qty) {
+      if (!addBtn || qty < 1) return;
+      var id = addBtn.dataset.id ? parseInt(addBtn.dataset.id, 10) : null;
+      var name = addBtn.dataset.name || '';
+      var price = parseFloat(addBtn.dataset.price) || 0;
+      var stock = addBtn.dataset.stock ? parseInt(addBtn.dataset.stock, 10) : 999;
+      var image = addBtn.dataset.image || '';
+      for (var i = 0; i < qty; i++) {
+        if (typeof addToCart === 'function') {
+          addToCart({ id: id, name: name, price: price, stock: stock, image: image });
+        }
+      }
+      if (typeof updateCartCount === 'function') updateCartCount();
+    }
+
+    if (addBtn && !addBtn.disabled) addBtn.addEventListener('click', function() {
+      var qty = parseInt(qtyInput.value, 10) || 1;
+      if (qty < 1) return;
+      addProductToCart(qty);
+      if (typeof showCartToast === 'function') {
+        showCartToast(qty > 1 ? 'Added ' + qty + ' to cart' : 'Added "' + addBtn.dataset.name + '" to cart', 'success');
+      } else {
+        alert('Added to cart');
+      }
+    });
+
+    var buyNowBtn = document.getElementById('productBuyNow');
+    if (buyNowBtn && !buyNowBtn.disabled) buyNowBtn.addEventListener('click', function() {
+      var qty = parseInt(qtyInput.value, 10) || 1;
+      if (qty < 1) return;
+      addProductToCart(qty);
+      window.location.href = 'checkout.php';
+    });
+
+    if (typeof updateCartCount === 'function') updateCartCount();
+  })();
+  </script>
 </body>
 </html>

@@ -87,20 +87,26 @@ $result = $conn->query($sql);
   <?php if($result->num_rows > 0): ?>
     <?php while($row = $result->fetch_assoc()): ?>
 
-      <div class="fish-card" 
+      <?php $stock_num = isset($row['stock']) ? (int)$row['stock'] : 999; $out = $stock_num <= 0; $stock_status = $out ? 'out-of-stock' : 'in-stock'; ?>
+      <div class="fish-card<?php echo $out ? ' out-of-stock' : ''; ?>" 
+           data-id="<?php echo (int)$row['id']; ?>" 
            data-price="<?php echo $row['price']; ?>" 
-           data-type="<?php echo $row['type']; ?>" 
-           data-care="<?php echo $row['care_level']; ?>" 
-           data-light="<?php echo $row['light']; ?>"
+           data-stock="<?php echo $stock_num; ?>"
+           data-stock-status="<?php echo $stock_status; ?>"
+           data-type="<?php echo isset($row['type']) ? $row['type'] : ''; ?>" 
+           data-care="<?php echo isset($row['care_level']) ? $row['care_level'] : ''; ?>" 
+           data-light="<?php echo isset($row['light']) ? $row['light'] : ''; ?>"
            data-name="<?php echo $row['name']; ?>">
-        <div class="fish-image">
-              <img src="../uploads/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
-            </div>
+        <a href="product.php?id=<?php echo (int)$row['id']; ?>" class="fish-image fish-image-link">
+              <img src="../uploads/<?php echo $row['image']; ?>" alt="<?php echo htmlspecialchars($row['name']); ?>">
+              <?php if ($out): ?><span class="out-of-stock-badge">Out of Stock</span><?php endif; ?>
+            </a>
          <div class="fish-info">
-              <h3><?php echo $row['name']; ?></h3>
+              <h3><a href="product.php?id=<?php echo (int)$row['id']; ?>" class="fish-title-link"><?php echo htmlspecialchars($row['name']); ?></a></h3>
               <div class="fish-price">Rs. <span class="amount"><?php echo $row['price']; ?></span></div>
-              <button class="btn btn-primary add-to-cart">
-                <i class="fas fa-cart-plus"></i> Add to Cart
+              <div class="card-stock"><?php echo $out ? 'Out of stock' : 'Stock: ' . $stock_num; ?></div>
+              <button class="btn btn-primary add-to-cart"<?php echo $out ? ' disabled' : ''; ?>>
+                <i class="fas fa-cart-plus"></i> <?php echo $out ? 'Out of Stock' : 'Add to Cart'; ?>
               </button>
         </div>
       </div>

@@ -16,7 +16,9 @@ function initAccessoriesPage() {
     setupAccessoryCart();
     setupAccessoryPagination();
     showPage(1);
-    updateCartCount();
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
 }
 // ==================== FILTERS ====================
 function setupAccessoryFilters() {
@@ -134,66 +136,33 @@ function updatePaginationButtons() {
     if (nextLink) nextLink.classList.toggle('disabled', currentPage === totalPages);
 }
 
-// ==================== ADD TO CART ====================
+// ==================== ADD TO CART (uses global cart from main.js) ====================
 function setupAccessoryCart() {
     const addButtons = document.querySelectorAll('.fish-card .add-to-cart');
-    
+
     addButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const card = this.closest('.fish-card');
-            const name = card.querySelector('h3').textContent;
-            const price = parseInt(card.getAttribute('data-price'));
+            const name = card.querySelector('h3').textContent.trim();
+            const price = parseFloat(card.getAttribute('data-price')) || 0;
+            const imgEl = card.querySelector('img');
 
-            let cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-            const existing = cart.find(item => item.name === name);
+            const productId = card.dataset.id ? parseInt(card.dataset.id, 10) : null;
+            const stock = card.dataset.stock ? parseInt(card.dataset.stock, 10) : 999;
+            const product = {
+                id: productId !== null && !isNaN(productId) ? productId : 'accessory-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                name,
+                price,
+                image: imgEl ? imgEl.src : '',
+                description: '',
+                category: 'accessories',
+                stock: stock
+            };
 
-            if (existing) existing.quantity += 1;
-            else cart.push({
-                id: `accessory-${name.toLowerCase().replace(/\s+/g, '-')}`,
-                name, price, quantity: 1, type: 'accessory',image: card.querySelector('img')?.src || ''
-            });
-
-            localStorage.setItem('fishifyCart', JSON.stringify(cart));
-            updateCartCount();
-            showAccessoryNotification(`${name} added to cart!`);
+            // Provided by main.js
+            addToCart(product);
         });
-    });
-}
-
-// ==================== NOTIFICATION ====================
-function showAccessoryNotification(message) {
-    const existing = document.querySelector('.accessory-notification');
-    if (existing) existing.remove();
-
-    const notification = document.createElement('div');
-    notification.className = 'accessory-notification';
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #9b59b6;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        font-weight: 500;
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 3000);
-}
-
-// ==================== CART COUNT ====================
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-    const cartCounts = document.querySelectorAll('.cart-count');
-    cartCounts.forEach(count => {
-        count.textContent = totalItems;
-        count.style.display = totalItems > 0 ? 'flex' : 'none';
     });
 }

@@ -249,18 +249,15 @@ nav .container {
     }
 }
 
-
-
 /* Footer */
 footer {
     background: var(--light);
     border-top: 1px solid var(--light-gray);
-    /* margin-top: 3rem; */
+    margin-top: 20px;
 }
 
 .footer-content {
-   
-    padding: 3rem 0;
+    padding: 1.8rem 0;
 }
 
 .footer-grid {

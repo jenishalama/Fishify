@@ -52,7 +52,7 @@ function applyFilters() {
 
     allAquariumCards.forEach(card => {
         const price = parseInt(card.dataset.price) || 0;
-        const inStock = card.dataset.stock === 'in-stock';
+        const inStock = (card.dataset.stockStatus || card.dataset.stock) === 'in-stock';
 
         let visible = price <= maxPrice;
         if (showInStockOnly) visible = visible && inStock;
@@ -176,7 +176,7 @@ function updatePaginationButtons() {
     if (nextLink) nextLink.classList.toggle('disabled', currentPage === totalPages);
 }
 
-// ==================== ADD TO CART ====================
+// ==================== ADD TO CART (uses global cart from main.js) ====================
 function setupAddToCart() {
     const addButtons = document.querySelectorAll('.aquarium-card .add-to-cart');
 
@@ -185,56 +185,29 @@ function setupAddToCart() {
             e.preventDefault();
 
             const card = button.closest('.aquarium-card');
-            const name = card.querySelector('h3').textContent;
-            const price = parseInt(card.querySelector('.aquarium-price').textContent.replace(/[^0-9]/g, '')) || 0;
+            const name = card.querySelector('h3').textContent.trim();
+            const price = parseFloat(card.querySelector('.aquarium-price').textContent.replace(/[^0-9.]/g, '')) || 0;
+            const imgEl = card.querySelector('img');
 
-            let cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-            const existing = cart.find(item => item.name === name);
-
-            if (existing) existing.quantity += 1;
-            else cart.push({
-                id: `aquarium-${name.toLowerCase().replace(/\s+/g, '-')}`,
+            const productId = card.dataset.id ? parseInt(card.dataset.id, 10) : null;
+            const stock = card.dataset.stock ? parseInt(card.dataset.stock, 10) : 999;
+            const product = {
+                id: productId !== null && !isNaN(productId) ? productId : 'aquarium-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
                 name,
                 price,
-                quantity: 1,
-                type: 'aquarium'
-            });
+                image: imgEl ? imgEl.src : '',
+                description: '',
+                category: 'aquarium',
+                stock: stock
+            };
 
-            localStorage.setItem('fishifyCart', JSON.stringify(cart));
-            updateCartCount();
-            showNotification(`${name} added to cart!`);
+            // Provided by main.js
+            addToCart(product);
         });
     });
-}
 
-// ==================== NOTIFICATION ====================
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'aquarium-notification';
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #3498db;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        font-weight: 500;
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 3000);
-}
-
-// ==================== CART COUNT ====================
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-    document.querySelectorAll('.cart-count').forEach(count => {
-        count.textContent = totalItems;
-        count.style.display = totalItems > 0 ? 'flex' : 'none';
-    });
+    // Sync header cart count on initial load
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
 }

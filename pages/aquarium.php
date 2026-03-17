@@ -68,16 +68,18 @@ $result = $conn->query($sql);
     <div class="aquarium-grid">
       <?php if($result->num_rows > 0): ?>
         <?php while($row = $result->fetch_assoc()): ?>
-          <?php $stock_status = $row['stock'] > 0 ? 'in-stock' : 'out-of-stock'; ?>
-          <div class="aquarium-card" data-price="<?php echo $row['price']; ?>" data-stock="<?php echo $stock_status; ?>">
-            <div class="aquarium-image">
-              <img src="../uploads/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
-            </div>
+          <?php $stock = (int)$row['stock']; $out = $stock <= 0; $stock_status = $out ? 'out-of-stock' : 'in-stock'; ?>
+          <div class="aquarium-card<?php echo $out ? ' out-of-stock' : ''; ?>" data-id="<?php echo (int)$row['id']; ?>" data-price="<?php echo $row['price']; ?>" data-stock="<?php echo $stock; ?>" data-stock-status="<?php echo $stock_status; ?>">
+            <a href="product.php?id=<?php echo (int)$row['id']; ?>" class="aquarium-image aquarium-image-link">
+              <img src="../uploads/<?php echo $row['image']; ?>" alt="<?php echo htmlspecialchars($row['name']); ?>">
+              <?php if ($out): ?><span class="out-of-stock-badge">Out of Stock</span><?php endif; ?>
+            </a>
             <div class="aquarium-info">
-              <h3><?php echo $row['name']; ?></h3>
+              <h3><a href="product.php?id=<?php echo (int)$row['id']; ?>" class="aquarium-title-link"><?php echo htmlspecialchars($row['name']); ?></a></h3>
               <div class="aquarium-price">Rs. <?php echo number_format($row['price']); ?></div>
-              <button class="btn btn-primary add-to-cart">
-                <i class="fas fa-cart-plus"></i> Add to Cart
+              <div class="card-stock"><?php echo $out ? 'Out of stock' : 'Stock: ' . $stock; ?></div>
+              <button class="btn btn-primary add-to-cart"<?php echo $out ? ' disabled' : ''; ?>>
+                <i class="fas fa-cart-plus"></i> <?php echo $out ? 'Out of Stock' : 'Add to Cart'; ?>
               </button>
             </div>
           </div>

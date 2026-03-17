@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$cart_user_logged_in = !empty($_SESSION['user_id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,11 +68,11 @@
 
                         <div class="payment-options">
                             <div class="payment-option">
-                                <input type="checkbox" id="cash-on-delivery">
-                                <label for="cash-on-delivery">
-                                    <i class="fas fa-money-bill-wave"></i>
-                                    Cash on Delivery
-                                </label>
+                                <i class="fas fa-money-bill-wave"></i>
+                                <div class="payment-copy">
+                                    <strong>Cash on delivery only</strong>
+                                    <span>All orders are paid in cash when your items are delivered.</span>
+                                </div>
                             </div>
                         </div>
 
@@ -152,6 +158,9 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+    window.FISHIFY_LOGGED_IN = <?= $cart_user_logged_in ? 'true' : 'false' ?>;
+    </script>
     <script src="../js/cart.js"></script>
 </body>
 </html>

@@ -1,18 +1,20 @@
-/* ================= FILTERS ================= */
+/* ===== AQUARIUM PAGE STYLES (MATCHES FISH UI) ===== */
+
+/* Filters Section */
 .aquarium-filters-section {
-  padding: 2rem 0;
-  background: var(--light);
-  border-bottom: 1px solid var(--light-gray);
+    background: var(--light);
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--light-gray);
 }
 
 .aquarium-filters-title {
-   font-size: 1.8rem;
+    font-size: 1.8rem;
     margin-bottom: 1.5rem;
     color: var(--dark);
 }
 
 .aquarium-filters-grid {
-   display: grid;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
     margin-bottom: 2rem;
@@ -25,10 +27,11 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+
 .aquarium-filter-options {
     display: flex;
     flex-direction: column;
-    
+    gap: 0.75rem;
 }
 
 .aquarium-filter-options label {
@@ -46,16 +49,19 @@
 }
 
 .aquarium-price-slider {
-  width: 100%;
+    width: 100%;
     height: 6px;
     margin: 1rem 0;
     -webkit-appearance: none;
+    appearance: none;
     background: var(--light-gray);
     border-radius: 3px;
     outline: none;
 }
+
 .aquarium-price-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
+    appearance: none;
     width: 20px;
     height: 20px;
     background: var(--primary);
@@ -64,87 +70,88 @@
 }
 
 .aquarium-price-range {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-   color: var(--gray);
-}
-
-.aquarium-filter-actions {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--light-gray);
+    font-size: 0.9rem;
+    color: var(--gray);
 }
 
-.aquarium-active-filters {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.aquarium-filter-tag {
-    background: var(--primary);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-.aquarium-filter-tag i {
-    font-size: 0.75rem;
-    cursor: pointer;
-}
-
-/* ================= PRODUCTS ================= */
+/* Products Section */
 .aquarium-products-section {
   padding: 60px 0;
-    background: #f8f9fb;
+  background: #f8f9fb;
   font-family: "Inter", sans-serif;
 }
 
 .aquarium-products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
 }
-.aquarium-header h2 {
+
+.aquarium-products-header h2 {
   text-align: center;
   font-size: 32px;
   font-weight: 700;
   color: #1c1c1c;
 }
 
-.aquarium-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  justify-items: center;
-  gap: 27px;
-  margin-bottom: 40px;
+.aquarium-sort {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
+.aquarium-sort select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    background: white;
+    font-size: 0.95rem;
+}
+
+.aquarium-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+  gap: 1.75rem;
+  margin-bottom: 50px;
+}
+
+/* Card Styling - Exact same as Fish */
 .aquarium-card {
-     display: flex;
+  display: flex;
   flex-direction: column;
- width: 100%;
+  width: 100%;
   max-width: 280px;
   margin: auto;
-  height: 425px;
+  min-height: 425px !important;
   background: #fff;
   border-radius: 20px;
-  padding: 15px;
+  overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   position: relative;
+  opacity: 0;
+  animation: fadeInScale 0.6s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .aquarium-card:hover {
-     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-    transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 157, 255, 0.2);
 }
 
 .aquarium-image {
@@ -155,79 +162,95 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
 }
 
 .aquarium-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
 }
+
+.aquarium-card:hover .aquarium-image img {
+    transform: scale(1.08);
+}
+
 .aquarium-info {
-    padding: 1.5rem;
-    margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1.25rem 1.25rem;
+  flex: 1;
 }
 
 .aquarium-info h3 {
-     font-size: 17px;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin-bottom: 8px;
-  color: #222;
+  line-height: 1.35;
+  color: #1a1a1a;
+  margin: 0;
 }
 
 .aquarium-price {
-   font-size: 18px;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #00b3ff;
-  margin-bottom: 12px;
+  color: #009dff !important;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
+
+
+.aquarium-info .card-stock {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Button */
 .btn.add-to-cart {
   width: 100%;
-  padding: 10px;
+  margin-top: auto;
+  padding: 0.75rem 1rem;
   border: none;
-  background: #009dff;
-  color: #fff;
-  font-size: 15px;
+  background: #009dff !important;
+  color: #fff !important;
+  font-size: 0.9375rem;
+  font-weight: 600;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .btn.add-to-cart:hover {
-  background: #007acc;
+  background: #0082d6;
 }
 
-/* ==================== SORTING ==================== */
-.aquarium-products-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    gap: 15px;
+/* Out of Stock */
+.aquarium-card.out-of-stock .aquarium-image img {
+  filter: grayscale(100%);
+  opacity: 0.7;
 }
 
-.aquarium-products-header h2 {
-    color: #2c3e50;
-    font-size: 2rem;
+.aquarium-card.out-of-stock .out-of-stock-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.aquarium-sort {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.aquarium-sort select {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background: white;
-    font-size: 1rem;
-    cursor: pointer;
-    min-width: 200px;
-}
-
-/* ==================== PAGINATION ==================== */
+/* Pagination */
 .pagination {
     display: flex;
     justify-content: center;
@@ -277,89 +300,19 @@
     border-color: var(--primary);
 }
 
-.page-dots {
-    display: flex;
-    align-items: center;
-    padding: 0 0.5rem;
-    color: var(--gray);
-}
-
-.out-of-stock-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #3a84d9;
-  color: #fff;
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: bold;
-  border-radius: 4px;
-  z-index: 5;
-  text-transform: uppercase;
-}
-
-/* ==================== RESPONSIVE DESIGN ==================== */
-@media (max-width: 1200px) {
-    .aquarium-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-    .aquarium-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 15px;
+    .aquarium-filters-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .aquarium-products-header {
         flex-direction: column;
+        gap: 1rem;
         align-items: flex-start;
     }
     
-    .aquarium-sort {
-        width: 100%;
-    }
-    
-    .aquarium-sort select {
-        flex-grow: 1;
-        min-width: auto;
-    }
-    
-    .aquarium-filters-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .aquarium-image {
-        height: 180px;
-    }
-    
-    .aquarium-info h3 {
-        font-size: 1.1rem;
-    }
-    
-    .aquarium-price {
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 576px) {
     .aquarium-grid {
-        grid-template-columns: 1fr;
-        max-width: 350px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .pagination {
-        flex-wrap: wrap;
-    }
-    
-    .aquarium-card {
-        max-width: 100%;
-    }
-    
-    .aquarium-image {
-        height: 200px;
+        grid-template-columns: repeat(2, 1fr);
     }
 }

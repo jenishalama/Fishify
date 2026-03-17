@@ -1,272 +1,163 @@
-/* ===== AQUATIC PLANTS PAGE STYLES ===== */
+/* ===== AQUATIC PLANTS PAGE STYLES (MATCHES FISH UI) ===== */
 
-/* Filters Section - COMPACT VERSION */
+/* Filters Section */
 .filters-section {
-  background: var(--light);
-  padding: 1.2rem 0;
-  border-bottom: 1px solid var(--light-gray);
+    background: var(--light);
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--light-gray);
 }
 
 .filters-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--dark);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
 }
-
-
 
 .filters-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  max-height: 400px;
-}
-
-.filters-grid.collapsed {
-  max-height: 0;
-  margin-bottom: 0;
-  opacity: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .filter-group h3 {
-  font-size: 0.9rem;
-  color: var(--gray);
-  margin-bottom: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 600;
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-
-/* ===== COMPACT CATEGORY CHECKBOXES ===== */
 
 .filter-options {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 6px;
-  max-height: 150px;
-  overflow-y: auto;
-  padding-right: 5px;
-}
-
-.filter-options::-webkit-scrollbar {
-  width: 4px;
-}
-
-.filter-options::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 2px;
-}
-
-.filter-options::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .filter-options label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--dark);
-  cursor: pointer;
-  padding: 4px 0;
-  transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.95rem;
 }
 
 .filter-options input[type="checkbox"] {
-  width: 14px;
-  height: 14px;
-  accent-color: var(--primary);
-  cursor: pointer;
-  flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
 }
 
-.filter-options label:hover {
-  color: var(--primary);
-}
-
-/* Price Slider - Compact */
 .price-slider {
-  width: 100%;
-  height: 5px;
-  margin: 0.8rem 0;
-  -webkit-appearance: none;
-  background: var(--light-gray);
-  border-radius: 3px;
-  outline: none;
+    width: 100%;
+    height: 6px;
+    margin: 1rem 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--light-gray);
+    border-radius: 3px;
+    outline: none;
 }
 
 .price-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  background: var(--primary);
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .price-range {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: var(--gray);
-  margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--gray);
 }
 
-
-.filter-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  background: var(--primary);
-  color: white;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.filter-tag .remove-filter {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
-  padding: 0;
-  margin-left: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 14px;
-  height: 14px;
-}
-
-.filter-tag .remove-filter:hover {
-  color: #ffeb3b;
-}
-
-.clear-all {
-  margin-left: auto;
-  padding: 5px 10px;
-  background: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-
-.clear-all:hover {
-  background: #5a6268;
-}
-
-/* Show/Hide Filters Toggle */
-.filter-toggle {
-  display: none;
-  width: 100%;
-  padding: 8px;
-  background: var(--light);
-  border: 1px solid var(--light-gray);
-  border-radius: 4px;
-  color: var(--dark);
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.filter-toggle i {
-  margin-right: 5px;
-}
-
-/* ===== PRODUCTS SECTION ===== */
-
+/* Products Section */
 .fish-products {
-  padding: 30px 0 60px;
+  padding: 60px 0;
   background: #f8f9fb;
   font-family: "Inter", sans-serif;
 }
 
 .products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
 .products-header h2 {
-  font-size: 1.8rem;
+  text-align: center;
+  font-size: 32px;
   font-weight: 700;
   color: #1c1c1c;
 }
 
 .sort-by {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.sort-by span {
-  font-size: 0.9rem;
-  color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .sort-by select {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid var(--light-gray);
-  border-radius: 4px;
-  background: #fff;
-  font-size: 0.9rem;
-  cursor: pointer;
-  min-width: 160px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    background: white;
+    font-size: 0.95rem;
 }
-
-/* ===== GRID ===== */
 
 .fish-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-  justify-items: center;
+  gap: 1.75rem;
+  margin-bottom: 50px;
 }
 
-/* ===== CARD ===== */
-
+/* Card Styling - Exact same as Fish */
 .fish-card {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 280px;
-  height: 420px;
-  background: #ffffff;
+  margin: auto;
+  min-height: 425px;
+  background: #fff;
   border-radius: 20px;
-  padding: 15px;
+  overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  opacity: 0;
+  animation: fadeInScale 0.6s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .fish-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 157, 255, 0.2);
 }
 
-/* Image */
 .fish-image {
-  height: 230px;
-  background: #eef2f6;
-  border-radius: 12px;
+  height: 250px;
+  background: #f1f4f8;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,177 +168,150 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-/* Info */
-.aqua-info {
-  padding: 1rem 0.5rem 0;
-  margin-top: auto;
+.fish-card:hover .fish-image img {
+    transform: scale(1.08);
 }
 
-.aqua-info h3 {
-  font-size: 15px;
+.fish-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1.25rem 1.25rem;
+  flex: 1;
+}
+
+.fish-info h3 {
+  font-size: 1.05rem;
   font-weight: 600;
-  color: #222;
-  margin-bottom: 6px;
-  line-height: 1.3;
-  height: 38px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+  line-height: 1.35;
+  color: #1a1a1a;
+  margin: 0;
 }
 
-.plant-details {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 8px;
-  line-height: 1.4;
-  height: 32px;
-  overflow: hidden;
-}
-
-.aqua-price {
-  font-size: 17px;
+.fish-price {
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #00b3ff;
-  margin-bottom: 10px;
+  color: #009dff !important;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+
+.fish-info .card-stock {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0;
 }
 
 /* Button */
 .btn.add-to-cart {
   width: 100%;
-  padding: 9px;
+  margin-top: auto;
+  padding: 0.75rem 1rem;
   border: none;
-  background: #009dff;
-  color: #fff;
-  font-size: 14px;
-  border-radius: 8px;
+  background: #009dff !important;
+  color: #fff !important;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  display: flex;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  font-weight: 500;
+  gap: 0.5rem;
 }
 
 .btn.add-to-cart:hover {
-  background: #007acc;
+  background: #0082d6;
 }
 
-.btn.add-to-cart.added {
-  background: #6c757d;
+/* Out of Stock */
+.fish-card.out-of-stock .fish-image img {
+  filter: grayscale(100%);
+  opacity: 0.7;
 }
 
-/* No Results Message */
-.no-results {
-  text-align: center;
-  padding: 40px 20px;
-  background: white;
-  border-radius: 10px;
-  margin-top: 20px;
-  grid-column: 1 / -1;
+.fish-card.out-of-stock .out-of-stock-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.no-results p {
-  font-size: 16px;
-  color: #6c757d;
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3rem;
 }
 
-
-
-
-/* ===== RESPONSIVE ===== */
-
-@media (max-width: 1024px) {
-  .filters-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-  }
+.page-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
 }
 
+.page-link.disabled {
+    color: var(--gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.page-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--dark);
+}
+
+.page-number.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .filters-title {
-    font-size: 1.3rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .filters-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .products-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .aqua-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .active-filters {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .clear-all {
-    margin-left: 0;
-    margin-top: 8px;
-    align-self: stretch;
-  }
-
-  .filter-toggle {
-    display: block;
-  }
-
-  .filters-title {
-    display: none;
-  }
-
-  .filters-grid {
-    max-height: 0;
-    opacity: 0;
-  }
-
-  .filters-grid.show {
-    max-height: 500px;
-    opacity: 1;
-  }
-}
-
-@media (max-width: 576px) {
-  .filters-section {
-    padding: 1rem 0;
-  }
-
-  .filters-grid {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-
-  .fish-products {
-    padding: 20px 12px 40px;
-  }
-
-  .fish-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .fish-card {
-    max-width: 100%;
-    height: 400px;
-  }
-
-  .fish-image {
-    height: 210px;
-  }
-
-  .products-header h2 {
-    font-size: 1.5rem;
-  }
+    .filters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .products-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .fish-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

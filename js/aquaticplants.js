@@ -8,7 +8,9 @@ function initPlantsPage() {
     setupFilters();
     setupSorting();
     setupCart();
-    updateCartCount();
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
 }
 
 // ==================== FILTERS ====================
@@ -31,7 +33,7 @@ function setupFilters() {
 }
 
 function applyFilters() {
-    const plants = document.querySelectorAll('.aqua-card');
+    const plants = document.querySelectorAll('.fish-card');
     const maxPrice = parseInt(document.getElementById('priceSlider').value);
 
     const selectedTypes = getCheckedValues('Plant Type');
@@ -133,7 +135,7 @@ function setupSorting() {
 
 function sortPlants() {
     const container = document.getElementById('plantsGrid');
-    const plants = Array.from(container.querySelectorAll('.aqua-card')).filter(p => p.style.display !== 'none');
+    const plants = Array.from(container.querySelectorAll('.fish-card')).filter(p => p.style.display !== 'none');
     const sortBy = document.getElementById('sortSelect').value;
 
     plants.sort((a, b) => {
@@ -153,80 +155,37 @@ function sortPlants() {
     plants.forEach(p => container.appendChild(p));
 }
 
-// ==================== CART ====================
+// ==================== CART (uses global cart from main.js) ====================
 function setupCart() {
-    document.querySelectorAll('.aqua-card .add-to-cart').forEach(button => {
+    document.querySelectorAll('.fish-card .add-to-cart, .aqua-card .add-to-cart').forEach(button => {
         button.addEventListener('click', e => {
             e.preventDefault();
-            const card = button.closest('.aqua-card');
-            const name = card.querySelector('h3').textContent;
-            const price = parseInt(card.dataset.price);
-            const details = card.querySelector('.plant-details').textContent;
+            const card = button.closest('.fish-card') || button.closest('.aqua-card');
+            if (!card) return;
+            const name = card.querySelector('h3').textContent.trim();
+            const price = parseFloat(card.dataset.price) || 0;
+            const imgEl = card.querySelector('img');
+            const details = card.querySelector('.plant-details')?.textContent.trim() || '';
 
-            addToCart({ name, price, details, type: 'plant' });
-            showNotification(`${name} added to cart!`);
+            const productId = card.dataset.id ? parseInt(card.dataset.id, 10) : null;
+            const stock = card.dataset.stock ? parseInt(card.dataset.stock, 10) : 999;
+            const product = {
+                id: productId !== null && !isNaN(productId) ? productId : 'plant-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                name,
+                price,
+                image: imgEl ? imgEl.src : '',
+                description: details,
+                category: 'plants',
+                stock: stock
+            };
+
+            addToCart(product);
         });
     });
 }
 
-function addToCart(item) {
-    let cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-    const id = `plant-${item.name.toLowerCase().replace(/\s+/g, '-')}`;
-
-    const existing = cart.find(p => p.id === id);
-    if (existing) {
-        existing.quantity++;
-    } else {
-        cart.push({ ...item, id, quantity: 1 });
-    }
-
-    localStorage.setItem('fishifyCart', JSON.stringify(cart));
-    updateCartCount();
-}
-
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.querySelectorAll('.cart-count').forEach(c => {
-        c.textContent = total;
-        c.style.display = total > 0 ? 'flex' : 'none';
-    });
-}
-
-// ==================== NOTIFICATIONS ====================
-function showNotification(message) {
-    const existing = document.querySelector('.plant-notification');
-    if (existing) existing.remove();
-
-    const notif = document.createElement('div');
-    notif.className = 'plant-notification';
-    notif.textContent = message;
-    notif.style.cssText = `
-        position: fixed; top: 20px; right: 20px; background:#27ae60;
-        color:#fff; padding:15px 20px; border-radius:5px; z-index:1000;
-        font-weight:500; box-shadow:0 4px 12px rgba(0,0,0,0.15);
-        animation: slideIn 0.3s ease-out;
-    `;
-    document.body.appendChild(notif);
-
-    setTimeout(() => {
-        notif.style.animation = 'slideOut 0.3s ease-out forwards';
-        setTimeout(() => notif.remove(), 300);
-    }, 3000);
-
-    if (!document.querySelector('#plant-notif-style')) {
-        const style = document.createElement('style');
-        style.id = 'plant-notif-style';
-        style.textContent = `
-            @keyframes slideIn { from {transform:translateX(100%);opacity:0;} to {transform:translateX(0);opacity:1;} }
-            @keyframes slideOut { from {transform:translateX(0);opacity:1;} to {transform:translateX(100%);opacity:0;} }
-        `;
-        document.head.appendChild(style);
-    }
-}
-
 // ==================== HOVER EFFECT ====================
-document.querySelectorAll('.aqua-card').forEach(card => {
+document.querySelectorAll('.fish-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
         card.style.transform = 'translateY(-5px)';
         card.style.boxShadow = '0 10px 25px rgba(46, 204, 113, 0.2)';

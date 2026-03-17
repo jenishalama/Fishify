@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initFiltering();
     initSorting();
+    initClearFilters();
     initFishCart();
     initPagination();
 });
@@ -37,7 +38,8 @@ function initFiltering() {
 }
 
 function applyFilters() {
-    const maxPrice = parseInt(document.querySelector('.price-slider').value, 10);
+    const slider = document.querySelector('.price-slider');
+    const maxPrice = slider ? parseFloat(slider.value) || 10000 : 10000;
     const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]');
     let showInStockOnly = false;
     let showOutOfStockOnly = false;
@@ -45,52 +47,43 @@ function applyFilters() {
     availabilityCheckboxes.forEach(cb => {
         if (cb.checked) {
             if (cb.value === 'in-stock') showInStockOnly = true;
-            if (cb.value === 'pre-order') showOutOfStockOnly = true;
+            if (cb.value === 'out-of-stock') showOutOfStockOnly = true;
         }
     });
 
     allFishCards.forEach(card => {
-        const price = parseInt(card.getAttribute('data-price'), 10);
-        const inStock = card.dataset.stock === 'in-stock';
+        const price = parseFloat(card.getAttribute('data-price')) || 0;
+        const inStock = (card.dataset.stockStatus || '') === 'in-stock';
         let visible = price <= maxPrice;
 
         if (showInStockOnly) visible = visible && inStock;
         if (showOutOfStockOnly) visible = visible && !inStock;
 
         card.dataset.visible = visible ? 'true' : 'false';
-
-        // Grey out out-of-stock fish and disable Add to Cart
-        const addBtn = card.querySelector('.add-to-cart');
-
-        let badge = card.querySelector('.out-of-stock-badge');
-
-        if (!inStock) {
-            addBtn.disabled = true;
-            addBtn.textContent = 'Out of Stock';
-
-            if (!badge) {
-                badge = document.createElement('span');
-                badge.className = 'out-of-stock-badge';
-                badge.textContent = 'Out of Stock';
-                card.style.position = 'relative';
-                card.appendChild(badge);
-            }
-        } else {
-            addBtn.disabled = false;
-            addBtn.innerHTML = `<i class="fas fa-cart-plus"></i> Add to Cart`;
-
-            if (badge) badge.remove();
-        }
+        card.style.display = ''; // reset so showPage can control
     });
 
     updatePriceDisplay(maxPrice);
-    showPage(1); // Reset to first page after filtering
+    showPage(1);
 }
 
 // ==================== UPDATE PRICE DISPLAY ====================
 function updatePriceDisplay(maxPrice) {
-    const priceRangeSpan = document.querySelector('.price-range span:last-child');
+    const priceRangeSpan = document.querySelector('.price-range-max, .price-range span:last-child');
     if (priceRangeSpan) priceRangeSpan.textContent = formatPrice(maxPrice);
+}
+
+// ==================== CLEAR FILTERS ====================
+function initClearFilters() {
+    const btn = document.querySelector('.btn-clear-filters');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+        const slider = document.querySelector('.price-slider');
+        if (slider) { slider.value = 10000; }
+        document.querySelectorAll('input[name="availability"]').forEach(cb => { cb.checked = false; });
+        updatePriceDisplay(10000);
+        applyFilters();
+    });
 }
 
 // ==================== SORTING FUNCTIONALITY ====================
@@ -100,18 +93,20 @@ function initSorting() {
 }
 
 function applySort() {
-    const sortBy = document.querySelector('.sort-by select').value;
+    const sortSelect = document.querySelector('.sort-by select');
+    if (!sortSelect) return;
+    const sortBy = sortSelect.value;
     const container = document.querySelector('.fish-grid');
+    if (!container) return;
 
     let visibleCards = allFishCards.filter(c => c.dataset.visible === 'true');
 
     visibleCards.sort((a, b) => {
-        const priceA = parseInt(a.getAttribute('data-price'), 10);
-        const priceB = parseInt(b.getAttribute('data-price'), 10);
-
-        if (sortBy.includes('Low to High')) return priceA - priceB;
-        if (sortBy.includes('High to Low')) return priceB - priceA;
-        return 0; // popularity or default
+        const priceA = parseFloat(a.getAttribute('data-price')) || 0;
+        const priceB = parseFloat(b.getAttribute('data-price')) || 0;
+        if (sortBy.includes('Low') || sortBy === 'price-low') return priceA - priceB;
+        if (sortBy.includes('High') || sortBy === 'price-high') return priceB - priceA;
+        return 0;
     });
 
     visibleCards.forEach(card => container.appendChild(card));
@@ -148,14 +143,14 @@ function initPagination() {
 
 function showPage(pageNumber) {
     const visibleCards = allFishCards.filter(c => c.dataset.visible === 'true');
-    allFishCards.forEach(c => c.style.display = 'none');
+    allFishCards.forEach(c => { c.style.display = 'none'; });
 
     const start = (pageNumber - 1) * itemsPerPage;
     const end = start + itemsPerPage;
+    const toShow = visibleCards.slice(start, end);
+    toShow.forEach(c => { c.style.display = 'block'; });
 
-    visibleCards.slice(start, end).forEach(c => c.style.display = 'block');
     currentPage = pageNumber;
-
     updatePaginationButtons();
 }
 
@@ -180,62 +175,38 @@ function updatePaginationButtons() {
     if (nextLink) nextLink.classList.toggle('disabled', currentPage === totalPages);
 }
 
-// ==================== ADD TO CART ====================
+// ==================== ADD TO CART (uses global cart from main.js) ====================
 function initFishCart() {
     const addToCartButtons = document.querySelectorAll('.fish-card .add-to-cart');
 
     addToCartButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             e.preventDefault();
 
             const card = this.closest('.fish-card');
-            const name = card.querySelector('h3').textContent;
-            let price = parseInt(card.querySelector('.amount').textContent.replace(/[^0-9]/g, ''), 10);
+            const name = card.querySelector('h3').textContent.trim();
+            const price = parseFloat(card.querySelector('.amount').textContent.replace(/[^0-9.]/g, '')) || 0;
+            const imgEl = card.querySelector('img');
 
-            let cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-            const existing = cart.find(item => item.name === name);
+            const productId = card.dataset.id ? parseInt(card.dataset.id, 10) : null;
+            const stock = card.dataset.stock ? parseInt(card.dataset.stock, 10) : 999;
+            const product = {
+                id: productId !== null && !isNaN(productId) ? productId : 'fish-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+                name,
+                price,
+                image: imgEl ? imgEl.src : '',
+                description: '',
+                category: 'fish',
+                stock: stock
+            };
 
-            if (existing) existing.quantity += 1;
-            else cart.push({ id: generateId(name), name, price, quantity: 1, type: 'fish' });
-
-            localStorage.setItem('fishifyCart', JSON.stringify(cart));
-            updateCartCount();
-            showNotification(`${name} added to cart!`);
+            // Provided by main.js
+            addToCart(product);
         });
     });
 
-    updateCartCount();
-}
-
-function generateId(name) {
-    return 'fish-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-}
-
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('fishifyCart')) || [];
-    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-    document.querySelectorAll('.cart-count').forEach(el => {
-        el.textContent = total;
-        el.style.display = total > 0 ? 'flex' : 'none';
-    });
-}
-
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'fish-notification';
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #3498db;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 3000);
+    // Ensure header count is in sync on page load
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
 }
