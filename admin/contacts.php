@@ -13,36 +13,54 @@ $stmt->close();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Messages | Admin Fishify</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f1f5f9; }
-    .page-wrap { padding: 24px; max-width: 1100px; margin: 0 auto; }
-    h1 { margin-bottom: 20px; color: #1e293b; }
+    /* Import Inter Font */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #f4f7fo; margin: 0; color: #1e293b; }
+    .page-wrap { padding: 40px; max-width: 1200px; margin: 0 auto; }
+    h1 { margin-bottom: 30px; font-size: 2rem; font-weight: 700; color: #1e293b; }
+    
+    .buttons { margin-bottom: 24px; }
     .buttons a {
       display: inline-block;
-      padding: 10px 18px;
-      margin-right: 10px;
-      margin-bottom: 20px;
-      background: #0d6efd;
-      color: #fff;
+      padding: 10px 20px;
+      margin-right: 12px;
+      background: rgba(0, 102, 204, 0.1);
+      color: #0066CC;
       text-decoration: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 600;
-      font-size: 14px;
+      transition: all 0.2s ease;
     }
-    .buttons a.back { background: #64748b; }
-    .buttons a:hover { opacity: 0.9; }
+    .buttons a.back { background: rgba(100, 116, 139, 0.1); color: #475569; }
+    .buttons a:hover { background: #0066CC; color: #ffffff; }
+    .buttons a.back:hover { background: #475569; color: #ffffff; }
+
     table {
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       width: 100%;
       background: #fff;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-    table th, table td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; text-align: left; }
-    table th { background: #0d6efd; color: #fff; font-weight: 600; }
+    table th, table td { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; text-align: left; }
+    table th { background: #e6f0fa; color: #0052a3; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
+    table tr { transition: background 0.2s ease; }
+    table tr:hover td { background: #f8fafc; }
+    table tr:last-child td { border-bottom: none; }
+    
     table td { color: #334155; }
-    table a { color: #0d6efd; text-decoration: none; font-weight: 500; }
-    table a:hover { text-decoration: underline; }
+    table a {
+      color: #0066CC;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    table a:hover { background: rgba(0, 102, 204, 0.1); text-decoration: none; }
     .message-preview { color: #64748b; font-size: 0.9rem; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .no-messages { padding: 40px; text-align: center; color: #64748b; background: #fff; border-radius: 10px; }
   </style>

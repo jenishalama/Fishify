@@ -32,7 +32,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+            background: linear-gradient(135deg, #0066CC, #00A8E8);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
@@ -100,7 +100,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         /* Active link */
         .main-nav li a.active {
             background: #ffffff;
-            color: #0d6efd;
+            color: #0066CC;
             font-weight: 600;
         }
 
@@ -115,7 +115,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             display: flex;
             align-items: center;
             gap: 6px;
-            background: #dc3545;
+            background: #da3e4eff;
             color: #fff;
             padding: 8px 14px;
             border-radius: 6px;
@@ -163,7 +163,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+            background: linear-gradient(135deg, #0066CC, #00A8E8);
             color: white;
             padding: 20px 30px;
             border-radius: 12px 12px 0 0;
@@ -274,6 +274,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                                 class="<?= ($currentPage == 'admindashboard.php') ? 'active' : '' ?>">Dashboard</a></li>
                         <li><a href="products.php"
                                 class="<?= ($currentPage == 'products.php') ? 'active' : '' ?>">Products</a></li>
+                        <li><a href="orders.php"
+                                class="<?= ($currentPage == 'orders.php' || $currentPage == 'order-detail.php') ? 'active' : '' ?>">Orders</a>
+                        </li>
+                        <li><a href="contacts.php"
+                                class="<?= ($currentPage == 'contacts.php' || $currentPage == 'contact-view.php') ? 'active' : '' ?>">Contacts</a>
+                        </li>
                         <li><a onclick="openAddProductModal()"
                                 class="<?= ($currentPage == 'add_product.php') ? 'active' : '' ?>">Add Products</a></li>
 
@@ -287,84 +293,81 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </div>
     </header>
 
-<!-- Add Product Modal -->
-<div id="addProductModal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Add New Product</h2>
-            <button class="close-modal" onclick="closeAddProductModal()">&times;</button>
-        </div>
-        <div class="modal-body">
-            <iframe 
-                id="addProductFrame" 
-                src="" 
-                style="width: 100%; height: 500px; border: none;"
-                onload="handleIframeLoad()">
-            </iframe>
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Product</h2>
+                <button class="close-modal" onclick="closeAddProductModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="addProductFrame" src="" style="width: 100%; height: 500px; border: none;"
+                    onload="handleIframeLoad()">
+                </iframe>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-function openAddProductModal() {
-    const modal = document.getElementById('addProductModal');
-    const iframe = document.getElementById('addProductFrame');
-    
-    // Load the add_product.php page in the iframe
-    iframe.src = 'add_product.php';
-    
-    // Show the modal
-    modal.classList.add('active');
-    
-    // Prevent body scroll when modal is open
-    document.body.style.overflow = 'hidden';
-}
+    <script>
+        function openAddProductModal() {
+            const modal = document.getElementById('addProductModal');
+            const iframe = document.getElementById('addProductFrame');
 
-function closeAddProductModal() {
-    const modal = document.getElementById('addProductModal');
-    const iframe = document.getElementById('addProductFrame');
-    
-    // Hide the modal
-    modal.classList.remove('active');
-    
-    // Clear the iframe
-    iframe.src = '';
-    
-    // Restore body scroll
-    document.body.style.overflow = 'auto';
-}
+            // Load the add_product.php page in the iframe
+            iframe.src = 'add_product.php';
 
-function handleIframeLoad() {
-    // Check if the iframe has redirected to products.php (successful submission)
-    const iframe = document.getElementById('addProductFrame');
-    try {
-        if (iframe.contentWindow.location.href.includes('products.php')) {
-            closeAddProductModal();
-            // Reload the current page if we're on products.php to show the new product
-            if (window.location.href.includes('products.php')) {
-                window.location.reload();
+            // Show the modal
+            modal.classList.add('active');
+
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAddProductModal() {
+            const modal = document.getElementById('addProductModal');
+            const iframe = document.getElementById('addProductFrame');
+
+            // Hide the modal
+            modal.classList.remove('active');
+
+            // Clear the iframe
+            iframe.src = '';
+
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleIframeLoad() {
+            // Check if the iframe has redirected to products.php (successful submission)
+            const iframe = document.getElementById('addProductFrame');
+            try {
+                if (iframe.contentWindow.location.href.includes('products.php')) {
+                    closeAddProductModal();
+                    // Reload the current page if we're on products.php to show the new product
+                    if (window.location.href.includes('products.php')) {
+                        window.location.reload();
+                    }
+                }
+            } catch (e) {
+                // Cross-origin error, ignore
             }
         }
-    } catch (e) {
-        // Cross-origin error, ignore
-    }
-}
 
-// Close modal when clicking outside of it
-document.addEventListener('click', function(event) {
-    const modal = document.getElementById('addProductModal');
-    if (event.target === modal) {
-        closeAddProductModal();
-    }
-});
+        // Close modal when clicking outside of it
+        document.addEventListener('click', function (event) {
+            const modal = document.getElementById('addProductModal');
+            if (event.target === modal) {
+                closeAddProductModal();
+            }
+        });
 
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeAddProductModal();
-    }
-});
-</script>
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeAddProductModal();
+            }
+        });
+    </script>
 
 </body>
 

@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $total += $qty * $price;
                 }
 
-                $stmt = $conn->prepare("INSERT INTO orders (user_id, total, status, shipping_name, shipping_phone, shipping_address, payment_method) VALUES (?, ?, 'pending', ?, ?, ?, 'cash_on_delivery')");
+                $stmt = $conn->prepare("INSERT INTO orders (user_id, total, status, shipping_name, shipping_phone, shipping_address, payment_method) VALUES (?, ?, 'shipped', ?, ?, ?, 'cash_on_delivery')");
                 $stmt->bind_param("idsss", $user_id, $total, $shipping_name, $shipping_phone, $shipping_address);
                 if ($stmt->execute()) {
                     $order_id = (int) $conn->insert_id;

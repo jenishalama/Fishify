@@ -1,198 +1,212 @@
-// aquaticplants.js - Updated Aquatic Plants Page Functionality
-
 document.addEventListener('DOMContentLoaded', function () {
-    initPlantsPage();
+    initFiltering();
+    initSorting();
+    initClearFilters();
+    initPlantsCart();
+    initPagination();
 });
 
-function initPlantsPage() {
-    setupFilters();
-    setupSorting();
-    setupCart();
+// ==================== GLOBAL VARIABLES ====================
+const itemsPerPage = 8;
+let currentPage = 1;
+let allPlantsCards = [];
+
+// ==================== HELPER ====================
+function formatPrice(price) {
+    return `Rs. ${Math.floor(price).toLocaleString()}`;
+}
+
+// ==================== FILTERING ====================
+function initFiltering() {
+    allPlantsCards = Array.from(document.querySelectorAll('.fish-card'));
+
+    const priceSlider = document.getElementById('priceSlider');
+    const checkboxes = document.querySelectorAll('input[name="availability"]');
+
+    if (priceSlider) {
+        priceSlider.addEventListener('input', () => {
+            updatePriceSliderColor(priceSlider);
+            applyFilters();
+        });
+        updatePriceSliderColor(priceSlider);
+    }
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', function () {
+            // ✅ allow only one checkbox at a time
+            checkboxes.forEach(other => {
+                if (other !== cb) other.checked = false;
+            });
+            applyFilters();
+        });
+    });
+
+    applyFilters();
+}
+
+function applyFilters() {
+    const slider = document.getElementById('priceSlider');
+    const maxPrice = slider ? parseFloat(slider.value) || 10000 : 10000;
+
+    const selected = Array.from(document.querySelectorAll('input[name="availability"]:checked')).map(cb => cb.value);
+
+    const inStockOnly = selected.includes('in-stock');
+    const outStockOnly = selected.includes('out-of-stock');
+
+    allPlantsCards.forEach(card => {
+        const price = Math.floor(parseFloat(card.dataset.price) || 0);
+
+        // ✅ FIXED STOCK CHECK
+        const inStock = card.dataset.stockStatus === 'in-stock';
+
+        let visible = price <= maxPrice;
+
+        if (inStockOnly) visible = visible && inStock;
+        if (outStockOnly) visible = visible && !inStock;
+
+        card.dataset.visible = visible ? 'true' : 'false';
+    });
+
+    updatePriceDisplay(maxPrice);
+    showPage(1);
+}
+
+// ==================== PRICE DISPLAY ====================
+function updatePriceDisplay(maxPrice) {
+    const el = document.querySelector('.price-range-max');
+    if (el) el.textContent = formatPrice(maxPrice);
+}
+
+// ==================== CLEAR FILTERS ====================
+function initClearFilters() {
+    const btn = document.querySelector('.btn-clear-filters');
+    if (!btn) return;
+
+    btn.addEventListener('click', function () {
+        const slider = document.getElementById('priceSlider');
+        if (slider) {
+            slider.value = 10000;
+            updatePriceSliderColor(slider);
+        }
+
+        document.querySelectorAll('input[name="availability"]').forEach(cb => cb.checked = false);
+
+        const sort = document.getElementById('sortSelect');
+        if (sort) sort.value = 'default';
+
+        updatePriceDisplay(10000);
+        applyFilters();
+    });
+}
+
+// ==================== SORTING ====================
+function initSorting() {
+    const select = document.getElementById('sortSelect');
+    if (select) select.addEventListener('change', applySort);
+}
+
+function applySort() {
+    const select = document.getElementById('sortSelect');
+    const container = document.getElementById('plantsGrid');
+    if (!select || !container) return;
+
+    let cards = allPlantsCards.filter(c => c.dataset.visible === 'true');
+
+    cards.sort((a, b) => {
+        const priceA = Math.floor(parseFloat(a.dataset.price) || 0);
+        const priceB = Math.floor(parseFloat(b.dataset.price) || 0);
+        const nameA = (a.dataset.name || '').toLowerCase();
+        const nameB = (b.dataset.name || '').toLowerCase();
+
+        if (select.value === 'price-low') return priceA - priceB;
+        if (select.value === 'price-high') return priceB - priceA;
+        if (select.value === 'name') return nameA.localeCompare(nameB);
+        return 0;
+    });
+
+    cards.forEach(c => container.appendChild(c));
+    showPage(1);
+}
+
+// ==================== PAGINATION ====================
+function initPagination() {
+    document.querySelectorAll('.page-number, .page-link').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+
+            const visibleCount = allPlantsCards.filter(c => c.dataset.visible === 'true').length;
+            const totalPages = Math.ceil(visibleCount / itemsPerPage);
+
+            let page = currentPage;
+
+            if (link.classList.contains('page-number')) {
+                page = parseInt(link.textContent);
+            } else if (link.textContent.includes('Next')) {
+                page++;
+            } else if (link.textContent.includes('Previous')) {
+                page--;
+            }
+
+            page = Math.max(1, Math.min(page, totalPages));
+            showPage(page);
+        });
+    });
+}
+
+function showPage(page) {
+    const visible = allPlantsCards.filter(c => c.dataset.visible === 'true');
+
+    allPlantsCards.forEach(c => c.style.display = 'none');
+
+    visible
+        .slice((page - 1) * itemsPerPage, page * itemsPerPage)
+        .forEach(c => c.style.display = 'block');
+
+    currentPage = page;
+    updatePaginationButtons();
+}
+
+function updatePaginationButtons() {
+    const visible = allPlantsCards.filter(c => c.dataset.visible === 'true');
+    const totalPages = Math.ceil(visible.length / itemsPerPage);
+
+    document.querySelectorAll('.page-number').forEach((el, i) => {
+        if (i < totalPages) {
+            el.style.display = 'inline-block';
+            el.textContent = i + 1;
+            el.classList.toggle('active', currentPage === i + 1);
+        } else {
+            el.style.display = 'none';
+        }
+    });
+
+    document.querySelector('.page-link:first-child')?.classList.toggle('disabled', currentPage === 1);
+    document.querySelector('.page-link:last-child')?.classList.toggle('disabled', currentPage === totalPages);
+
+    document.getElementById('noResults').style.display = visible.length ? 'none' : 'block';
+}
+
+// ==================== CART ====================
+function initPlantsCart() {
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const card = this.closest('.fish-card');
+
+            const product = {
+                id: parseInt(card.dataset.id),
+                name: card.querySelector('h3').textContent.trim(),
+                price: Math.floor(parseFloat(card.dataset.price)),
+                image: card.querySelector('img').src,
+                category: 'plants'
+            };
+
+            if (typeof addToCart === 'function') {
+                addToCart(product);
+            }
+        });
+    });
+
     if (typeof updateCartCount === 'function') {
         updateCartCount();
     }
 }
-
-// ==================== FILTERS ====================
-function setupFilters() {
-    const priceSlider = document.getElementById('priceSlider');
-    const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
-
-    if (priceSlider) {
-        priceSlider.addEventListener('input', () => {
-            updatePriceDisplay(priceSlider.value);
-            applyFilters();
-        });
-        updatePriceDisplay(priceSlider.value);
-    }
-
-    checkboxes.forEach(cb => cb.addEventListener('change', () => {
-        applyFilters();
-        displayActiveFilters();
-    }));
-}
-
-function applyFilters() {
-    const plants = document.querySelectorAll('.fish-card');
-    const maxPrice = parseInt(document.getElementById('priceSlider').value);
-
-    const selectedTypes = getCheckedValues('Plant Type');
-    const selectedCare = getCheckedValues('Care Level');
-    const selectedLight = getCheckedValues('Light Requirement');
-
-    let visibleCount = 0;
-
-    plants.forEach(plant => {
-        const price = parseInt(plant.dataset.price);
-        const type = plant.dataset.type.split(',');
-        const care = plant.dataset.care;
-        const light = plant.dataset.light;
-
-        const pricePass = price <= maxPrice;
-        const typePass = selectedTypes.length === 0 || type.some(t => selectedTypes.includes(t));
-        const carePass = selectedCare.length === 0 || selectedCare.includes(care);
-        const lightPass = selectedLight.length === 0 || selectedLight.includes(light);
-
-        const show = pricePass && typePass && carePass && lightPass;
-
-        plant.style.display = show ? 'block' : 'none';
-        if (show) visibleCount++;
-    });
-
-    const noResults = document.getElementById('noResults');
-    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-
-    sortPlants(); // keep sorted after filtering
-}
-
-function getCheckedValues(groupName) {
-    return Array.from(document.querySelectorAll(`.filter-group h3`))
-        .filter(h3 => h3.textContent === groupName)
-        .map(h3 => h3.nextElementSibling.querySelectorAll('input[type="checkbox"]:checked'))
-        .flat()
-        .map(cb => cb.value);
-}
-
-function updatePriceDisplay(price) {
-    const maxPriceSpan = document.getElementById('maxPrice');
-    if (maxPriceSpan) {
-        maxPriceSpan.textContent = price >= 10000 ? '10,000+' : price.toLocaleString();
-    }
-}
-
-function displayActiveFilters() {
-    const activeContainer = document.getElementById('activeFilters');
-    const filters = [];
-
-    document.querySelectorAll('.filter-options input[type="checkbox"]:checked').forEach(cb => {
-        filters.push(cb.nextElementSibling.textContent.trim());
-    });
-
-    const priceSlider = document.getElementById('priceSlider');
-    if (priceSlider.value < 10000) filters.push(`Max: Rs. ${priceSlider.value}`);
-
-    if (filters.length === 0) {
-        activeContainer.innerHTML = '';
-        return;
-    }
-
-    activeContainer.innerHTML = `
-        <strong>Active Filters:</strong>
-        ${filters.map(f => `<span class="filter-tag">${f} <i class="fas fa-times"></i></span>`).join('')}
-        <button id="clearFilters">Clear All</button>
-    `;
-
-    // Remove individual filter
-    activeContainer.querySelectorAll('.filter-tag i').forEach(icon => {
-        icon.addEventListener('click', e => {
-            const value = e.target.parentElement.textContent.replace('×', '').trim();
-            document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
-                if (cb.nextElementSibling.textContent.trim() === value) cb.checked = false;
-            });
-            if (value.startsWith('Max:')) priceSlider.value = 10000;
-            applyFilters();
-            displayActiveFilters();
-        });
-    });
-
-    document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
-}
-
-function clearAllFilters() {
-    document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
-    const priceSlider = document.getElementById('priceSlider');
-    priceSlider.value = 10000;
-    updatePriceDisplay(10000);
-    applyFilters();
-    displayActiveFilters();
-}
-
-// ==================== SORTING ====================
-function setupSorting() {
-    const sortSelect = document.getElementById('sortSelect');
-    if (sortSelect) sortSelect.addEventListener('change', sortPlants);
-}
-
-function sortPlants() {
-    const container = document.getElementById('plantsGrid');
-    const plants = Array.from(container.querySelectorAll('.fish-card')).filter(p => p.style.display !== 'none');
-    const sortBy = document.getElementById('sortSelect').value;
-
-    plants.sort((a, b) => {
-        const priceA = parseInt(a.dataset.price);
-        const priceB = parseInt(b.dataset.price);
-        const nameA = a.dataset.name.toLowerCase();
-        const nameB = b.dataset.name.toLowerCase();
-
-        switch (sortBy) {
-            case 'price-low': return priceA - priceB;
-            case 'price-high': return priceB - priceA;
-            case 'name': return nameA.localeCompare(nameB);
-            default: return 0;
-        }
-    });
-
-    plants.forEach(p => container.appendChild(p));
-}
-
-// ==================== CART (uses global cart from main.js) ====================
-function setupCart() {
-    document.querySelectorAll('.fish-card .add-to-cart, .aqua-card .add-to-cart').forEach(button => {
-        button.addEventListener('click', e => {
-            e.preventDefault();
-            const card = button.closest('.fish-card') || button.closest('.aqua-card');
-            if (!card) return;
-            const name = card.querySelector('h3').textContent.trim();
-            const price = parseFloat(card.dataset.price) || 0;
-            const imgEl = card.querySelector('img');
-            const details = card.querySelector('.plant-details')?.textContent.trim() || '';
-
-            const productId = card.dataset.id ? parseInt(card.dataset.id, 10) : null;
-            const stock = card.dataset.stock ? parseInt(card.dataset.stock, 10) : 999;
-            const product = {
-                id: productId !== null && !isNaN(productId) ? productId : 'plant-' + name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-                name,
-                price,
-                image: imgEl ? imgEl.src : '',
-                description: details,
-                category: 'plants',
-                stock: stock
-            };
-
-            addToCart(product);
-        });
-    });
-}
-
-// ==================== HOVER EFFECT ====================
-document.querySelectorAll('.fish-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-5px)';
-        card.style.boxShadow = '0 10px 25px rgba(46, 204, 113, 0.2)';
-        card.style.transition = 'all 0.3s ease';
-    });
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-        card.style.boxShadow = 'none';
-    });
-});

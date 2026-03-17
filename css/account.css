@@ -56,10 +56,10 @@
 .orders-table a { color: var(--cart-blue); text-decoration: none; font-weight: 500; }
 .orders-table a:hover { text-decoration: underline; }
 .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-.badge-pending { background: #fff3cd; color: #856404; }
-.badge-confirmed { background: #cce5ff; color: #004085; }
-.badge-shipped { background: #d4edda; color: #155724; }
-.badge-completed { background: #d4edda; color: #155724; }
+.badge-pending { background: #fef3c7; color: #92400e; }
+.badge-shipped { background: #e0e7ff; color: #373003; }
+.badge-delivered { background: #d1fae5; color: #065f46; }
+.badge-cancelled { background: #fee2e2; color: #991b1b; }
 
 .order-detail-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
 .order-detail-table th, .order-detail-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #eee; }

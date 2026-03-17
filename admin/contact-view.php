@@ -26,36 +26,43 @@ if (!$msg) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Message #<?= $id ?> | Admin Fishify</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f1f5f9; }
-    .page-wrap { padding: 24px; max-width: 640px; margin: 0 auto; }
-    h1 { margin-bottom: 8px; color: #1e293b; }
-    .subtitle { color: #64748b; margin-bottom: 24px; }
+    /* Import Inter Font */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #f4f7fo; margin: 0; color: #1e293b; }
+    .page-wrap { padding: 40px; max-width: 800px; margin: 0 auto; }
+    h1 { margin-bottom: 8px; font-size: 2rem; font-weight: 700; color: #1e293b; }
+    .subtitle { color: #64748b; margin-bottom: 30px; font-size: 0.95rem; }
+    
+    .buttons { margin-bottom: 24px; }
     .buttons a {
       display: inline-block;
-      padding: 10px 18px;
-      margin-right: 10px;
-      margin-bottom: 20px;
-      background: #0d6efd;
-      color: #fff;
+      padding: 10px 20px;
+      margin-right: 12px;
+      background: rgba(0, 102, 204, 0.1);
+      color: #0066CC;
       text-decoration: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 600;
-      font-size: 14px;
+      transition: all 0.2s ease;
     }
-    .buttons a.back { background: #64748b; }
+    .buttons a.back { background: rgba(100, 116, 139, 0.1); color: #475569; }
+    .buttons a:hover { background: #0066CC; color: #ffffff; }
+    .buttons a.back:hover { background: #475569; color: #ffffff; }
+
     .card {
       background: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-    .card h2 { margin: 0 0 14px; font-size: 1rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.03em; }
-    .info-row { padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+    .card h2 { margin: 0 0 16px; font-size: 1.1rem; color: #475569; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; font-weight: 600; }
+    .info-row { padding: 10px 0; border-bottom: 1px solid #f1f5f9; display: flex; align-items: flex-start; }
     .info-row:last-child { border-bottom: none; }
-    .info-row strong { color: #475569; display: inline-block; min-width: 80px; }
-    .message-body { white-space: pre-wrap; word-break: break-word; color: #334155; line-height: 1.6; margin-top: 8px; }
-    a[href^="mailto"] { color: #0d6efd; text-decoration: none; }
+    .info-row strong { color: #475569; display: inline-block; min-width: 100px; font-weight: 600; }
+    .message-body { white-space: pre-wrap; word-break: break-word; color: #334155; line-height: 1.7; margin-top: 8px; padding: 16px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
+    a[href^="mailto"] { color: #0066CC; text-decoration: none; font-weight: 500; }
     a[href^="mailto"]:hover { text-decoration: underline; }
   </style>
 </head>

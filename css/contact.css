@@ -33,7 +33,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  align-items: start;
+  align-items: stretch;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -47,28 +47,36 @@
 }
 
 .contact-box-header {
-  padding: 1.5rem 1.5rem 0;
+  padding: 1.5rem 1.5rem 1.25rem;
   text-align: left;
 }
 
+.header-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
 .contact-box-icon {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   background: rgba(0, 102, 204, 0.1);
   color: #0066cc;
-  border-radius: 12px;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 .contact-box h2 {
   font-size: 1.35rem;
   font-weight: 700;
   color: #1e293b;
-  margin: 0 0 0.35rem;
+  margin: 0;
 }
 
 .form-intro,
@@ -79,10 +87,10 @@
   line-height: 1.5;
 }
 
-/* Success: green circle tick + cute message box */
+
 .contact-success-box {
   margin: 0 1.5rem 1.5rem;
-  padding: 1.75rem 1.5rem;
+  padding: 1.75rem 4rem;
   background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%);
   border: 1px solid #bbf7d0;
   border-radius: 20px;

@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,9 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="contact-layout">
         <div class="contact-box form-box">
           <div class="contact-box-header">
-            <span class="contact-box-icon"><i class="fas fa-envelope"></i></span>
-            <h2>Send a message</h2>
-            <p class="form-intro">Fill out the form below and we'll respond as soon as we can.</p>
+            <div class="header-title-row">
+              <span class="contact-box-icon"><i class="fas fa-envelope"></i></span>
+              <h2>Send a message</h2>
+            </div>
+            <?php if (!$contact_success): ?>
+              <p class="form-intro">Fill out the form below and we'll respond as soon as we can.</p>
+            <?php endif; ?>
           </div>
           <?php if ($contact_success): ?>
             <div class="contact-success-box">
@@ -107,8 +112,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="contact-box location-box">
           <div class="contact-box-header">
-            <span class="contact-box-icon"><i class="fas fa-map-marker-alt"></i></span>
-            <h2>Find us</h2>
+            <div class="header-title-row">
+              <span class="contact-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+              <h2>Find us</h2>
+            </div>
           </div>
           <div class="map-container">
             <iframe

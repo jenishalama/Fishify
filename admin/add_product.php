@@ -29,7 +29,7 @@ if(isset($_POST['submit'])){
             VALUES ('$name','$description','$price','$category','$stock','$image')";
 
     if($conn->query($sql)){
-        header("Location: admindashboard.php");
+        header("Location: products.php");
         exit();
     } else {
         echo "Error: ".$conn->error;

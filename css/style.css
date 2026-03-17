@@ -4,9 +4,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 :root {
     --primary: #0066CC;
     --secondary: #00A8E8;
@@ -28,11 +30,11 @@ body {
 }
 
 .sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: #ffffff;
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .container {
@@ -95,7 +97,8 @@ body {
     align-items: center;
 }
 
-.login-btn, .cart-btn {
+.login-btn,
+.cart-btn {
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -215,7 +218,7 @@ nav .container {
     .mobile-menu-btn {
         display: block;
     }
-    
+
     .main-nav {
         display: none;
         position: absolute;
@@ -223,26 +226,26 @@ nav .container {
         left: 0;
         right: 0;
         background: white;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         padding: 1rem 0;
     }
-    
+
     .main-nav.show {
         display: block;
     }
-    
+
     .main-nav ul {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .main-nav li {
         margin: 0.5rem 0;
         width: 100%;
         text-align: center;
     }
-    
+
     .main-nav a {
         display: block;
         padding: 1rem;
@@ -253,11 +256,11 @@ nav .container {
 footer {
     background: var(--light);
     border-top: 1px solid var(--light-gray);
-    margin-top: 20px;
+    padding-top: 18px;
 }
 
 .footer-content {
-    padding: 1.8rem 0;
+    padding-bottom: 2rem;
 }
 
 .footer-grid {
@@ -292,21 +295,23 @@ footer {
     color: var(--primary);
 }
 
-.connect_icon{
+.connect_icon {
     display: flex;
     justify-content: space-between;
     padding: 12px;
     margin-top: 7px;
 }
-.connect_icon i{
-    width: 60px;  
+
+.connect_icon i {
+    width: 60px;
 }
-.connect_icon a{
-   color: black;
+
+.connect_icon a {
+    color: black;
 }
 
 .footer-bottom {
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     border-top: 1px solid var(--light-gray);
     text-align: center;
     color: var(--gray);
@@ -352,7 +357,7 @@ footer {
     background: white;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -399,6 +404,65 @@ footer {
     margin-bottom: 1rem;
 }
 
+/* Common Price Slider Styles */
+.price-slider,
+.aquarium-price-slider,
+#priceSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+    margin: 15px 0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+/* Chrome/Safari Thumb */
+.price-slider::-webkit-slider-thumb,
+.aquarium-price-slider::-webkit-slider-thumb,
+#priceSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease;
+}
+
+.price-slider::-webkit-slider-thumb:hover,
+.aquarium-price-slider::-webkit-slider-thumb:hover,
+#priceSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+/* Firefox Thumb */
+.price-slider::-moz-range-thumb,
+.aquarium-price-slider::-moz-range-thumb,
+#priceSlider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--primary);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.price-range {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--gray);
+    font-weight: 500;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .header-top {
@@ -406,18 +470,18 @@ footer {
         gap: 1rem;
         padding: 1rem;
     }
-    
+
     .search-bar {
         margin: 0;
         width: 100%;
     }
-    
+
     .main-nav {
         flex-wrap: wrap;
         justify-content: center;
         gap: 1rem;
     }
-    
+
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -427,7 +491,7 @@ footer {
     .footer-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .logo {
         font-size: 1.5rem;
     }

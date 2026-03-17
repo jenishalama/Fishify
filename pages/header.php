@@ -1,6 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 $currentPage = basename($_SERVER['PHP_SELF']);
 $isLoggedIn = !empty($_SESSION['user_id']);
@@ -48,8 +48,10 @@ $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
         <li><a href="index.php" class="<?= ($currentPage == 'index.php') ? 'active' : '' ?>">Home</a></li>
         <li><a href="fish.php" class="<?= ($currentPage == 'fish.php') ? 'active' : '' ?>">Fish</a></li>
         <li><a href="aquarium.php" class="<?= ($currentPage == 'aquarium.php') ? 'active' : '' ?>">Aquarium</a></li>
-        <li><a href="accessories.php" class="<?= ($currentPage == 'accessories.php') ? 'active' : '' ?>">Accessories</a></li>
-        <li><a href="aquaticplants.php" class="<?= ($currentPage == 'aquaticplants.php') ? 'active' : '' ?>">Aquatic Plants</a></li>
+        <li><a href="accessories.php" class="<?= ($currentPage == 'accessories.php') ? 'active' : '' ?>">Accessories</a>
+        </li>
+        <li><a href="aquaticplants.php" class="<?= ($currentPage == 'aquaticplants.php') ? 'active' : '' ?>">Aquatic
+            Plants</a></li>
         <li><a href="contact.php" class="<?= ($currentPage == 'contact.php') ? 'active' : '' ?>">Contact</a></li>
       </ul>
     </nav>

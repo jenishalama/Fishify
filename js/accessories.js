@@ -1,82 +1,122 @@
-// accessories.js - Accessories Page Functionality
-
-document.addEventListener('DOMContentLoaded', function() {
-    initAccessoriesPage();
+// accessories.js - Accessories Page Functionality (Matched with Fish Page Logic)
+document.addEventListener('DOMContentLoaded', function () {
+    initFiltering();
+    initSorting();
+    initClearFilters();
+    initAccessoriesCart();
+    initPagination();
 });
 
 // ==================== GLOBAL VARIABLES ====================
-const itemsPerPage = 8; // change as needed
+const itemsPerPage = 8;
 let currentPage = 1;
-let allAccessoryCards = Array.from(document.querySelectorAll('.fish-card')); // make sure each card has class 'fish-card'
 
-// ==================== INIT FUNCTION ====================
-function initAccessoriesPage() {
-    setupAccessoryFilters();
-    setupAccessorySorting();
-    setupAccessoryCart();
-    setupAccessoryPagination();
-    showPage(1);
-    if (typeof updateCartCount === 'function') {
-        updateCartCount();
-    }
+// ==================== HELPER FUNCTION ====================
+function formatPrice(price) {
+    return `Rs. ${parseInt(price).toLocaleString()}`;
 }
-// ==================== FILTERS ====================
-function setupAccessoryFilters() {
+
+// ==================== FILTERING FUNCTIONALITY ====================
+function initFiltering() {
     const priceSlider = document.querySelector('.price-slider');
-    const categoryCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
-    
+    const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]');
+
     if (priceSlider) {
-        priceSlider.addEventListener('input', applyAccessoryFilters);
-        updatePriceDisplay(priceSlider.value);
+        priceSlider.addEventListener('input', () => {
+            updatePriceDisplay(priceSlider.value);
+            updatePriceSliderColor(priceSlider);
+            applyFilters();
+        });
+        updatePriceSliderColor(priceSlider); // Initial color
     }
-    
-    categoryCheckboxes.forEach(cb => cb.addEventListener('change', applyAccessoryFilters));
-    applyAccessoryFilters(); // initial
+
+    availabilityCheckboxes.forEach(cb => {
+        cb.addEventListener('change', function() {
+            availabilityCheckboxes.forEach(other => {
+                if (other !== cb) other.checked = false;
+            });
+            applyFilters();
+        });
+    });
+
+    applyFilters(); 
 }
 
-function applyAccessoryFilters() {
-    const maxPrice = parseInt(document.querySelector('.price-slider').value);
-    const categoryCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]:checked');
-    const selectedCategories = Array.from(categoryCheckboxes).map(cb => cb.value.toLowerCase());
+function applyFilters() {
+    const slider = document.querySelector('.price-slider');
+    const maxPrice = slider ? parseFloat(slider.value) || 10000 : 10000;
+    const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]');
+    const allCards = Array.from(document.querySelectorAll('.fish-card'));
 
-    allAccessoryCards.forEach(card => {
-        const price = parseInt(card.getAttribute('data-price'));
-        const category = card.dataset.category ? card.dataset.category.toLowerCase() : '';
+    let showInStockOnly = false;
+    let showOutOfStockOnly = false;
 
+    availabilityCheckboxes.forEach(cb => {
+        if (cb.checked) {
+            if (cb.value === 'in-stock') showInStockOnly = true;
+            if (cb.value === 'out-of-stock') showOutOfStockOnly = true;
+        }
+    });
+
+    allCards.forEach(card => {
+        const price = parseFloat(card.dataset.price) || 0;
+        const inStock = (card.dataset.stockStatus || card.dataset.stock) === 'in-stock';
         let visible = price <= maxPrice;
 
-        if (selectedCategories.length > 0) visible = visible && selectedCategories.includes(category);
+        if (showInStockOnly) visible = visible && inStock;
+        if (showOutOfStockOnly) visible = visible && !inStock;
 
         card.dataset.visible = visible ? 'true' : 'false';
     });
 
     updatePriceDisplay(maxPrice);
+    currentPage = 1; 
     showPage(1);
 }
 
-function updatePriceDisplay(price) {
-    const priceSpan = document.querySelector('.price-range span:last-child');
-    if (priceSpan) priceSpan.textContent = `Rs. ${price.toLocaleString()}+`;
+// ==================== UPDATE PRICE DISPLAY ====================
+function updatePriceDisplay(maxPrice) {
+    const priceRangeSpan = document.querySelector('.price-range span:last-child');
+    if (priceRangeSpan) priceRangeSpan.textContent = `Rs. ${parseInt(maxPrice).toLocaleString()}`;
 }
 
-// ==================== SORTING ====================
-function setupAccessorySorting() {
+// ==================== CLEAR FILTERS ====================
+function initClearFilters() {
+    const btn = document.querySelector('.btn-clear-filters');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+        const slider = document.querySelector('.price-slider');
+        if (slider) {
+            slider.value = 10000;
+            updatePriceSliderColor(slider);
+        }
+        document.querySelectorAll('input[name="availability"]').forEach(cb => cb.checked = false);
+        updatePriceDisplay(10000);
+        applyFilters();
+    });
+}
+
+// ==================== SORTING FUNCTIONALITY ====================
+function initSorting() {
     const sortSelect = document.querySelector('.sort-by select');
-    if (sortSelect) sortSelect.addEventListener('change', applyAccessorySort);
+    if (sortSelect) sortSelect.addEventListener('change', applySort);
 }
 
-function applyAccessorySort() {
-    const sortBy = document.querySelector('.sort-by select').value;
+function applySort() {
+    const sortSelect = document.querySelector('.sort-by select');
+    if (!sortSelect) return;
+    const sortBy = sortSelect.value;
     const container = document.querySelector('.fish-grid');
+    if (!container) return;
 
-    let visibleCards = allAccessoryCards.filter(c => c.dataset.visible === 'true');
+    const allCards = Array.from(document.querySelectorAll('.fish-card'));
+    let visibleCards = allCards.filter(c => c.dataset.visible === 'true');
 
     visibleCards.sort((a, b) => {
-        const priceA = parseInt(a.getAttribute('data-price'));
-        const priceB = parseInt(b.getAttribute('data-price'));
-
-        if (sortBy.includes('Low to High')) return priceA - priceB;
-        if (sortBy.includes('High to Low')) return priceB - priceA;
+        const priceA = parseFloat(a.dataset.price) || 0;
+        const priceB = parseFloat(b.dataset.price) || 0;
+        if (sortBy === 'price-low') return priceA - priceB;
+        if (sortBy === 'price-high') return priceB - priceA;
         return 0;
     });
 
@@ -85,17 +125,23 @@ function applyAccessorySort() {
 }
 
 // ==================== PAGINATION ====================
-function setupAccessoryPagination() {
+function initPagination() {
     document.querySelectorAll('.page-number, .page-link').forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
+            const allCards = Array.from(document.querySelectorAll('.fish-card'));
+            const visibleCount = allCards.filter(c => c.dataset.visible === 'true').length;
+            const totalPages = Math.ceil(visibleCount / itemsPerPage);
+
             let pageNum = currentPage;
+            if (link.classList.contains('page-number')) {
+                pageNum = parseInt(link.textContent, 10);
+            } else if (link.textContent.trim().includes('Next')) {
+                pageNum = currentPage + 1;
+            } else if (link.textContent.trim().includes('Previous')) {
+                pageNum = currentPage - 1;
+            }
 
-            if (link.classList.contains('page-number')) pageNum = parseInt(link.textContent);
-            else if (link.textContent.includes('Next')) pageNum = currentPage + 1;
-            else if (link.textContent.includes('Previous')) pageNum = currentPage - 1;
-
-            const totalPages = Math.ceil(allAccessoryCards.filter(c => c.dataset.visible === 'true').length / itemsPerPage);
             if (pageNum < 1) pageNum = 1;
             if (pageNum > totalPages) pageNum = totalPages;
 
@@ -105,20 +151,23 @@ function setupAccessoryPagination() {
 }
 
 function showPage(pageNumber) {
-    const visibleCards = allAccessoryCards.filter(c => c.dataset.visible === 'true');
-    allAccessoryCards.forEach(c => c.style.display = 'none');
+    const allCards = Array.from(document.querySelectorAll('.fish-card'));
+    const visibleCards = allCards.filter(c => c.dataset.visible === 'true');
+    allCards.forEach(c => c.style.display = 'none');
 
     const start = (pageNumber - 1) * itemsPerPage;
     const end = start + itemsPerPage;
+    const toShow = visibleCards.slice(start, end);
+    toShow.forEach(c => c.style.display = 'block');
 
-    visibleCards.slice(start, end).forEach(c => c.style.display = 'block');
     currentPage = pageNumber;
-
     updatePaginationButtons();
 }
 
 function updatePaginationButtons() {
-    const totalPages = Math.ceil(allAccessoryCards.filter(c => c.dataset.visible === 'true').length / itemsPerPage);
+    const allCards = Array.from(document.querySelectorAll('.fish-card'));
+    const visibleCards = allCards.filter(c => c.dataset.visible === 'true');
+    const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
     const pageNumbers = document.querySelectorAll('.page-number');
 
     pageNumbers.forEach((el, index) => {
@@ -126,27 +175,32 @@ function updatePaginationButtons() {
             el.style.display = 'inline-block';
             el.textContent = index + 1;
             el.classList.toggle('active', currentPage === index + 1);
-        } else el.style.display = 'none';
+        } else {
+            el.style.display = 'none';
+        }
     });
 
     const prevLink = document.querySelector('.page-link:first-child');
     const nextLink = document.querySelector('.page-link:last-child');
 
-    if (prevLink) prevLink.classList.toggle('disabled', currentPage === 1);
-    if (nextLink) nextLink.classList.toggle('disabled', currentPage === totalPages);
+    if (prevLink) prevLink.classList.toggle('disabled', currentPage === 1 || totalPages === 0);
+    if (nextLink) nextLink.classList.toggle('disabled', currentPage === totalPages || totalPages === 0);
+
+    const noResults = document.getElementById('noResults');
+    if (noResults) noResults.style.display = visibleCards.length === 0 ? 'block' : 'none';
 }
 
-// ==================== ADD TO CART (uses global cart from main.js) ====================
-function setupAccessoryCart() {
-    const addButtons = document.querySelectorAll('.fish-card .add-to-cart');
+// ==================== ADD TO CART ====================
+function initAccessoriesCart() {
+    const addToCartButtons = document.querySelectorAll('.fish-card .add-to-cart');
 
-    addButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
+    addToCartButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
             e.preventDefault();
 
             const card = this.closest('.fish-card');
             const name = card.querySelector('h3').textContent.trim();
-            const price = parseFloat(card.getAttribute('data-price')) || 0;
+            const price = parseFloat(card.dataset.price) || 0;
             const imgEl = card.querySelector('img');
 
             const productId = card.dataset.id ? parseInt(card.dataset.id, 10) : null;
@@ -161,8 +215,13 @@ function setupAccessoryCart() {
                 stock: stock
             };
 
-            // Provided by main.js
-            addToCart(product);
+            if (typeof addToCart === 'function') {
+                addToCart(product);
+            }
         });
     });
+
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
 }

@@ -251,6 +251,18 @@ function setupAddToCartButtons() {
   });
 }
 
+// ---------------- PRICE SLIDER COLOR ----------------
+function updatePriceSliderColor(slider) {
+  if (!slider) return;
+  const min = parseFloat(slider.min) || 0;
+  const max = parseFloat(slider.max) || 10000;
+  const val = parseFloat(slider.value);
+  const percentage = ((val - min) / (max - min)) * 100;
+  
+  // Use Fishify primary color (#0066CC)
+  slider.style.background = `linear-gradient(to right, #0066CC ${percentage}%, #e0e0e0 ${percentage}%)`;
+}
+
 // ---------------- INIT ----------------
 document.addEventListener("DOMContentLoaded", () => {
   updateCartCount();

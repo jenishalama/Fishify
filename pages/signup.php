@@ -1,34 +1,62 @@
 <?php
-include 'db.php'; // adjust path if needed
+include 'db.php';
 
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fullname = $_POST['fullname'];
-    $email = $_POST['email'];
+
+    $fullname = trim($_POST['fullname']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $role = 'user';
 
-    if ($password !== $confirm_password) {
+    // 🔹 Validation
+    if (empty($fullname) || empty($email) || empty($password) || empty($confirm_password)) {
+        $message = "All fields are required!";
+    }
+
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $message = "Invalid email format!";
+    }
+
+    elseif (strlen($password) < 6) {
+        $message = "Password must be at least 6 characters!";
+    }
+
+    elseif ($password !== $confirm_password) {
         $message = "Passwords do not match!";
-    } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    }
 
-        $sql = "INSERT INTO users (fullname, email, password, role) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $fullname, $email, $hashed_password, $role);
+    else {
+        //  Check if email already exists
+        $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+        $check->bind_param("s", $email);
+        $check->execute();
+        $check->store_result();
 
-        if ($stmt->execute()) {
-            header("Location: login.php");
-            exit;
-        } else {
+        if ($check->num_rows > 0) {
             $message = "Email already exists!";
+        } else {
+
+            // Hash password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert user
+            $stmt = $conn->prepare("INSERT INTO users (fullname, email, password, role) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $fullname, $email, $hashed_password, $role);
+
+            if ($stmt->execute()) {
+                header("Location: login.php");
+                exit;
+            } else {
+                $message = "Something went wrong. Try again!";
+            }
         }
     }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

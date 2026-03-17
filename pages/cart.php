@@ -93,15 +93,15 @@ $cart_user_logged_in = !empty($_SESSION['user_id']);
                         <div class="help-contacts">
                             <a href="#" class="help-link">
                                 <i class="fas fa-phone"></i>
-                                <span>Call Us: (800) 555-FISH</span>
-                            </a>
-                            <a href="#" class="help-link">
-                                <i class="fas fa-comment"></i>
-                                <span>Live Chat</span>
+                                <span>Call Us : 9865081814</span>
                             </a>
                             <a href="#" class="help-link">
                                 <i class="fas fa-envelope"></i>
-                                <span>Email Support</span>
+                                <span>fishify@gmail.com</span>
+                            </a>
+                                <a href="#" class="help-link">
+                                <i class="fas fa-comment"></i>
+                                <span>Live Chat</span>
                             </a>
                         </div>
                     </div>

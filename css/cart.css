@@ -47,9 +47,10 @@
 
 /* Cart Content */
 .cart-content {
-    padding: 3rem 0;
+    padding: 3rem 0 0 0; /* Removed bottom padding for no gap */
     background: linear-gradient(to bottom, #f8fbff 0%, #f0f7ff 100%);
     min-height: 70vh;
+    margin-bottom: 0;
 }
 
 .cart-layout {

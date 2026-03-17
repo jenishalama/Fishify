@@ -1,121 +1,124 @@
-// aquarium.js - Aquarium Page Functionality
+// aquarium.js - Aquarium Page Functionality (Matched with Fish Page Logic)
 document.addEventListener('DOMContentLoaded', function () {
-    initAquariumPage();
+    initFiltering();
+    initSorting();
+    initClearFilters();
+    initAquariumCart();
+    initPagination();
 });
 
 // ==================== GLOBAL VARIABLES ====================
-const itemsPerPage = 8; // 8 cards per page
+const itemsPerPage = 8; 
 let currentPage = 1;
-let allAquariumCards = []; // Will initialize after DOM loaded
 
-function initAquariumPage() {
-    allAquariumCards = Array.from(document.querySelectorAll('.aquarium-card'));
-    setupFilters();
-    setupSorting();
-    setupAddToCart();
-    setupPagination();
-    updateCartCount();
+// ==================== HELPER FUNCTION ====================
+function formatPrice(price) {
+    return `Rs. ${parseInt(price).toLocaleString()}`;
 }
 
-// ==================== FILTERS ====================
-function setupFilters() {
+// ==================== FILTERING FUNCTIONALITY ====================
+function initFiltering() {
     const priceSlider = document.querySelector('.aquarium-price-slider');
     const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]');
 
-    if (priceSlider) priceSlider.addEventListener('input', applyFilters);
+    if (priceSlider) {
+        priceSlider.addEventListener('input', () => {
+            updatePriceDisplay(priceSlider.value);
+            updatePriceSliderColor(priceSlider);
+            applyFilters();
+        });
+        updatePriceSliderColor(priceSlider); // Initial color
+    }
 
-    availabilityCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            // Only one checkbox active at a time
+    availabilityCheckboxes.forEach(cb => {
+        cb.addEventListener('change', function() {
+            // Only one availability at a time logic
             availabilityCheckboxes.forEach(other => {
-                if (other !== checkbox) other.checked = false;
+                if (other !== cb) other.checked = false;
             });
             applyFilters();
         });
     });
 
-    applyFilters(); // initial filter
+    applyFilters(); 
 }
 
 function applyFilters() {
-    const maxPrice = parseInt(document.querySelector('.aquarium-price-slider').value) || 0;
+    const slider = document.querySelector('.aquarium-price-slider');
+    const maxPrice = slider ? parseFloat(slider.value) || 30000 : 30000;
     const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]');
+    const allCards = Array.from(document.querySelectorAll('.aquarium-card'));
+
     let showInStockOnly = false;
     let showOutOfStockOnly = false;
 
-    availabilityCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            if (checkbox.nextElementSibling.textContent.toLowerCase() === 'in stock') showInStockOnly = true;
-            if (checkbox.nextElementSibling.textContent.toLowerCase() === 'out of stock') showOutOfStockOnly = true;
+    availabilityCheckboxes.forEach(cb => {
+        if (cb.checked) {
+            if (cb.value === 'in-stock') showInStockOnly = true;
+            if (cb.value === 'out-of-stock') showOutOfStockOnly = true;
         }
     });
 
-    allAquariumCards.forEach(card => {
-        const price = parseInt(card.dataset.price) || 0;
+    allCards.forEach(card => {
+        const price = parseFloat(card.dataset.price) || 0;
         const inStock = (card.dataset.stockStatus || card.dataset.stock) === 'in-stock';
-
         let visible = price <= maxPrice;
+
         if (showInStockOnly) visible = visible && inStock;
         if (showOutOfStockOnly) visible = visible && !inStock;
 
         card.dataset.visible = visible ? 'true' : 'false';
-
-        // Out-of-stock badge & disable add-to-cart
-        const addBtn = card.querySelector('.add-to-cart');
-        let badge = card.querySelector('.out-of-stock-badge');
-
-
-        if (!inStock) {
-
-            if (addBtn) {
-                addBtn.disabled = true;
-                addBtn.textContent = 'Out of Stock';
-            }
-            if (!badge) {
-                badge = document.createElement('span');
-                badge.className = 'out-of-stock-badge';
-                badge.textContent = 'Out of Stock';
-                card.style.position = 'relative';
-                card.appendChild(badge);
-            }
-        } else {
-       
-            if (addBtn) {
-                addBtn.disabled = false;
-                addBtn.innerHTML = `<i class="fas fa-cart-plus"></i> Add to Cart`;
-            }
-            if (badge) badge.remove();
-        }
     });
 
     updatePriceDisplay(maxPrice);
+    currentPage = 1; // Reset to page 1 on filter
     showPage(1);
 }
 
-function updatePriceDisplay(price) {
-    const priceSpan = document.querySelector('.aquarium-price-range span:last-child');
-    if (priceSpan) priceSpan.textContent = `Rs. ${price.toLocaleString()}+`;
+// ==================== UPDATE PRICE DISPLAY ====================
+function updatePriceDisplay(maxPrice) {
+    const priceRangeSpan = document.querySelector('.aquarium-price-range span:last-child');
+    if (priceRangeSpan) priceRangeSpan.textContent = formatPrice(maxPrice);
 }
 
-// ==================== SORTING ====================
-function setupSorting() {
+// ==================== CLEAR FILTERS ====================
+function initClearFilters() {
+    const btn = document.querySelector('.btn-clear-filters');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+        const slider = document.querySelector('.aquarium-price-slider');
+        if (slider) {
+            slider.value = 30000;
+            updatePriceSliderColor(slider);
+        }
+        document.querySelectorAll('input[name="availability"]').forEach(cb => cb.checked = false);
+        updatePriceDisplay(30000);
+        applyFilters(); 
+    });
+}
+
+// ==================== SORTING FUNCTIONALITY ====================
+function initSorting() {
     const sortSelect = document.querySelector('.aquarium-sort select');
     if (sortSelect) sortSelect.addEventListener('change', applySort);
 }
 
 function applySort() {
-    const sortBy = document.querySelector('.aquarium-sort select').value;
+    const sortSelect = document.querySelector('.aquarium-sort select');
+    if (!sortSelect) return;
+    const sortBy = sortSelect.value;
     const container = document.querySelector('.aquarium-grid');
+    if (!container) return;
 
-    let visibleCards = allAquariumCards.filter(c => c.dataset.visible === 'true');
+    const allCards = Array.from(document.querySelectorAll('.aquarium-card'));
+    let visibleCards = allCards.filter(c => c.dataset.visible === 'true');
 
     visibleCards.sort((a, b) => {
-        const priceA = parseInt(a.dataset.price) || 0;
-        const priceB = parseInt(b.dataset.price) || 0;
-
+        const priceA = parseFloat(a.dataset.price) || 0;
+        const priceB = parseFloat(b.dataset.price) || 0;
         if (sortBy.includes('Low to High')) return priceA - priceB;
         if (sortBy.includes('High to Low')) return priceB - priceA;
-        return 0; // popularity/default
+        return 0;
     });
 
     visibleCards.forEach(card => container.appendChild(card));
@@ -123,42 +126,49 @@ function applySort() {
 }
 
 // ==================== PAGINATION ====================
-function setupPagination() {
+function initPagination() {
     document.querySelectorAll('.page-number, .page-link').forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
+            const allCards = Array.from(document.querySelectorAll('.aquarium-card'));
+            const visibleCount = allCards.filter(c => c.dataset.visible === 'true').length;
+            const totalPages = Math.ceil(visibleCount / itemsPerPage);
+
             let pageNum = currentPage;
+            if (link.classList.contains('page-number')) {
+                pageNum = parseInt(link.textContent, 10);
+            } else if (link.textContent.trim().includes('Next')) {
+                pageNum = currentPage + 1;
+            } else if (link.textContent.trim().includes('Previous')) {
+                pageNum = currentPage - 1;
+            }
 
-            if (link.classList.contains('page-number')) pageNum = parseInt(link.textContent);
-            else if (link.textContent.includes('Next')) pageNum = currentPage + 1;
-            else if (link.textContent.includes('Previous')) pageNum = currentPage - 1;
-
-            const totalPages = Math.ceil(allAquariumCards.filter(c => c.dataset.visible === 'true').length / itemsPerPage);
             if (pageNum < 1) pageNum = 1;
             if (pageNum > totalPages) pageNum = totalPages;
 
             showPage(pageNum);
         });
     });
-
-    showPage(1);
 }
 
 function showPage(pageNumber) {
-    const visibleCards = allAquariumCards.filter(c => c.dataset.visible === 'true');
-    allAquariumCards.forEach(c => c.style.display = 'none');
+    const allCards = Array.from(document.querySelectorAll('.aquarium-card'));
+    const visibleCards = allCards.filter(c => c.dataset.visible === 'true');
+    allCards.forEach(c => c.style.display = 'none');
 
     const start = (pageNumber - 1) * itemsPerPage;
     const end = start + itemsPerPage;
+    const toShow = visibleCards.slice(start, end);
+    toShow.forEach(c => c.style.display = 'block');
 
-    visibleCards.slice(start, end).forEach(c => c.style.display = 'block');
     currentPage = pageNumber;
-
     updatePaginationButtons();
 }
 
 function updatePaginationButtons() {
-    const totalPages = Math.ceil(allAquariumCards.filter(c => c.dataset.visible === 'true').length / itemsPerPage);
+    const allCards = Array.from(document.querySelectorAll('.aquarium-card'));
+    const visibleCards = allCards.filter(c => c.dataset.visible === 'true');
+    const totalPages = Math.ceil(visibleCards.length / itemsPerPage);
     const pageNumbers = document.querySelectorAll('.page-number');
 
     pageNumbers.forEach((el, index) => {
@@ -166,27 +176,32 @@ function updatePaginationButtons() {
             el.style.display = 'inline-block';
             el.textContent = index + 1;
             el.classList.toggle('active', currentPage === index + 1);
-        } else el.style.display = 'none';
+        } else {
+            el.style.display = 'none';
+        }
     });
 
     const prevLink = document.querySelector('.page-link:first-child');
     const nextLink = document.querySelector('.page-link:last-child');
 
-    if (prevLink) prevLink.classList.toggle('disabled', currentPage === 1);
-    if (nextLink) nextLink.classList.toggle('disabled', currentPage === totalPages);
+    if (prevLink) prevLink.classList.toggle('disabled', currentPage === 1 || totalPages === 0);
+    if (nextLink) nextLink.classList.toggle('disabled', currentPage === totalPages || totalPages === 0);
+
+    const noResults = document.getElementById('noResults');
+    if (noResults) noResults.style.display = visibleCards.length === 0 ? 'block' : 'none';
 }
 
-// ==================== ADD TO CART (uses global cart from main.js) ====================
-function setupAddToCart() {
-    const addButtons = document.querySelectorAll('.aquarium-card .add-to-cart');
+// ==================== ADD TO CART ====================
+function initAquariumCart() {
+    const addToCartButtons = document.querySelectorAll('.aquarium-card .add-to-cart');
 
-    addButtons.forEach(button => {
-        button.addEventListener('click', e => {
+    addToCartButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
             e.preventDefault();
 
-            const card = button.closest('.aquarium-card');
+            const card = this.closest('.aquarium-card');
             const name = card.querySelector('h3').textContent.trim();
-            const price = parseFloat(card.querySelector('.aquarium-price').textContent.replace(/[^0-9.]/g, '')) || 0;
+            const price = parseFloat(card.dataset.price) || 0;
             const imgEl = card.querySelector('img');
 
             const productId = card.dataset.id ? parseInt(card.dataset.id, 10) : null;
@@ -201,12 +216,12 @@ function setupAddToCart() {
                 stock: stock
             };
 
-            // Provided by main.js
-            addToCart(product);
+            if (typeof addToCart === 'function') {
+                addToCart(product);
+            }
         });
     });
 
-    // Sync header cart count on initial load
     if (typeof updateCartCount === 'function') {
         updateCartCount();
     }
