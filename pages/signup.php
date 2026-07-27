@@ -15,15 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($fullname) || empty($email) || empty($password) || empty($confirm_password)) {
         $message = "All fields are required!";
     }
-
+    // Validate Full Name (letters and spaces only, 3-50 chars)
+    elseif (!preg_match("/^[a-zA-Z\s]{3,50}$/", $fullname)) {
+        $message = "Full Name must be between 3-50 characters and contain only letters and spaces!";
+    }
+    // Validate Email Address
     elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message = "Invalid email format!";
+        $message = "Please enter a valid email address!";
     }
-
-    elseif (strlen($password) < 6) {
-        $message = "Password must be at least 6 characters!";
+    // Validate Password Strength (Min 8 chars, at least 1 number, 1 uppercase, 1 lowercase letter)
+    elseif (strlen($password) < 8 || !preg_match("/[0-9]/", $password) || !preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password)) {
+        $message = "Password must be at least 8 characters long, contain at least one number, one uppercase, and one lowercase letter!";
     }
-
+    // Confirm Password Match
     elseif ($password !== $confirm_password) {
         $message = "Passwords do not match!";
     }

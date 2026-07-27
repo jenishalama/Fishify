@@ -2,10 +2,12 @@
 include 'admin_session.php';
 
 $stmt = $conn->prepare("
-  SELECT o.id, o.user_id, o.total, o.status, o.shipping_name, o.shipping_phone, o.payment_method, o.created_at,
-         u.fullname AS customer_name, u.email AS customer_email
+  SELECT o.id, o.user_id, o.total, o.status, o.payment_method, o.payment_status, o.shipping_name, o.shipping_phone, o.created_at,
+         u.fullname AS customer_name, u.email AS customer_email,
+         p.transaction_code
   FROM orders o
   LEFT JOIN users u ON o.user_id = u.id
+  LEFT JOIN payments p ON p.order_id = o.id
   ORDER BY o.created_at DESC
 ");
 $stmt->execute();
@@ -77,10 +79,9 @@ $stmt->close();
       text-transform: capitalize;
     }
     .badge-pending { background: #fef3c7; color: #92400e; }
-    .badge-processing { background: #dbeafe; color: #1e40af; }
-    .badge-shipped { background: #e0e7ff; color: #3730a3; }
-    .badge-delivered { background: #d1fae5; color: #065f46; }
-    .badge-cancelled { background: #fee2e2; color: #991b1b; }
+    .badge-paid, .badge-confirmed, .badge-delivered { background: #d1fae5; color: #065f46; }
+    .badge-shipped, .badge-processing { background: #dbeafe; color: #1e40af; }
+    .badge-failed, .badge-cancelled { background: #fee2e2; color: #991b1b; }
     .no-orders { padding: 40px; text-align: center; color: #64748b; background: #fff; border-radius: 10px; }
   </style>
 </head>
@@ -100,6 +101,7 @@ $stmt->close();
           <th>Customer</th>
           <th>Shipping</th>
           <th>Total</th>
+          <th>Payment</th>
           <th>Status</th>
           <th>Date</th>
           <th>Actions</th>
@@ -119,14 +121,24 @@ $stmt->close();
           </td>
           <td>Rs <?= number_format((float)$row['total'], 0) ?></td>
           <td>
+            <strong><?= strtolower($row['payment_method']) === 'esewa' ? 'eSewa' : 'COD' ?></strong><br>
             <?php
-              $status = $row['status'] ?? 'shipped';
+              $pstat = strtolower($row['payment_status'] ?? 'pending');
+              $pbadge = 'badge-pending';
+              if ($pstat === 'paid') $pbadge = 'badge-paid';
+              elseif ($pstat === 'failed') $pbadge = 'badge-failed';
+            ?>
+            <span class="badge <?= $pbadge ?>" style="font-size:0.75rem; padding:3px 8px;"><?= htmlspecialchars($row['payment_status'] ?? 'Pending') ?></span>
+          </td>
+          <td>
+            <?php
+              $status = strtolower($row['status'] ?? 'pending');
               $badge = 'badge-shipped';
               if ($status === 'pending') $badge = 'badge-pending';
-              elseif ($status === 'delivered') $badge = 'badge-delivered';
+              elseif ($status === 'confirmed' || $status === 'delivered') $badge = 'badge-delivered';
               elseif ($status === 'cancelled') $badge = 'badge-cancelled';
             ?>
-            <span class="badge <?= $badge ?>"><?= htmlspecialchars($status) ?></span>
+            <span class="badge <?= $badge ?>"><?= htmlspecialchars($row['status']) ?></span>
           </td>
           <td><?= date('M j, Y g:i A', strtotime($row['created_at'])) ?></td>
           <td><a href="order-detail.php?id=<?= (int)$row['id'] ?>">View</a></td>

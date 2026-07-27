@@ -2,15 +2,6 @@
 session_start();
 include 'db.php';
 
-if (isset($_SESSION['role'])) {
-    if ($_SESSION['role'] === 'admin') {
-        header("Location: ../admin/admindashboard.php");
-    } else {
-        header("Location: index.php");
-    }
-    exit;
-}
-
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

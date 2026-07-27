@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root"; // XAMPP default
-$password = "";     // XAMPP default
+$username = "root";
+$password = "";     
 
 // Connect to MySQL server
 $conn = new mysqli($servername, $username, $password);
@@ -60,11 +60,34 @@ CREATE TABLE IF NOT EXISTS orders (
     shipping_phone VARCHAR(20) NOT NULL,
     shipping_address TEXT NOT NULL,
     payment_method VARCHAR(50) NOT NULL DEFAULT 'cash_on_delivery',
+    payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 )
 ");
+$r = $conn->query("SHOW COLUMNS FROM orders LIKE 'payment_status'");
+if ($r->num_rows === 0) {
+    $conn->query("ALTER TABLE orders ADD COLUMN payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending' AFTER payment_method");
+    echo "Added orders.payment_status<br>";
+}
 echo "Orders table ready<br>";
+
+// 4b. Payments table (eSewa / COD payment logs)
+$conn->query("
+CREATE TABLE IF NOT EXISTS payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    transaction_uuid VARCHAR(100) NOT NULL UNIQUE,
+    payment_method VARCHAR(50) NOT NULL,
+    payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending',
+    transaction_code VARCHAR(100) DEFAULT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+)
+");
+echo "Payments table ready<br>";
 
 // 5️⃣ Order items (products per order)
 $conn->query("

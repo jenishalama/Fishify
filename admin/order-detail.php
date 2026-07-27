@@ -10,7 +10,7 @@ if (!$order_id) {
 // Update status if submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
     $new_status = trim($_POST['status']);
-    $allowed = ['pending', 'shipped', 'delivered', 'cancelled'];
+    $allowed = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
     if (in_array($new_status, $allowed, true)) {
         $stmt = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?");
         $stmt->bind_param("si", $new_status, $order_id);
@@ -22,9 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
 }
 
 $stmt = $conn->prepare("
-  SELECT o.*, u.fullname AS customer_name, u.email AS customer_email
+  SELECT o.*, u.fullname AS customer_name, u.email AS customer_email,
+         p.transaction_uuid, p.transaction_code, p.payment_status AS pay_status
   FROM orders o
   LEFT JOIN users u ON o.user_id = u.id
+  LEFT JOIN payments p ON p.order_id = o.id
   WHERE o.id = ?
 ");
 $stmt->bind_param("i", $order_id);
@@ -88,7 +90,7 @@ $stmt->close();
     }
     .card h2 { margin: 0 0 16px; font-size: 1.1rem; color: #475569; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; font-weight: 600; }
     .info-row { padding: 8px 0; color: #475569; display: flex; align-items: flex-start; }
-    .info-row strong { color: #1e293b; display: inline-block; min-width: 140px; font-weight: 600; }
+    .info-row strong { color: #1e293b; display: inline-block; min-width: 150px; font-weight: 600; }
     
     table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 10px; }
     table th, table td { padding: 14px 16px; border-bottom: 1px solid #f1f5f9; text-align: left; }
@@ -124,10 +126,9 @@ $stmt->close();
       text-transform: capitalize;
     }
     .badge-pending { background: #fef3c7; color: #92400e; }
-    .badge-processing { background: #dbeafe; color: #1e40af; }
-    .badge-shipped { background: #e0e7ff; color: #3730a3; }
-    .badge-delivered { background: #d1fae5; color: #065f46; }
-    .badge-cancelled { background: #fee2e2; color: #991b1b; }
+    .badge-paid, .badge-confirmed, .badge-delivered { background: #d1fae5; color: #065f46; }
+    .badge-shipped, .badge-processing { background: #dbeafe; color: #1e40af; }
+    .badge-failed, .badge-cancelled { background: #fee2e2; color: #991b1b; }
   </style>
 </head>
 <body>
@@ -146,7 +147,14 @@ $stmt->close();
       <div class="info-row"><strong>Ship to:</strong> <?= htmlspecialchars($order['shipping_name']) ?></div>
       <div class="info-row"><strong>Phone:</strong> <?= htmlspecialchars($order['shipping_phone']) ?></div>
       <div class="info-row"><strong>Address:</strong> <?= nl2br(htmlspecialchars($order['shipping_address'])) ?></div>
-      <div class="info-row"><strong>Payment:</strong> <?= htmlspecialchars($order['payment_method']) ?></div>
+      <div class="info-row"><strong>Payment Method:</strong> <?= strtolower($order['payment_method']) === 'esewa' ? 'eSewa ePay v2' : 'Cash on Delivery (COD)' ?></div>
+      <div class="info-row"><strong>Payment Status:</strong> <span class="badge badge-<?= strtolower($order['payment_status'] ?? ($order['pay_status'] ?? 'pending')) ?>"><?= htmlspecialchars($order['payment_status'] ?? ($order['pay_status'] ?? 'Pending')) ?></span></div>
+      <?php if (!empty($order['transaction_code'])): ?>
+        <div class="info-row"><strong>eSewa Ref ID:</strong> <code><?= htmlspecialchars($order['transaction_code']) ?></code></div>
+      <?php endif; ?>
+      <?php if (!empty($order['transaction_uuid'])): ?>
+        <div class="info-row"><strong>Transaction UUID:</strong> <code><?= htmlspecialchars($order['transaction_uuid']) ?></code></div>
+      <?php endif; ?>
     </div>
 
     <div class="card">
@@ -180,19 +188,18 @@ $stmt->close();
     <div class="card">
       <h2>Update status</h2>
       <?php
-        $status = $order['status'] ?? 'shipped';
+        $status = strtolower($order['status'] ?? 'pending');
         $badge = 'badge-shipped';
         if ($status === 'pending') $badge = 'badge-pending';
-        elseif ($status === 'delivered') $badge = 'badge-delivered';
+        elseif ($status === 'confirmed' || $status === 'delivered') $badge = 'badge-delivered';
         elseif ($status === 'cancelled') $badge = 'badge-cancelled';
       ?>
-      <p>Current status: <span class="badge <?= $badge ?>"><?= htmlspecialchars($status) ?></span></p>
+      <p>Current status: <span class="badge <?= $badge ?>"><?= htmlspecialchars($order['status']) ?></span></p>
       <form method="post" action="">
         <label for="status">Change to:</label>
         <select name="status" id="status">
-          <?php if ($status === 'pending'): ?>
-            <option value="pending" selected>Pending (Order Placed)</option>
-          <?php endif; ?>
+          <option value="pending" <?= $status === 'pending' ? 'selected' : '' ?>>Pending</option>
+          <option value="confirmed" <?= $status === 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
           <option value="shipped" <?= $status === 'shipped' ? 'selected' : '' ?>>Shipped</option>
           <option value="delivered" <?= $status === 'delivered' ? 'selected' : '' ?>>Delivered</option>
           <option value="cancelled" <?= $status === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>

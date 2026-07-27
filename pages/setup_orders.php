@@ -1,8 +1,4 @@
 <?php
-/**
- * Run this once to add orders support and customer profile fields.
- * Visit: http://localhost/Fishify/pages/setup_orders.php
- */
 include 'db.php';
 
 $done = [];
@@ -30,11 +26,34 @@ CREATE TABLE IF NOT EXISTS orders (
     shipping_phone VARCHAR(20) NOT NULL,
     shipping_address TEXT NOT NULL,
     payment_method VARCHAR(50) NOT NULL DEFAULT 'cash_on_delivery',
+    payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 )
 ");
+$cols = $conn->query("SHOW COLUMNS FROM orders LIKE 'payment_status'");
+if ($cols->num_rows === 0) {
+    $conn->query("ALTER TABLE orders ADD COLUMN payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending' AFTER payment_method");
+    $done[] = "Added orders.payment_status";
+}
 $done[] = "Created/verified orders table";
+
+// Payments table
+$conn->query("
+CREATE TABLE IF NOT EXISTS payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    transaction_uuid VARCHAR(100) NOT NULL UNIQUE,
+    payment_method VARCHAR(50) NOT NULL,
+    payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending',
+    transaction_code VARCHAR(100) DEFAULT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+)
+");
+$done[] = "Created/verified payments table";
 
 // Order items table (snapshot of product at order time)
 $conn->query("

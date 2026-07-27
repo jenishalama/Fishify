@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <form id="contactForm" class="contact-form" method="post" action="">
             <div class="form-group">
               <label for="contact-name">Your name</label>
-              <input type="text" id="contact-name" name="name" placeholder="e.g. John Smith" value="<?= htmlspecialchars($_POST['name'] ?? '') ?>" required>
+              <input type="text" id="contact-name" name="name" placeholder="e.g. Anonymous" value="<?= htmlspecialchars($_POST['name'] ?? '') ?>" required>
             </div>
             <div class="form-group">
               <label for="contact-email">Email</label>
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <i class="fas fa-phone"></i>
               <div>
                 <strong>Phone</strong>
-                <a href="tel:+9779746434664">+977 974-6434664</a>
+                <a href="tel:+9779746434664">+977 974-6434665</a>
               </div>
             </div>
             <div class="location-item">

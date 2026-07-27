@@ -29,8 +29,15 @@ if(isset($_POST['submit'])){
             VALUES ('$name','$description','$price','$category','$stock','$image')";
 
     if($conn->query($sql)){
-        header("Location: products.php");
-        exit();
+        // Instead of header(), use JS to close modal in parent and refresh parent
+        echo "<script>
+            if (window.top !== window.self) {
+                window.parent.location.reload();
+            } else {
+                window.location.href = 'products.php';
+            }
+        </script>";
+        exit;
     } else {
         echo "Error: ".$conn->error;
     }

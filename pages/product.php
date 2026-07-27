@@ -74,19 +74,27 @@ $back_label = $category_links[$product['category']]['label'] ?? 'Shop';
             </div>
           <?php endif; ?>
           <div class="product-actions">
-            <div class="quantity-selector">
-              <button type="button" class="qty-btn minus" <?= $out_of_stock ? ' disabled' : '' ?>><i class="fas fa-minus"></i></button>
-              <input type="number" class="qty-input" value="1" min="1" max="<?= $out_of_stock ? 0 : $stock ?>" readonly>
-              <button type="button" class="qty-btn plus" <?= $out_of_stock ? ' disabled' : '' ?>><i class="fas fa-plus"></i></button>
+            <div class="action-row-top">
+              <div class="quantity-selector">
+                <button type="button" class="qty-btn minus" <?= $out_of_stock ? ' disabled' : '' ?> aria-label="Decrease Quantity">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <input type="number" class="qty-input" value="1" min="1" max="<?= $out_of_stock ? 0 : $stock ?>" readonly>
+                <button type="button" class="qty-btn plus" <?= $out_of_stock ? ' disabled' : '' ?> aria-label="Increase Quantity">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <button type="button" class="btn btn-add-to-cart" id="productAddToCart" <?= $out_of_stock ? ' disabled' : '' ?>
+                data-id="<?= (int)$product['id'] ?>"
+                data-name="<?= htmlspecialchars($product['name']) ?>"
+                data-price="<?= (float)$product['price'] ?>"
+                data-stock="<?= $stock ?>"
+                data-image="<?= htmlspecialchars($img_src) ?>">
+                <i class="fas fa-shopping-bag"></i> 
+                <?= $out_of_stock ? 'Out of Stock' : 'Add to Cart' ?>
+              </button>
             </div>
-            <button type="button" class="btn btn-add-to-cart" id="productAddToCart" <?= $out_of_stock ? ' disabled' : '' ?>
-              data-id="<?= (int)$product['id'] ?>"
-              data-name="<?= htmlspecialchars($product['name']) ?>"
-              data-price="<?= (float)$product['price'] ?>"
-              data-stock="<?= $stock ?>"
-              data-image="<?= htmlspecialchars($img_src) ?>">
-              <i class="fas fa-cart-plus"></i> <?= $out_of_stock ? 'Out of Stock' : 'Add to Cart' ?>
-            </button>
+            
             <button type="button" class="btn btn-buy-now" id="productBuyNow" <?= $out_of_stock ? ' disabled' : '' ?>
               data-id="<?= (int)$product['id'] ?>"
               data-name="<?= htmlspecialchars($product['name']) ?>"

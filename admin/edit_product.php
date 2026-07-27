@@ -42,7 +42,15 @@ if (isset($_POST['submit'])) {
     }
 
     if ($stmt->execute()) {
-        header("Location: products.php?updated=success");
+        // Instead of header(), use JS to close modal in parent and refresh parent
+        echo "<script>
+            if (window.top !== window.self) {
+                window.parent.location.reload();
+            } else {
+                window.location.href = 'products.php?updated=success';
+            }
+        </script>";
+        exit;
     } else {
         echo "Error: " . $conn->error;
     }
@@ -106,7 +114,6 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
 
         <input type="file" name="image"><br>
-        <small>Leave empty to keep current image</small><br><br>
         <button type="submit" name="submit">Update Product</button>
     </form>
 </body>
