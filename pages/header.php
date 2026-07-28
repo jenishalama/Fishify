@@ -5,6 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $currentPage = basename($_SERVER['PHP_SELF']);
 $isLoggedIn = !empty($_SESSION['user_id']);
 $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+$userDisplayName = !empty($_SESSION['name']) ? $_SESSION['name'] : 'My Account';
 ?>
 
 <header class="sticky-header">
@@ -25,7 +26,7 @@ $isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
           <?php if ($isAdmin): ?>
             <a href="../admin/admindashboard.php" class="login-btn"><i class="fas fa-cog"></i><span>Admin</span></a>
           <?php else: ?>
-            <a href="account.php" class="login-btn"><i class="fas fa-user"></i><span>My Account</span></a>
+            <a href="account.php" class="login-btn"><i class="fas fa-user"></i><span><?= htmlspecialchars($userDisplayName) ?></span></a>
           <?php endif; ?>
           <a href="logout.php" class="login-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
         <?php else: ?>

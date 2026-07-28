@@ -105,8 +105,9 @@ $stmt->close();
     document.getElementById('logout-confirm-modal').style.display = 'none';
   }
 
-  // Bind to header logout button if exists
+  // Bind logout triggers, but skip the modal's "Yes, Logout" link
   document.querySelectorAll('a[href="logout.php"]').forEach(function(el) {
+    if (el.closest('#logout-confirm-modal')) return;
     el.addEventListener('click', confirmLogout);
   });
 
