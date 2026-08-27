@@ -70,8 +70,8 @@ $cart_user_logged_in = !empty($_SESSION['user_id']);
                             <div class="payment-option">
                                 <i class="fas fa-money-bill-wave"></i>
                                 <div class="payment-copy">
-                                    <strong>Cash on delivery only</strong>
-                                    <span>All orders are paid in cash when your items are delivered.</span>
+                                    <strong>Cash on delivery available</strong>
+                                    <span>Orders can be paid in cash when your items are delivered.</span>
                                 </div>
                             </div>
                         </div>
